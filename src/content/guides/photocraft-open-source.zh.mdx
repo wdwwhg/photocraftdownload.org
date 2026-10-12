@@ -1,0 +1,74 @@
+export const meta = {
+  title: 'PhotoCraft 开源说明：Rust、GitHub 与授权',
+  heading: 'PhotoCraft 开源：源码、Rust 与授权',
+  description:
+    '了解 PhotoCraft 的官方 Rust 仓库、MIT 与 Apache-2.0 授权、源码构建入口及参与开发的方式，区分软件与素材的使用权限。',
+  category: '开源项目',
+  updated_at: '2026-10-12',
+  sections: [
+    '开源在这里意味着什么',
+    '为什么有人搜索 PhotoCraft Rust',
+    '找到官方源码与发布版本',
+    '源码构建与参与开发',
+    '如何判断项目进展',
+    '官方参考资料',
+  ],
+};
+
+PhotoCraft 是 ArtCraft 团队提供的图像编辑器，拥有公开源码仓库。想知道 PhotoCraft 是什么，可以先明确它的用途：围绕图层进行图像编辑，而非照片图库、纯矢量插画或视频时间线。[官方仓库](https://github.com/storytold/photocraft)将其描述为用 Rust 编写的原生应用。
+
+源码仓库用于检查实现、跟踪变化与报告可复现问题。[应用指南](/photocraft-app)介绍界面使用，本文集中说明源码与项目参与方式。
+
+## 开源在这里意味着什么
+
+仓库包含 [LICENSE-MIT](https://github.com/storytold/photocraft/blob/main/LICENSE-MIT) 与 [LICENSE-APACHE](https://github.com/storytold/photocraft/blob/main/LICENSE-APACHE)。修改或再分发软件前，应阅读对应文件。公开源码允许检查和自行构建，但不免除所选授权的要求。
+
+软件权限与图像权限应分别确认。安装开源编辑器，并不会自动获得他人照片、字体、画笔包或图库素材的使用权。再分发含有这些资源的软件包时，分别检查资源授权。
+
+公开仓库也不代表关联的每个外部服务都免费或开源。应独立检查服务条件，避免把编辑器授权套用到整个工作流。
+
+## 为什么有人搜索 PhotoCraft Rust
+
+项目说明 Rust 是其实现语言，仓库介绍了文档引擎、egui 界面与基于 wgpu 的 GPU 合成器。这些是架构信息，不是针对你的电脑进行的性能保证。
+
+普通用户使用官方安装包时无需安装 Rust。想改变引擎或分析渲染问题的开发者，则可以从源码入手。
+
+不要把语言名称当作速度测试。性能评估应使用相同文档、输出设置与硬件；正确性评估应检查保存和导出结果。源码让调查成为可能，但不能代替这些检查。
+
+## 找到官方源码与发布版本
+
+从 [ArtCraft 官方 PhotoCraft 页面](https://getartcraft.com/apps/photocraft)进入 GitHub，核对 storytold 组织。分支仓库可以用于开发，但不自动等同于维护中的上游项目。安装前确认发布者和来源。
+
+Releases 提供应用构建；标签附带的 source code ZIP 是源码，不是普通桌面安装包。[下载首页](/)整理可直接使用的构建，[Linux 指南](/photocraft-linux)说明包格式选择。
+
+同时记录你使用的是发布标签还是不断变化的 main 分支。main 文档中的新功能可能晚于某个旧安装包。
+
+## 源码构建与参与开发
+
+官方产品页给出的起点为：
+
+```sh
+git clone https://github.com/storytold/photocraft.git
+cd photocraft
+cargo run --release -p photocraft
+```
+
+按照所检出版本的仓库说明安装 Rust 工具链与平台依赖。这三条命令不代表所有系统依赖都会自动配置。源码实验使用可替换的文档副本。
+
+参与开发前阅读项目的[开发文档](https://github.com/storytold/photocraft/tree/main/docs)，搜索已有 issue，说明计划修改的内容。报告问题时提供版本、系统、复现步骤、预期与实际结果；上传样本前移除私人信息。
+
+## 如何判断项目进展
+
+关注与你工作流相关的发布说明、issue 回复与实现变更。星标、分支数量和讨论热度反映关注度，不能验证某个具体操作。[Reddit 讨论指南](/photocraft-reddit)说明如何把社区反馈转为版本明确的测试。
+
+检查源码时，从文件解析或蒙版保存这样的具体问题开始。决定采用软件时，从可验证的小任务开始，两者都比试图一次理解整个项目更容易获得有用证据。
+
+## 官方参考资料
+
+- [PhotoCraft 源码仓库](https://github.com/storytold/photocraft)
+- [MIT 授权文件](https://github.com/storytold/photocraft/blob/main/LICENSE-MIT)
+- [Apache-2.0 授权文件](https://github.com/storytold/photocraft/blob/main/LICENSE-APACHE)
+- [开发文档](https://github.com/storytold/photocraft/tree/main/docs)
+- [官方产品页](https://getartcraft.com/apps/photocraft)
+
+核实于 2026 年 10 月 12 日。本文是公开项目的使用说明，不针对具体再分发行为提供法律意见。

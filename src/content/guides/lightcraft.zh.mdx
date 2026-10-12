@@ -1,0 +1,66 @@
+export const meta = {
+  title: 'LightCraft：开源 RAW 编辑器与照片图库',
+  heading: 'LightCraft：RAW 开发与照片图库',
+  description:
+    '了解 LightCraft 的图库和 RAW 开发流程，找到官方桌面下载，并在采用前检查摄影机文件、非破坏性调整与导出。',
+  category: 'ArtCraft 家族 · RAW 摄影',
+  updated_at: '2026-10-12',
+  sections: [
+    '图库与非破坏性开发',
+    '官方下载与版本',
+    '用一个小图库评估',
+    'RAW 与色彩检查',
+    '与 PhotoCraft 配合',
+    '完整流程通过后再决定',
+  ],
+};
+
+LightCraft 是 ArtCraft 的照片图库与 RAW 开发应用，重点在于整理照片并在保留原文件的前提下调整外观。它与 [PhotoCraft](/photocraft-app) 的分层合成用途不同，虽然两者都处理照片。
+
+本文依据 2026 年 10 月 12 日核实的官方文档。采用新的照片流程前，应使用自己的文件确认相机支持与输出表现。
+
+## 图库与非破坏性开发
+
+[LightCraft 官方页](https://getartcraft.com/apps/lightcraft)介绍相册、评分、标记、搜索、调整控件与蒙版，说明其非破坏性开发流程，并列出 DNG、CR2、ARW、NEF 等 RAW 格式家族。
+
+格式家族不等于完整相机支持列表。同一扩展名也可能包含不同细节，应测试实际相机、固件与录制模式产生的文件。
+
+非破坏性流程同样需要备份。保留原始像素，不代表目录、编辑数据库或存储设备不会发生误操作。原片与编辑记录应按重要程度纳入备份。
+
+## 官方下载与版本
+
+产品页提供独立桌面构建和 ArtCraft Launcher。2026 年 10 月 12 日显示的发布为 **LightCraft 0.6.0**，列有 Windows、macOS、Linux 版本。
+
+- [LightCraft 官方产品与下载页](https://getartcraft.com/apps/lightcraft)
+- [LightCraft 源码仓库](https://github.com/storytold/lightcraft)
+- [官方最新发布](https://github.com/storytold/lightcraft/releases/latest)
+
+按系统和处理器选择当前官方文件。安装过 PhotoCraft 不代表已经安装 LightCraft，它们是独立应用。使用启动器时，确认正在安装的具体产品与版本。
+
+## 用一个小图库评估
+
+复制少量代表照片：普通曝光、高反差场景，以及熟悉的肤色或色彩。相机支持同时生成 JPEG 时，可将其作为参考。
+
+导入样本，用图库控件整理，再做适度曝光或色彩调整。关闭并重开，检查整理结果与修改是否按预期保留。
+
+导出一张图，在编辑器外查看尺寸、外观和目标色彩空间。区分 RAW 原片、应用编辑记录与导出文件，明确下次修改分别需要什么。
+
+## RAW 与色彩检查
+
+先确认实际 RAW 文件可正常打开，再检查方向、裁切、高光细节与明显色差。成功解码只是摄影流程评估的第一步。
+
+需要特定输入配置、镜头校正或交付色彩空间时，应查当前文档并测试结果。相似面板或 RAW 开发定位，都不能证明完全等同 Lightroom。
+
+文件表现异常时，记录相机、格式、版本与触发操作。只有复现需要时，才向[官方仓库](https://github.com/storytold/lightcraft)提供不含私人内容的样本。
+
+## 与 PhotoCraft 配合
+
+图库与开发工具适合筛选照片、准备整体外观；需要合成、文字和具体图层操作时，再使用图像编辑器。选择双方支持的输出格式，并检查交接结果。
+
+[PhotoCraft 上手页](/photocraft-app)介绍首次分层编辑，[替代软件页](/photocraft-alternative)帮助比较一般图像编辑器。矢量与视频需求则可看 [VectorCraft](/vectorcraft) 和 [FilmCraft](/filmcraft)。
+
+## 完整流程通过后再决定
+
+采用检查应覆盖导入、整理、编辑、重开与导出。只完成导入，还无法判断最终交付是否符合要求。记录所测试版本，在更新影响工作流时重新检查对应步骤。
+
+本文介绍产品已公开的定位与评估方法，不承诺所有相机、镜头配置或现有 Lightroom 目录都能兼容。

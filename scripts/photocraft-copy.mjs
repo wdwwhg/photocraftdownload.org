@@ -21,6 +21,84 @@ const copy = {
   'nav.install': ['Installation', '安装指南'],
   'nav.features': ['Features', '功能介绍'],
   'nav.compare': ['vs. Photoshop', '对比 Photoshop'],
+  'nav.guides': ['Guides', '使用指南'],
+  'guides.eyebrow': ['Explore the guides', '按主题了解'],
+  'guides.title': ['A guide for your next step.', '找到你需要的下一步。'],
+  'guides.description': [
+    'Installation help, editing workflows and independent product comparisons.',
+    '安装帮助、编辑流程与独立产品对比。',
+  ],
+  'guides.updated': ['Last reviewed:', '最近核实：'],
+  'guides.toc': ['On this page', '本页内容'],
+  'guides.related': ['Continue exploring', '继续了解'],
+  'guides.download': ['PhotoCraft Download', 'PhotoCraft 下载'],
+  'guides.downloadDescription': [
+    'Ready to start? Choose an official PhotoCraft build for your computer.',
+    '准备开始？为你的电脑选择官方 PhotoCraft 构建。',
+  ],
+  'guides.photocraft-vs-photoshop.title': [
+    'PhotoCraft vs Photoshop',
+    'PhotoCraft vs Photoshop',
+  ],
+  'guides.photocraft-vs-photoshop.description': [
+    'Compare features, PSD handoff and real workflow requirements.',
+    '比较功能、PSD 交接与实际工作流要求。',
+  ],
+  'guides.photocraft-open-source.title': [
+    'PhotoCraft Open Source',
+    'PhotoCraft 开源说明',
+  ],
+  'guides.photocraft-open-source.description': [
+    'Find the Rust source, understand licenses and contribute.',
+    '找到 Rust 源码，了解授权并参与开发。',
+  ],
+  'guides.photocraft-linux.title': [
+    'PhotoCraft on Linux',
+    'PhotoCraft Linux 安装',
+  ],
+  'guides.photocraft-linux.description': [
+    'Choose AppImage, Flatpak, DEB or RPM and get running.',
+    '选择 AppImage、Flatpak、DEB 或 RPM 并完成启动。',
+  ],
+  'guides.photocraft-reddit.title': [
+    'PhotoCraft on Reddit',
+    'PhotoCraft Reddit 讨论',
+  ],
+  'guides.photocraft-reddit.description': [
+    'Read launch discussions and evaluate community feedback.',
+    '阅读发布讨论，判断社区反馈的适用范围。',
+  ],
+  'guides.photocraft-alternative.title': [
+    'PhotoCraft Alternatives',
+    'PhotoCraft 替代软件',
+  ],
+  'guides.photocraft-alternative.description': [
+    'Choose an image editor around the task you need to finish.',
+    '根据实际需要完成的任务选择图像编辑器。',
+  ],
+  'guides.photocraft-app.title': [
+    'PhotoCraft App Guide',
+    'PhotoCraft 应用上手',
+  ],
+  'guides.photocraft-app.description': [
+    'Meet the interface and complete a first editing session.',
+    '认识界面并完成第一次图像编辑。',
+  ],
+  'guides.vectorcraft.title': ['VectorCraft', 'VectorCraft'],
+  'guides.vectorcraft.description': [
+    'Explore paths, shapes and editable vector artwork.',
+    '了解路径、形状与可编辑矢量作品。',
+  ],
+  'guides.filmcraft.title': ['FilmCraft', 'FilmCraft'],
+  'guides.filmcraft.description': [
+    'Get started with timeline editing, sound and video exports.',
+    '了解时间线剪辑、声音与视频导出。',
+  ],
+  'guides.lightcraft.title': ['LightCraft', 'LightCraft'],
+  'guides.lightcraft.description': [
+    'Organize a photo library and evaluate raw development.',
+    '整理照片图库，评估 RAW 开发流程。',
+  ],
   'nav.open': ['Open navigation', '展开导航'],
   'nav.close': ['Close navigation', '关闭导航'],
   'hero.eyebrow': ['Your next creative starting point', '从这里，开始你的创作'],

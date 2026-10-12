@@ -1,0 +1,108 @@
+export const meta = {
+  title: 'PhotoCraft vs Photoshop: Features and Workflow Compared',
+  heading: 'PhotoCraft vs Photoshop',
+  description:
+    'Compare PhotoCraft vs Photoshop by PSD support, desktop platforms, editing workflow and licensing. Use a practical checklist before moving your projects.',
+  category: 'Comparison',
+  updated_at: '2026-10-12',
+  sections: [
+    'The comparison at a glance',
+    'Cost and ownership',
+    'PSD support: inspect the result, not just the extension',
+    'Layers, selections and everyday editing',
+    'AI tools and extensions',
+    'Desktop platforms and Linux workflows',
+    'A migration test you can finish in one session',
+    'Which editor should you choose?',
+    'Sources and scope',
+  ],
+};
+
+PhotoCraft and Photoshop address the same basic job: editing images with layers, masks, text and selections. Their overlap makes PhotoCraft worth evaluating, but a familiar interface does not establish compatibility with every Photoshop workflow. The useful question is whether the files, tools and delivery requirements you use will work in the version you install.
+
+This is a documentation-based comparison, checked on October 12, 2026. We link to the developers' descriptions and distinguish documented capabilities from our suggested evaluation steps. We have not run an independent benchmark or tested your production files. This site is an independent guide, with no affiliation to ArtCraft or Adobe.
+
+## The comparison at a glance
+
+| Decision            | PhotoCraft                                                      | Photoshop                                                     |
+| ------------------- | --------------------------------------------------------------- | ------------------------------------------------------------- |
+| License             | Free, open-source project with MIT and Apache-2.0 license files | Adobe commercial software, offered through subscription plans |
+| Desktop systems     | Windows, macOS and Linux builds                                 | Adobe documents Windows and macOS desktop requirements        |
+| Layered documents   | Project documents PSD and PSB opening and saving                | Adobe's Photoshop document workflow                           |
+| Editing model       | Layers, masks, adjustment layers, text and brushes              | Layer-based editing, selections, adjustments and retouching   |
+| AI features         | Project describes local selection tools                         | Adobe describes Firefly-powered generative features           |
+| Existing extensions | Verify each required extension separately                       | Check compatibility with your installed Photoshop version     |
+| Source access       | Public Rust source code                                         | Proprietary desktop application                               |
+
+The PhotoCraft columns describe the official project documentation; they are not a certification of feature parity. Adobe's [Photoshop overview](https://www.adobe.com/products/photoshop.html) and [desktop requirements](https://helpx.adobe.com/photoshop/desktop/get-started/technical-requirements-installation/adobe-photoshop-on-desktop-technical-requirements.html) are the sources for the Photoshop columns. For PhotoCraft, start with the [official repository](https://github.com/storytold/photocraft).
+
+## Cost and ownership
+
+The PhotoCraft repository supplies source code under its published licenses, and ArtCraft provides free standalone builds. That makes the application a reasonable candidate when you want to evaluate a desktop editor without first buying a subscription. Access to source code is also useful if you need to inspect implementation details or maintain your own fork. The [open-source guide](/photocraft-open-source) explains the difference between the program's license and the rights in an image you edit.
+
+Photoshop's current product page presents subscription options. Compare the plan available in your region and the applications it includes rather than relying on a remembered monthly price. We do not quote one universal price because region, billing period and bundled services change the comparison.
+
+Cost is broader than an application fee. Include time spent learning shortcuts, validating exports, rebuilding presets and reviewing finished work. A free editor can be a good fit for an individual project while a team keeps its existing workflow for deadline-sensitive work. Evaluate those cases separately instead of trying to replace every application at once.
+
+## PSD support: inspect the result, not just the extension
+
+The PhotoCraft project documents layered PSD and PSB support. It also explains that its document-model round trips are not necessarily byte-identical to the original file. Reported test-corpus results are evidence about those test files; they do not guarantee identical rendering for every customer's PSD. The [repository's PSD section](https://github.com/storytold/photocraft#psd-without-compromise) is the useful reference when checking exactly what the developers claim.
+
+Start a compatibility check with a duplicate of a representative document. Include editable type, a clipping mask, adjustment layers, a smart object and any layer effects your work actually uses. Open the duplicate, inspect the canvas and layer structure, change one item, then save under a new name. Reopen the result in the application your collaborator uses.
+
+Compare text wrapping, missing fonts, mask edges, blend effects and exported colors. A file can open successfully while a small difference remains important in the final output. When you find a difference, identify the particular layer or operation instead of treating the whole format as either supported or unsupported.
+
+For handoff, retain the original PSD until the receiving person confirms the edited version. Export a reference image alongside the layered file so there is a clear record of the intended appearance. This is a workflow recommendation, not a claim that every unsupported feature can be recovered by exporting.
+
+## Layers, selections and everyday editing
+
+PhotoCraft's documentation describes adjustment layers, masks, type, brushes, smart objects and live-preview filters. Photoshop also uses these broad editing concepts. The shared vocabulary should make an initial evaluation easier for someone who already understands layer-based editing, but matching names do not prove matching options or behavior.
+
+Test the operations you perform repeatedly. For product photographs, this might mean a selection, a masked adjustment and a transparent export. For a thumbnail, it might mean resizing, text, a drop shadow and a compressed image. For a composite, it might mean transforms, clipping and multiple blend modes. Use a small sample that exposes your real requirements.
+
+Evaluate the complete sequence from opening to export. A tool that works well in isolation may still require a different order of operations in a new editor. Write down any workarounds so you can judge whether they are acceptable for occasional work or too costly for daily use. The [PhotoCraft app guide](/photocraft-app) offers a first-session exercise for this evaluation.
+
+## AI tools and extensions
+
+Adobe's product page describes generative editing features associated with Firefly. PhotoCraft describes selection tools that run locally. These are different categories of assistance: finding a subject is not the same task as generating replacement content. Do not assume that a tool labeled AI provides the same workflow in both products.
+
+If you depend on generative editing, list the exact action and expected output. Check whether it exists in the installed build, whether it needs a network service and what account or usage requirements apply. Avoid moving a project on the assumption that a similar-looking button will provide the feature you use today.
+
+Apply the same discipline to extensions. Identify the plugin, action, preset or automation by name and version. Neither shared terminology nor PSD support establishes that an existing Photoshop extension will run in PhotoCraft. Ask the extension developer or test an isolated example before relying on it. We do not advertise verified third-party plugin compatibility.
+
+## Desktop platforms and Linux workflows
+
+PhotoCraft offers Linux packages in addition to Windows and macOS builds. Adobe's cited desktop requirements cover Windows and macOS. For a Linux desktop user, that platform difference may be the first practical reason to consider PhotoCraft, before comparing individual editing features.
+
+The [Linux installation guide](/photocraft-linux) covers package selection, architecture and first launch. A cross-platform release does not guarantee identical behavior on every distribution or GPU. Record your distribution, display session and graphics hardware when investigating a problem.
+
+For a mixed-platform team, run the same sample project on the machines that will actually receive it. Confirm that fonts and linked resources are present, that the file can be edited after reopening, and that the delivery format meets the recipient's needs. A screenshot alone is not enough to validate an editable handoff.
+
+## A migration test you can finish in one session
+
+1. **Choose one ordinary project.** Use a duplicate, not the only copy of client work. Include the features you expect to use again.
+2. **Record a reference.** Keep an exported image from the current workflow and note the intended size, color profile and format.
+3. **Open and inspect.** Look for font warnings, layer structure changes and differences in the visible canvas before making an edit.
+4. **Make a small revision.** Change text, move a layer or adjust a mask. This checks that the document remains useful, rather than merely readable.
+5. **Save and reopen.** Use a separate filename and check both the layered document and the flat export.
+6. **Ask the recipient to review.** If another person will continue editing, their application is part of the test.
+7. **Decide by task.** Mark the workflow as suitable, suitable with a workaround, or unsuitable for now.
+
+Keep that result with the application version. A later release may fix a problem or change behavior, so a version-specific note is more useful than a permanent verdict. Repeat only the affected test when your version or workflow changes.
+
+## Which editor should you choose?
+
+Evaluate PhotoCraft when you want a free editor, source access or a native Linux workflow, and when you can validate your own files before using it for delivery. Consider keeping Photoshop when a project's requirements explicitly depend on Adobe features, a particular extension or an established collaborative process.
+
+A parallel trial is often easier to assess than an immediate migration. Use PhotoCraft for a small, self-contained task, record the result and expand only after the workflow meets your needs. If it does not, the [alternatives guide](/photocraft-alternative) compares other ways to approach image editing.
+
+When you are ready to try the application, the [PhotoCraft download page](/) lists the official builds. Check the release version before downloading and use the sources below when a feature matters to your decision.
+
+## Sources and scope
+
+- [PhotoCraft repository and feature documentation](https://github.com/storytold/photocraft)
+- [ArtCraft's PhotoCraft product page](https://getartcraft.com/apps/photocraft)
+- [Adobe Photoshop product overview](https://www.adobe.com/products/photoshop.html)
+- [Adobe Photoshop desktop requirements](https://helpx.adobe.com/photoshop/desktop/get-started/technical-requirements-installation/adobe-photoshop-on-desktop-technical-requirements.html)
+
+Documentation changes as the applications evolve. This page explains a decision process and currently documented differences; it does not claim that PhotoCraft replaces every Photoshop feature or that either application is universally better.

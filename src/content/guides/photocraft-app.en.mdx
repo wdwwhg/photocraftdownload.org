@@ -1,0 +1,73 @@
+export const meta = {
+  title: 'PhotoCraft App: Interface and First Editing Session',
+  heading: 'PhotoCraft App: Your First Editing Session',
+  description:
+    'Get oriented in the PhotoCraft app: canvas, layers, tools, a simple first edit and the difference between the desktop app, launcher and web build.',
+  category: 'Getting started',
+  updated_at: '2026-10-12',
+  sections: [
+    'Desktop app, launcher or web build?',
+    'Orient yourself in the interface',
+    'A small first edit',
+    'Save an editable file and an export',
+    'Choose a tool for the job',
+    'Where to get help',
+    'Sources',
+  ],
+};
+
+The PhotoCraft app is a layer-based image editor from ArtCraft. This guide is for the first session after installation: learning where your document lives, making a reversible edit and saving an output you can inspect. For installer selection, use the [download page](/). For licenses and implementation, use the [open-source guide](/photocraft-open-source).
+
+## Desktop app, launcher or web build?
+
+The official product page offers standalone desktop builds and the ArtCraft Launcher. A standalone package installs PhotoCraft by itself; the launcher manages multiple Crafting Apps and their updates. These are two ways to obtain the same product, not two different image-editing specialties.
+
+The project also publishes a WebAssembly build for hosting in a browser. Do not assume a downloadable web ZIP is a desktop installer or an already-hosted public editing service. Check the [official product page](https://getartcraft.com/apps/photocraft) for the delivery options actually offered.
+
+This page concerns the ArtCraft image editor. A search for “PhotoCraft app” can surface unrelated products or papers with similar names. Confirm the ArtCraft product link and storytold repository before treating a result as this application.
+
+## Orient yourself in the interface
+
+The official screenshots show a central image canvas, a tool area and panels for layers and adjustments. Treat the canvas as the visual result and the Layers panel as the structure producing that result. A selected layer is the target for many operations, so identify it before changing text, applying an adjustment or moving content.
+
+The [project README](https://github.com/storytold/photocraft) documents editable type, masks and adjustment layers. Use those concepts to separate independent parts of an image. For example, keep a caption separate from its background so you can revise the wording without repainting the image.
+
+Panel layout and available commands may change between builds. If your interface differs from a screenshot, first check the installed version rather than assuming the installation failed.
+
+## A small first edit
+
+1. Open a copy of a PNG or JPEG you can replace.
+2. Inspect the document dimensions before resizing or adding text.
+3. Add a short caption on its own type layer.
+4. Move the caption so it remains legible against the background.
+5. Try an adjustment on a separate adjustment layer and compare its effect with the original.
+6. Save an editable copy, then export a flat image for viewing elsewhere.
+
+This is an evaluation exercise, not a claim that every menu has the same wording in every version. If you cannot find a command, use the current documentation or report the version and missing step. Avoid importing a complicated production PSD as your only first test.
+
+## Save an editable file and an export
+
+A layered document and a flat export serve different purposes. The layered copy retains structure for a later revision; a PNG or JPEG is easier to preview or deliver when further editing is unnecessary. Name them so you can tell which is the working document.
+
+After saving, close and reopen the working copy. Check that the text remains editable and the expected layers are present. Open the export in another viewer and confirm its size, transparency and appearance. Keeping both checks in your first exercise helps catch a format or workflow mismatch early.
+
+For PSD handoff, use the additional checks in [PhotoCraft vs Photoshop](/photocraft-vs-photoshop). Native support for a file extension is not a guarantee about every feature in a particular file.
+
+## Choose a tool for the job
+
+Use PhotoCraft when the task is editing an individual image or composition. A large raw-photo collection has different needs: cataloging, selection and repeatable development are the focus of [LightCraft](/lightcraft). Resolution-independent artwork belongs to [VectorCraft](/vectorcraft), while a video sequence belongs to [FilmCraft](/filmcraft).
+
+You do not need to install the whole family to try the image editor. Begin with the application that matches the task, then add another only when its distinct workflow is useful.
+
+## Where to get help
+
+For Linux launch and package questions, read the [Linux guide](/photocraft-linux). For a reproducible application problem, check the official repository's issues. Include the version, operating system and a small sample that contains no private material.
+
+The [Reddit guide](/photocraft-reddit) links to community conversations; opinions there can suggest things to test, but they are not official support guarantees.
+
+## Sources
+
+- [ArtCraft PhotoCraft product and installation options](https://getartcraft.com/apps/photocraft)
+- [PhotoCraft interface and feature documentation](https://github.com/storytold/photocraft)
+
+Checked October 12, 2026. The exercise above is our suggested starting workflow; it is not a claim of hands-on testing of every release.

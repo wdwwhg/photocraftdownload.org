@@ -23,10 +23,13 @@ import {
 } from 'lucide-react';
 
 import { tDynamic } from '@/core/i18n/dynamic';
+import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { getLocale, localizeHref } from '@/paraglide/runtime.js';
 
 import { builds, linuxCommand, release, type Platform } from './downloads';
+import { GuideCards } from './guide';
+import { guideSlugs } from './guides';
 
 import '@/styles/photocraft.css';
 
@@ -115,7 +118,7 @@ export function PhotoCraftHome() {
       setCopyFailed(true);
     }
   };
-  const nav = ['downloads', 'install', 'features', 'compare'];
+  const nav = ['downloads', 'install', 'features', 'guides'];
   const featureItems = [
     { key: 'layers', icon: Layers3 },
     { key: 'psd', icon: Code2 },
@@ -123,14 +126,7 @@ export function PhotoCraftHome() {
     { key: 'native', icon: Sparkles },
   ];
   const activeBuild = builds[platform][0];
-  const faqKeys = [
-    'free',
-    'psd',
-    'replacement',
-    'account',
-    'updates',
-    'official',
-  ];
+  const faqKeys = ['free', 'psd', 'account', 'updates', 'official'];
 
   return (
     <div className="pc-site" id="top">
@@ -563,68 +559,22 @@ export function PhotoCraftHome() {
           </div>
         </section>
 
-        <section className="pc-comparison-section" id="compare">
+        <section className="pc-guide-index" id="guides">
           <div className="pc-wrap">
             <div className="pc-section-heading">
               <div>
-                <div className="pc-eyebrow">04 / {t('compare.eyebrow')}</div>
-                <h2>{t('compare.title')}</h2>
+                <div className="pc-eyebrow">04 / {t('guides.eyebrow')}</div>
+                <h2>{t('guides.title')}</h2>
               </div>
-              <p className="pc-heading-aside">{t('compare.description')}</p>
+              <p className="pc-heading-aside">{t('guides.description')}</p>
             </div>
-            <div className="pc-table-scroll">
-              <table className="pc-table">
-                <caption className="pc-sr-only">{t('compare.title')}</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">{t('compare.feature')}</th>
-                    <th scope="col">
-                      <span className="pc-table-brand">
-                        <Aperture size={19} />
-                        PhotoCraft
-                      </span>
-                      <span className="pc-table-tag">{t('compare.open')}</span>
-                    </th>
-                    <th scope="col">Adobe Photoshop</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    'cost',
-                    'systems',
-                    'psd',
-                    'editing',
-                    'ai',
-                    'plugins',
-                    'maturity',
-                  ].map((key) => (
-                    <tr key={key}>
-                      <th scope="row">{t(`compare.${key}.label`)}</th>
-                      <td>
-                        {['psd', 'editing'].includes(key) && (
-                          <Check size={14} />
-                        )}
-                        {t(`compare.${key}.pc`)}
-                      </td>
-                      <td>{t(`compare.${key}.ps`)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="pc-comparison-note">
-              <span>{t('compare.note')}</span>
-              <div>
-                <OutLink href={release.repository}>
-                  {t('compare.pcSource')}
-                  <ArrowUpRight size={12} />
-                </OutLink>
-                <OutLink href="https://www.adobe.com/products/photoshop.html">
-                  {t('compare.psSource')}
-                  <ArrowUpRight size={12} />
-                </OutLink>
-              </div>
-            </div>
+            <GuideCards
+              links={guideSlugs.map((slug) => ({
+                href: `/${slug}`,
+                title: t(`guides.${slug}.title`),
+                description: t(`guides.${slug}.description`),
+              }))}
+            />
           </div>
         </section>
 
@@ -677,6 +627,10 @@ export function PhotoCraftHome() {
           <div className="pc-footer-links">
             <a href="#downloads">{t('nav.downloads')}</a>
             <a href="#install">{t('nav.install')}</a>
+            <a href="#guides">{t('nav.guides')}</a>
+            <Link href="/photocraft-linux">
+              {t('guides.photocraft-linux.title')}
+            </Link>
             <a href="#faq">FAQ</a>
             <OutLink href={release.repository}>
               GitHub

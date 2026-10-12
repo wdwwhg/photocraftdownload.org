@@ -21,6 +21,7 @@ import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { Plausible } from '@/components/analytics/plausible';
 import { CustomerService } from '@/components/customer-service';
 import { GoogleOneTap } from '@/components/google-one-tap';
+import { guideSlugs } from '@/components/photocraft/guides';
 import { SandboxPreviewBridge } from '@/components/sandbox-preview-bridge';
 import { Toaster } from '@/components/ui/sonner';
 
@@ -80,7 +81,11 @@ export const Route = createRootRoute({
 function RootComponent() {
   const analytics = Route.useLoaderData();
   const path = useLocation().pathname;
-  const isGuide = path === '/' || path === '/zh' || path === '/zh/';
+  const isGuide =
+    path === '/' ||
+    path === '/zh' ||
+    path === '/zh/' ||
+    guideSlugs.some((slug) => path === `/${slug}` || path === `/zh/${slug}`);
 
   return (
     <QueryClientProvider client={getQueryClient()}>

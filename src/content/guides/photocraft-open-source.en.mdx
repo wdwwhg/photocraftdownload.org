@@ -1,0 +1,74 @@
+export const meta = {
+  title: 'PhotoCraft Open Source: Rust, GitHub and Licensing',
+  heading: 'PhotoCraft Open Source: Code, Rust and Licensing',
+  description:
+    'Understand PhotoCraft open source: the official Rust repository, MIT and Apache-2.0 licenses, source builds and how to contribute to the ArtCraft project.',
+  category: 'Open source',
+  updated_at: '2026-10-12',
+  sections: [
+    'What open source means here',
+    'Why people search for PhotoCraft Rust',
+    'Find the official code and releases',
+    'Build and contribute deliberately',
+    'How to judge project progress',
+    'Official references',
+  ],
+};
+
+PhotoCraft is the ArtCraft team's image editor with a public source repository. If you are asking what PhotoCraft is, begin with its role: a layer-based editor for images, rather than a photo catalog, vector-only illustration tool or video timeline. The [official repository](https://github.com/storytold/photocraft) describes the project as a native application written in Rust.
+
+The source repository is the place to inspect implementation, follow changes and report reproducible problems. The [app guide](/photocraft-app) focuses on using the interface; this page explains source access and project participation.
+
+## What open source means here
+
+The repository includes [LICENSE-MIT](https://github.com/storytold/photocraft/blob/main/LICENSE-MIT) and [LICENSE-APACHE](https://github.com/storytold/photocraft/blob/main/LICENSE-APACHE). Read those files when you plan to modify or redistribute the software. Published source access lets you examine code and build a version yourself, but it does not remove the obligations attached to a chosen license.
+
+Keep software permissions separate from image permissions. Installing an open-source editor does not grant rights to a photograph, typeface, brush collection or stock asset supplied by someone else. Before distributing a package that contains those resources, check their licenses separately.
+
+A public repository also does not mean every external service connected to an application is free or open source. Evaluate any service on its own terms instead of transferring the editor's licensing description to an entire workflow.
+
+## Why people search for PhotoCraft Rust
+
+Rust is the implementation language described by the project. The repository explains a document engine, an egui interface and a wgpu-based GPU compositor. Those are architecture details, rather than a measured performance guarantee for your computer.
+
+For an ordinary user, the useful consequence is that PhotoCraft supplies native desktop builds. You do not need to install Rust to use a packaged release. Developers who want to change the engine or inspect a rendering issue can work from the source instead.
+
+Avoid treating the programming language as a benchmark. To evaluate speed, use the same document, output settings and hardware in both applications. To evaluate correctness, compare saved and exported results. Source access makes investigation possible; it does not substitute for those checks.
+
+## Find the official code and releases
+
+Start from [ArtCraft's PhotoCraft page](https://getartcraft.com/apps/photocraft) and follow its GitHub link to the storytold organization. A fork may be useful for development, but it is not automatically the maintained upstream project. Check which repository published a release before installing it.
+
+The repository's Releases area contains packaged builds; the source-code ZIP attached to a tag contains source, not the normal desktop installer. Our [download page](/) separates the ready-to-run packages from source access. For Linux package choices, use the [Linux guide](/photocraft-linux).
+
+Record whether you are using a release tag or the moving main branch. A feature documented on main may have arrived after an older binary was published.
+
+## Build and contribute deliberately
+
+The official product page provides this starting point for a source build:
+
+```sh
+git clone https://github.com/storytold/photocraft.git
+cd photocraft
+cargo run --release -p photocraft
+```
+
+Follow the Rust toolchain and platform dependency requirements in the repository for the revision you checked out. This page does not promise that those three commands install every system dependency. Keep experiments separate from documents you cannot replace.
+
+Before contributing, read the [project documentation](https://github.com/storytold/photocraft/tree/main/docs). Check existing issues, describe the intended change and include a minimal example where possible. A useful bug report names the version, operating system, steps and expected versus observed result. Remove private material before attaching a sample.
+
+## How to judge project progress
+
+Look at release notes, issue responses and changes relevant to your workflow. Stars, forks and a busy discussion thread measure attention; they do not validate a particular editing operation. The [Reddit discussion guide](/photocraft-reddit) explains how to turn community feedback into a version-specific test.
+
+For source review, start with a narrow question such as how a file format is parsed or how a mask is saved. For adoption, start with a narrow task you can verify. These approaches produce useful evidence without requiring you to understand the entire codebase.
+
+## Official references
+
+- [PhotoCraft source repository](https://github.com/storytold/photocraft)
+- [MIT license](https://github.com/storytold/photocraft/blob/main/LICENSE-MIT)
+- [Apache-2.0 license](https://github.com/storytold/photocraft/blob/main/LICENSE-APACHE)
+- [Project documentation](https://github.com/storytold/photocraft/tree/main/docs)
+- [Official product page](https://getartcraft.com/apps/photocraft)
+
+Checked October 12, 2026. This is a practical introduction to the published project, not legal advice about a particular redistribution.

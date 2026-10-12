@@ -1,0 +1,113 @@
+export const meta = {
+  title: 'PhotoCraft Linux：AppImage、Flatpak 安装指南',
+  heading: 'PhotoCraft Linux 安装指南',
+  description:
+    '选择 PhotoCraft 的 AppImage、Flatpak、DEB 或 RPM，确认 x86_64 与 ARM64 架构、核对发布文件，并排查首次启动问题。',
+  category: 'Linux 安装',
+  updated_at: '2026-10-12',
+  sections: [
+    '确认架构与包格式',
+    '官方 Linux 文件',
+    '运行 AppImage',
+    '安装 Flatpak 包',
+    '安装 DEB 与 RPM',
+    '首次启动与故障排查',
+    '来源与版本范围',
+  ],
+};
+
+PhotoCraft 提供原生 Linux 构建。本页以 **0.7.0 版本**为例，核实日期为 2026 年 10 月 12 日。选择更新版本时，所有命令都应使用对应版本的文件名。使用已发布安装包无需编译 Rust。
+
+## 确认架构与包格式
+
+在终端查看处理器架构：
+
+```sh
+uname -m
+```
+
+输出 x86_64 时选 x86_64，输出 aarch64 时选 aarch64。修改文件名无法让不同 CPU 架构的软件包兼容。
+
+| 格式     | 适合的起点                  | 使用方式                  |
+| -------- | --------------------------- | ------------------------- |
+| AppImage | 用单个文件体验软件          | 添加可执行权限后启动      |
+| Flatpak  | 用户级沙盒安装              | 需要 Flatpak 与相应运行时 |
+| DEB      | Debian、Ubuntu 及兼容发行版 | 使用发行版包管理工具安装  |
+| RPM      | RPM 系发行版                | 使用对应发行版的包管理器  |
+| Tarball  | 手动放置二进制文件          | 自行管理解压和启动路径    |
+
+先选择一种方式，避免多份安装导致应用菜单打开了意外版本。下列文件均来自[官方发布](https://github.com/storytold/photocraft/releases/tag/v0.7.0)。
+
+## 官方 Linux 文件
+
+| 格式     | x86_64                                                                                                          | ARM64 / aarch64                                                                                                  |
+| -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| AppImage | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.AppImage) | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.AppImage) |
+| Flatpak  | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.flatpak)  | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.flatpak)  |
+| DEB      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.deb)      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.deb)      |
+| RPM      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.rpm)      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.rpm)      |
+
+链接指向 ArtCraft 的 GitHub 发布附件。其他系统与版本更新入口见[下载首页](/)。
+
+## 运行 AppImage
+
+下载后，在文件所在目录打开终端。x86_64 示例：
+
+```sh
+chmod +x photocraft-0.7.0-linux-x86_64.AppImage
+./photocraft-0.7.0-linux-x86_64.AppImage
+```
+
+ARM64 将两条命令中的 x86_64 改为 aarch64。可执行权限只作用于该文件，更新后可能需要重新设置。无需用 root 启动编辑器。
+
+如果提示缺少运行组件，保留完整报错，按发行版说明处理，或尝试官方 Flatpak 包。[AppImage 文档](https://docs.appimage.org/user-guide/run-appimages.html)解释权限与运行条件；单文件形式不保证所有系统配置都无需依赖。
+
+## 安装 Flatpak 包
+
+先按照发行版说明安装 Flatpak，再在下载目录运行：
+
+```sh
+flatpak install --user ./photocraft-0.7.0-linux-x86_64.flatpak
+flatpak run ai.storyteller.photocraft
+```
+
+ARM64 使用 aarch64 文件名。检查运行时与权限提示。PhotoCraft README 说明其包依赖 Flathub 的 Freedesktop 运行时；缺少运行时时，遵循提示与当前上游说明。
+
+本地 bundle 与从远端仓库安装的应用，其更新方式可能不同。检查当前安装是否有更新源，不要默认本地包会持续自动更新。包管理参考 [Flatpak 使用文档](https://docs.flatpak.org/en/latest/using-flatpak.html)。
+
+## 安装 DEB 与 RPM
+
+Debian、Ubuntu 使用本地 DEB：
+
+```sh
+sudo apt install ./photocraft-0.7.0-linux-x86_64.deb
+```
+
+Fedora 使用本地 RPM：
+
+```sh
+sudo dnf install ./photocraft-0.7.0-linux-x86_64.rpm
+```
+
+./ 表示本地文件。ARM64 应替换文件名。其他 RPM 发行版使用各自工具，Fedora 命令不是所有 Linux 的通用命令。确认依赖与卸载提示后再接受安装操作。
+
+## 首次启动与故障排查
+
+通过“文件 → 打开”选择可替换图片，按[首次编辑指南](/photocraft-app)保存工作副本并检查导出，再处理重要项目。
+
+- **Permission denied**：检查 AppImage 可执行权限与目录是否允许执行。
+- **Exec format error**：比较文件架构与 uname -m 的输出。
+- **缺少运行时**：记录报错，核对所选包的要求。
+- **Wayland 拖放异常**：先使用“文件 → 打开”。当前上游 README 说明了 Wayland 拖放限制，具体应核对所用版本。
+- **版本与预期不同**：检查启动的是哪一份安装和快捷方式。
+
+报告问题时附上版本、发行版、CPU 架构与报错，避免提交私人图片。[开源指南](/photocraft-open-source)提供贡献入口。
+
+## 来源与版本范围
+
+- [PhotoCraft 0.7.0 发布](https://github.com/storytold/photocraft/releases/tag/v0.7.0)
+- [上游 Linux 说明](https://github.com/storytold/photocraft#downloads)
+- [AppImage 文档](https://docs.appimage.org/user-guide/run-appimages.html)
+- [Flatpak 文档](https://docs.flatpak.org/en/latest/using-flatpak.html)
+
+文件可用性依据官方来源核实，本文未在所有发行版与硬件组合上进行实测。

@@ -1,0 +1,113 @@
+export const meta = {
+  title: 'PhotoCraft Linux: AppImage, Flatpak and Install Guide',
+  heading: 'PhotoCraft Linux Installation Guide',
+  description:
+    'Install PhotoCraft on Linux with AppImage, Flatpak, DEB or RPM. Choose x86_64 or ARM64, verify the release and troubleshoot first-launch problems.',
+  category: 'Linux installation',
+  updated_at: '2026-10-12',
+  sections: [
+    'Choose the architecture and package',
+    'Official Linux release files',
+    'Run the AppImage',
+    'Install the Flatpak bundle',
+    'DEB and RPM installation',
+    'First launch and troubleshooting',
+    'Sources and version scope',
+  ],
+};
+
+PhotoCraft provides native Linux builds. This guide uses the official **version 0.7.0** release, checked on October 12, 2026. The commands below refer to that version; when choosing a newer release, use its matching filenames throughout. You do not need to compile Rust to run these packages.
+
+## Choose the architecture and package
+
+Run this in a terminal to identify your processor architecture:
+
+```sh
+uname -m
+```
+
+Choose x86_64 packages for an x86_64 result and aarch64 packages for an aarch64 result. A package for the wrong CPU will not become compatible by changing its filename.
+
+| Format         | Suitable starting point                     | What to expect                                 |
+| -------------- | ------------------------------------------- | ---------------------------------------------- |
+| AppImage       | Try the app as one executable file          | Add executable permission, then launch         |
+| Flatpak bundle | A user-level, sandboxed installation        | Flatpak and a matching runtime are required    |
+| DEB            | Debian, Ubuntu and compatible distributions | Install with your distribution's package tools |
+| RPM            | RPM-based distributions                     | Use your distribution's package manager        |
+| Tarball        | Manual placement of release binaries        | You manage extraction and launch paths         |
+
+Choose one format first. Multiple installations can make it unclear which version an application-menu shortcut opens. The [official release](https://github.com/storytold/photocraft/releases/tag/v0.7.0) is the source for the packages below.
+
+## Official Linux release files
+
+| Package  | x86_64                                                                                                              | ARM64 / aarch64                                                                                                      |
+| -------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| AppImage | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.AppImage) | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.AppImage) |
+| Flatpak  | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.flatpak)  | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.flatpak)  |
+| DEB      | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.deb)      | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.deb)      |
+| RPM      | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.rpm)      | [Download](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.rpm)      |
+
+These links go to ArtCraft's GitHub release assets. For other systems and release updates, use the [main download page](/).
+
+## Run the AppImage
+
+Download the matching AppImage, then open a terminal in the folder containing it. For x86_64:
+
+```sh
+chmod +x photocraft-0.7.0-linux-x86_64.AppImage
+./photocraft-0.7.0-linux-x86_64.AppImage
+```
+
+For ARM64, replace x86_64 with aarch64 in both commands. The executable permission applies to this file, so downloading a new version may require setting it again. You do not need to run the application as root.
+
+If the terminal reports a missing runtime component, retain the exact message. Follow your distribution's guidance for that component or try the official Flatpak bundle. The [AppImage instructions](https://docs.appimage.org/user-guide/run-appimages.html) explain executable permissions and platform requirements; an AppImage is not a guarantee that every distribution configuration works without dependencies.
+
+## Install the Flatpak bundle
+
+Install Flatpak using your distribution's instructions first. From the directory containing the x86_64 bundle:
+
+```sh
+flatpak install --user ./photocraft-0.7.0-linux-x86_64.flatpak
+flatpak run ai.storyteller.photocraft
+```
+
+Use the aarch64 filename on ARM64. Review the runtime and permission prompts. The PhotoCraft README notes that the bundle uses a Freedesktop runtime from Flathub; follow the prompts and current upstream instructions if a runtime is missing.
+
+A local bundle and an application installed from a remote repository are different update paths. Check whether your installation has an update source instead of assuming a local file will always update itself. See the [Flatpak usage guide](https://docs.flatpak.org/en/latest/using-flatpak.html) for package management.
+
+## DEB and RPM installation
+
+On Debian or Ubuntu, use the local DEB with apt:
+
+```sh
+sudo apt install ./photocraft-0.7.0-linux-x86_64.deb
+```
+
+On Fedora, use the local RPM with dnf:
+
+```sh
+sudo dnf install ./photocraft-0.7.0-linux-x86_64.rpm
+```
+
+The leading ./ tells the package manager to use a local file. Substitute the aarch64 filename when appropriate. Other RPM distributions use their own package tools; the Fedora command is not a universal Linux command. Read dependency and removal prompts before accepting a package transaction.
+
+## First launch and troubleshooting
+
+Open a disposable image through File → Open and follow the [first-session guide](/photocraft-app). Save an editable copy and inspect an exported image before moving to an important project.
+
+- **Permission denied:** check that the AppImage has executable permission and that its folder permits execution.
+- **Exec format error:** compare the filename's architecture with uname -m.
+- **Missing runtime:** record the error and check the selected package's requirements.
+- **Wayland drag-and-drop problem:** use File → Open. The current upstream README documents a Wayland drag-and-drop limitation; check the notes for your installed release.
+- **Unexpected version:** confirm which installation and shortcut you launched.
+
+For a bug report, include the release, distribution, CPU architecture and exact error. Avoid posting private image files. The [open-source guide](/photocraft-open-source) links to contribution resources.
+
+## Sources and version scope
+
+- [PhotoCraft v0.7.0 release](https://github.com/storytold/photocraft/releases/tag/v0.7.0)
+- [Upstream Linux notes](https://github.com/storytold/photocraft#downloads)
+- [AppImage documentation](https://docs.appimage.org/user-guide/run-appimages.html)
+- [Flatpak documentation](https://docs.flatpak.org/en/latest/using-flatpak.html)
+
+Package availability was verified from official sources. These instructions have not been tested on every Linux distribution or hardware configuration.

@@ -1,0 +1,60 @@
+export const meta = {
+  title: 'PhotoCraft Reddit：社区讨论与反馈阅读指南',
+  heading: 'PhotoCraft Reddit：社区在讨论什么？',
+  description:
+    '找到 PhotoCraft 在 Reddit 的讨论入口，区分发布介绍与用户反馈，并把社区观点转化为针对所用版本的实际检查项目。',
+  category: '社区讨论',
+  updated_at: '2026-10-12',
+  sections: [
+    '从这些讨论开始',
+    '区分三类信息',
+    '把反馈转为可验证测试',
+    '查找新讨论时保留上下文',
+    '软件问题应该报告到哪里',
+    '编辑范围',
+  ],
+};
+
+想找 PhotoCraft 的 Reddit 讨论，可以从下列帖子开始。内容涉及 ArtCraft 家族、Rust 实现与早期使用体验。本页于 2026 年 10 月 12 日核实，是讨论阅读指南，并非实时信息流或官方支持渠道。
+
+## 从这些讨论开始
+
+**2026 年 10 月 3 日 · r/GeminiAI。** [查看创作者发布帖与回复](https://www.reddit.com/r/GeminiAI/comments/1wwo52q/ive_created_open_source_100_rust_replacements_for/)。帖子介绍应用家族并链接源码；回复包含 PhotoCraft 图层面板反馈，以及开发者索取可复现样例的回应。适合了解发布背景与问题描述方式。
+
+**2026 年 10 月 3 日 · r/SaaS。** [查看 ArtCraft 发布讨论](https://www.reddit.com/r/SaaS/comments/1wwnhbt/ive_created_open_source_100_rust_cleanroom/)。讨论既有对免费工具的期待，也有对完整度和专业流程的疑问。有关未来开发的表述，应理解为发帖者的计划，而非已经交付的功能。
+
+**2026 年 10 月 9 日 · r/StableDiffusion。** [查看社区讨论](https://www.reddit.com/r/StableDiffusion/comments/1x1liae/artcraft_has_ported_the_entire_adobe_suite_to/)。参与者讨论工作流集成，并质疑“移植”一词的使用。实现事实应查[官方仓库](https://github.com/storytold/photocraft)，不能直接把帖子标题当技术结论。
+
+本页不列动态点赞数；点赞不能验证某个编辑操作是否可用。
+
+## 区分三类信息
+
+发布公告说明作者打算提供什么；用户报告描述特定电脑、特定版本上的体验；可复现问题则提供其他人能检查的步骤和证据。三者能回答的问题不同。
+
+看到强烈好评或差评时，先补齐背景：用了哪个版本？编辑简单图片还是复杂 PSD？问题发生在打开、编辑、保存还是交付阶段？体验可能真实，却只适用于比标题更小的范围。
+
+对于未来追平其他软件的承诺，也应查看[功能对比](/photocraft-vs-photoshop)和当前文档，确认已经实现的部分。
+
+## 把反馈转为可验证测试
+
+如果评论说图层操作混乱，可以建立一个含少量图层和分组的小文档，重复所描述动作，并记录安装版本与结果。缺少步骤时，应先补充复现信息，再判断是否是当前版本问题。
+
+如果有人表示 PSD 使用顺利，也应以自己的文件副本验证。对方的字体、效果与文档结构可能与你不同。一次简单的打开、修改、另存、重开，比统计推荐数更贴近实际需求。
+
+[应用上手页](/photocraft-app)提供初次练习；[Linux 页](/photocraft-linux)帮助区分安装启动问题和图像编辑问题。
+
+## 查找新讨论时保留上下文
+
+使用 Reddit 搜索 PhotoCraft，结果含混时加入 ArtCraft。既看发帖日期，也看具体回复日期。转述前读后续纠正和回应，避免只引用最早的一条评论。
+
+需要下载时，从 [ArtCraft 官方产品页](https://getartcraft.com/apps/photocraft)确认仓库。社区链接可能指向分支、旧版本或其他同名产品。[开源说明](/photocraft-open-source)介绍上游识别方法。
+
+## 软件问题应该报告到哪里
+
+先搜索官方 issue。有效报告包含版本、系统、简短步骤、预期与实际表现；如果依赖某个文件，附上不含私人内容的最小样本。
+
+Reddit 可以帮助发现值得调查的问题，issue 则更适合将版本明确的报告与修复关联。把 issue 链接保存在自己的测试笔记中，后续更新时就能有针对性地核对。
+
+## 编辑范围
+
+本站链接公开讨论并概述主题，不把单条评论包装成综合评分、用户见证或社区共识。帖子内容与可访问性可能在核实日期后发生变化。

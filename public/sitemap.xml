@@ -12,4 +12,112 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/" />
   </url>
+  <url>
+    <loc>https://photocraftdownload.org/filmcraft</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/filmcraft" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/filmcraft" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/filmcraft" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/filmcraft</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/filmcraft" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/filmcraft" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/filmcraft" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/lightcraft</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/lightcraft" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/lightcraft" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/lightcraft" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/lightcraft</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/lightcraft" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/lightcraft" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/lightcraft" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/photocraft-alternative</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-alternative" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-alternative" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-alternative" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/photocraft-alternative</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-alternative" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-alternative" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-alternative" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/photocraft-app</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-app" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-app" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-app" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/photocraft-app</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-app" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-app" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-app" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/photocraft-linux</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-linux" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-linux" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-linux" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/photocraft-linux</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-linux" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-linux" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-linux" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/photocraft-open-source</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-open-source" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-open-source" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-open-source" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/photocraft-open-source</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-open-source" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-open-source" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-open-source" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/photocraft-reddit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-reddit" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-reddit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-reddit" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/photocraft-reddit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-reddit" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-reddit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-reddit" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/photocraft-vs-photoshop</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-vs-photoshop" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-vs-photoshop" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-vs-photoshop" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/photocraft-vs-photoshop</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/photocraft-vs-photoshop" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/photocraft-vs-photoshop" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/photocraft-vs-photoshop" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/vectorcraft</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/vectorcraft" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/vectorcraft" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/vectorcraft" />
+  </url>
+  <url>
+    <loc>https://photocraftdownload.org/zh/vectorcraft</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://photocraftdownload.org/vectorcraft" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://photocraftdownload.org/zh/vectorcraft" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://photocraftdownload.org/vectorcraft" />
+  </url>
 </urlset>
