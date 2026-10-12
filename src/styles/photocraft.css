@@ -175,6 +175,11 @@
   margin: 23px 0;
 }
 .pc-hero h1 span {
+  display: block;
+  margin-top: 0.45em;
+  font-size: 0.46em;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
   color: var(--pc-orange);
 }
 .pc-hero-description {

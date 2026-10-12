@@ -204,9 +204,7 @@ export function PhotoCraftHome() {
               {t('hero.eyebrow')}
             </div>
             <h1>
-              {t('hero.title1')}
-              <br />
-              <span>{t('hero.title2')}</span>
+              {t('hero.title1')} <span>{t('hero.title2')}</span>
             </h1>
             <p className="pc-hero-description">{t('hero.description')}</p>
             <div className="pc-hero-cta">

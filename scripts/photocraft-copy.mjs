@@ -24,11 +24,14 @@ const copy = {
   'nav.open': ['Open navigation', '展开导航'],
   'nav.close': ['Close navigation', '关闭导航'],
   'hero.eyebrow': ['Your next creative starting point', '从这里，开始你的创作'],
-  'hero.title1': ['Photo editing.', '自由编辑，'],
-  'hero.title2': ['Without limits.', '尽情创作。'],
+  'hero.title1': ['PhotoCraft Download', 'PhotoCraft 下载'],
+  'hero.title2': [
+    '— Free Image Editor for Windows, macOS & Linux',
+    '— Windows、macOS、Linux 免费图像编辑器',
+  ],
   'hero.description': [
-    'Meet PhotoCraft, the free, open-source image editor from ArtCraft. A familiar workspace, layered PSD files, and room for your next idea. Start with an official download.',
-    '认识 PhotoCraft：来自 ArtCraft 的免费开源图像编辑器。熟悉的工作界面，原生分层 PSD 支持，为你的下一个创意而准备。从官方安装包开始。',
+    'Download PhotoCraft, the free, open-source image editor from ArtCraft. Find official download links for Windows, macOS and Linux, then get started with layers, masks and native PSD support.',
+    '下载 PhotoCraft，来自 ArtCraft 的免费开源图像编辑器。这里整理 Windows、macOS 和 Linux 官方下载链接，帮助你安装并上手图层、蒙版与原生 PSD 编辑。',
   ],
   'hero.download': ['Download PhotoCraft', '下载 PhotoCraft'],
   'hero.explore': ['Meet the editor', '了解编辑器'],
@@ -56,10 +59,13 @@ const copy = {
   'proof.offline': ['Edit offline, on your machine', '本地编辑，支持离线使用'],
   'proof.platforms': ['Windows, macOS & Linux', 'Windows、macOS 与 Linux'],
   'downloads.eyebrow': ['Get PhotoCraft', '获取 PhotoCraft'],
-  'downloads.title': ['Your system. Your download.', '选好系统，即刻下载。'],
+  'downloads.title': [
+    'PhotoCraft download links for your system.',
+    '选择系统，获取 PhotoCraft 下载链接。',
+  ],
   'downloads.description': [
-    'Choose your platform. Every file comes straight from the official GitHub release.',
-    '选择你的操作系统。所有安装包均直链官方 GitHub 发布页。',
+    'Choose your operating system and architecture. Each direct download link below points to the original installer or release build on the official GitHub release page.',
+    '选择你的操作系统和处理器架构。下方每个直达下载链接均指向官方 GitHub 发布页的原始安装包或发行文件。',
   ],
   'downloads.detected': ['Your detected system', '检测到你的系统'],
   'downloads.windows.subtitle': [
@@ -88,8 +94,8 @@ const copy = {
   'downloads.releases': ['Latest official release', '最新官方版本'],
   'downloads.checked': ['Release links checked:', '下载链接核对日期：'],
   'downloads.updateNote': [
-    'These links are pinned to v0.7.0; check the official release page for newer builds. Sizes shown in MiB.',
-    '本页链接固定为 v0.7.0；更新版本请查看官方发布页。文件大小按 MiB 换算。',
+    'These PhotoCraft download links are pinned to version 0.7.0. Check the official release page for newer builds; file sizes are shown in MiB.',
+    '这些 PhotoCraft 下载链接固定为 0.7.0 版本。更新版本请查看官方发布页；文件大小按 MiB 换算。',
   ],
   'features.eyebrow': ['Inside the editor', '认识编辑器'],
   'features.title': [
@@ -150,15 +156,15 @@ const copy = {
   'install.eyebrow': ['Start creating', '开始使用'],
   'install.title': ['From download to first edit.', '从下载，到第一次编辑。'],
   'install.description': [
-    'Three simple steps. Pick your system to get started.',
-    '三个步骤轻松上手。选择系统，查看对应安装方法。',
+    'Use the official download for your system, then follow these three steps to install PhotoCraft and open your first image.',
+    '获取适合你系统的官方安装包，再按照三个步骤安装 PhotoCraft 并打开第一张图片。',
   ],
   'install.tabs': ['Installation operating system', '选择安装系统'],
   'install.getFile': ['Get the official file', '下载官方文件'],
   'install.windows.1.title': ['Download the installer', '下载安装包'],
   'install.windows.1.text': [
-    'Choose the x64 MSI for most Intel and AMD PCs. On a Snapdragon PC, use the ARM64 build under other architectures.',
-    '多数 Intel、AMD 电脑选择 x64 MSI。Snapdragon 等 ARM 电脑请在其他架构中选择 ARM64 版本。',
+    'Use the Windows download link to get the x64 MSI installer for most Intel and AMD PCs. On a Snapdragon PC, choose the ARM64 release build under other architectures.',
+    '多数 Intel、AMD 电脑通过 Windows 下载链接获取 x64 MSI 安装包。Snapdragon 等 ARM 电脑请在其他架构中选择 ARM64 发行版本。',
   ],
   'install.windows.2.title': ['Run the setup', '运行安装程序'],
   'install.windows.2.text': [
@@ -176,8 +182,8 @@ const copy = {
   ],
   'install.macos.1.title': ['Get the Universal DMG', '下载通用 DMG'],
   'install.macos.1.text': [
-    'One disk image supports both Apple silicon and Intel Macs. Download the .dmg file linked above.',
-    '同一磁盘映像支持 Apple 芯片与 Intel Mac。下载上方链接提供的 .dmg 文件。',
+    'The official macOS download is a Universal DMG for both Apple silicon and Intel Macs. Save the disk image using the download link above.',
+    'macOS 官方下载提供 Universal DMG，同时支持 Apple 芯片与 Intel Mac。通过上方下载链接保存磁盘映像。',
   ],
   'install.macos.2.title': ['Move it to Applications', '拖入应用程序文件夹'],
   'install.macos.2.text': [
@@ -195,8 +201,8 @@ const copy = {
   ],
   'install.linux.1.title': ['Choose the right build', '选择对应架构'],
   'install.linux.1.text': [
-    'Get the x86_64 AppImage for most desktop PCs. ARM64 builds, Flatpak, DEB and RPM packages are available above.',
-    '多数桌面电脑选择 x86_64 AppImage。ARM64、Flatpak、DEB 与 RPM 格式可在上方下载区展开选择。',
+    'For Linux, download the x86_64 AppImage release build for most desktop PCs. ARM64 builds, Flatpak, DEB and RPM packages are available in the download section above.',
+    'Linux 桌面电脑通常下载 x86_64 AppImage 发行文件。ARM64、Flatpak、DEB 与 RPM 安装包可在上方下载区展开选择。',
   ],
   'install.linux.2.title': ['Make it executable', '添加执行权限'],
   'install.linux.2.text': [
@@ -325,10 +331,13 @@ const copy = {
     'The standalone editor works locally and offline without an account. You need an internet connection to download the app and obtain updates.',
     '独立编辑器在本地运行，可离线使用，无需账号。下载安装包与获取更新时需要网络连接。',
   ],
-  'faq.updates.q': ['How do I get future updates?', '如何获取后续更新？'],
+  'faq.updates.q': [
+    'Where can I download a newer PhotoCraft version?',
+    '在哪里下载更新版本的 PhotoCraft？',
+  ],
   'faq.updates.a': [
-    'Check the latest official GitHub release, linked in the download section. ArtCraft also offers a launcher that manages installs and updates; find it on the official PhotoCraft product page.',
-    '可通过下载区的最新官方版本链接查看 GitHub 发布页。ArtCraft 也提供管理安装和更新的启动器，可在官方 PhotoCraft 产品页找到。',
+    'Follow the latest official release link in the download section to check for a newer installer or release build. This guide lists version 0.7.0, so use that release page to confirm the version before downloading. ArtCraft also offers a launcher for installs and updates on the official PhotoCraft product page.',
+    '通过下载区的最新官方版本链接查找更新的安装包或发行文件。本指南列出 0.7.0 版本，下载前可到发布页确认版本。ArtCraft 也在官方 PhotoCraft 产品页提供管理安装与更新的启动器。',
   ],
   'faq.official.q': [
     'Is this the official PhotoCraft website?',

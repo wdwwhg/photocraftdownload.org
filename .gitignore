@@ -43,6 +43,7 @@ wrangler.jsonc
 
 # debug
 /artifacts/
+/.seo-cache/
 .official-assets-check.txt
 npm-debug.log*
 yarn-debug.log*
