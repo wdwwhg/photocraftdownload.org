@@ -3,12 +3,12 @@ import { readFileSync, writeFileSync } from 'node:fs';
 // Editable bilingual site copy. Run once to merge into the template's Paraglide catalogs.
 const copy = {
   'meta.title': [
-    'PhotoCraft Download — Free Image Editor for Windows, macOS & Linux',
-    'PhotoCraft 下载 — Windows、macOS、Linux 免费开源图像编辑器',
+    'PhotoCraft Download — Free Windows, macOS & Linux Editor',
+    'PhotoCraft 下载 — Windows、macOS、Linux 免费编辑器',
   ],
   'meta.description': [
-    'Download PhotoCraft from official GitHub releases. Find Windows, macOS and Linux builds, installation steps, a tour of the editor and a practical Photoshop comparison.',
-    '整理 PhotoCraft Windows、macOS、Linux 官方安装包下载链接，提供安装教程、编辑器界面介绍及 Photoshop 功能对比。免费开源，支持分层 PSD 文件。',
+    'Download PhotoCraft for Windows, macOS and Linux. Find official installers, verified release links, PSD support details and clear steps to get started.',
+    '下载适用于 Windows、macOS 和 Linux 的 PhotoCraft 免费编辑器。获取官方安装包、自动核对的发布链接、安装步骤及 PSD 兼容说明。',
   ],
   'brand.tag': ['Independent download guide', '独立下载与上手指南'],
   skip: ['Skip to content', '跳转到正文'],
@@ -170,10 +170,16 @@ const copy = {
   ],
   'downloads.checksum': ['SHA-256 checksums', 'SHA-256 校验文件'],
   'downloads.releases': ['Latest official release', '最新官方版本'],
-  'downloads.checked': ['Release links checked:', '下载链接核对日期：'],
+  'downloads.checked': ['Release links checked:', '下载链接核对时间：'],
+  'downloads.monitor': ['View the daily check', '查看每日自动检查'],
+  'downloads.report': ['View this check report', '查看本次检查报告'],
+  'downloads.checkMethod': [
+    'Links are verified automatically before publication. A daily monitor also checks for missing files and newer official releases.',
+    '每次发布前自动验证下载链接，每日巡检还会检查文件缺失与官方新版本。',
+  ],
   'downloads.updateNote': [
-    'These PhotoCraft download links are pinned to version 0.7.0. Check the official release page for newer builds; file sizes are shown in MiB.',
-    '这些 PhotoCraft 下载链接固定为 0.7.0 版本。更新版本请查看官方发布页；文件大小按 MiB 换算。',
+    'These PhotoCraft download links are pinned to version %VERSION%. File sizes come from the official release and are shown in MiB.',
+    '这些 PhotoCraft 下载链接固定为 %VERSION% 版本。文件大小取自官方发布数据，按 MiB 显示。',
   ],
   'features.eyebrow': ['Inside the editor', '认识编辑器'],
   'features.title': [
@@ -380,50 +386,79 @@ const copy = {
     '帮助你了解这款图像编辑器，做出适合自己的选择。',
   ],
   'faq.officialLink': ['Visit the official project', '访问官方项目'],
-  'faq.free.q': ['Is PhotoCraft really free?', 'PhotoCraft 真的免费吗？'],
+  'faq.free.q': ['Is PhotoCraft free?', 'PhotoCraft 免费吗？'],
   'faq.free.a': [
-    'Yes. The app is open source under MIT or Apache-2.0, with no subscription. Bundled assets have their own licenses; check the project’s attribution file for details.',
-    '是的。应用代码采用 MIT 或 Apache-2.0 开源许可，无需订阅。内置素材可能采用单独许可，详情请查看项目的归属说明。',
+    'Yes. PhotoCraft is a free, open-source image editor, and the official standalone builds do not require a subscription. The project includes MIT and Apache-2.0 license files. Bundled fonts, artwork and other assets can have separate terms, so consult the project’s attribution files if you plan to redistribute them. You can start with one desktop installer; the ArtCraft Launcher is another installation option, not a purchase required to unlock the download links on this page.',
+    '是的。PhotoCraft 是免费开源图像编辑器，官方独立版本无需订阅。项目提供 MIT 和 Apache-2.0 许可文件；内置字体、图片等素材可能有各自条款，重新分发素材前应查阅项目归属说明。你可以直接选择一个桌面安装包，ArtCraft Launcher 是另一种安装方式，不是解锁本站下载链接所需的付费产品。',
+  ],
+  'faq.safe.q': ['Is PhotoCraft safe to download?', '下载 PhotoCraft 安全吗？'],
+  'faq.safe.a': [
+    'Use the official storytold/photocraft GitHub release or the ArtCraft product page. Our buttons link directly to those release files, without repackaging the installer. Before opening a file, confirm its name, version and architecture, then compare its SHA-256 value with the official checksum list. Keep your system’s security checks enabled. Our automated link check confirms availability and release metadata; it does not scan the software for malware or guarantee its behavior. An open-source license alone is not a security certification.',
+    '请使用官方 storytold/photocraft GitHub 发布页或 ArtCraft 产品页。本站按钮直接指向原始发布文件，不重新打包安装程序。打开文件前，确认名称、版本和处理器架构，并将 SHA-256 值与官方校验清单比较，同时保留系统安全检查。本站自动检查验证链接可用性及发布数据，不进行恶意软件扫描，也不保证软件行为；开源许可本身不等于安全认证。',
   ],
   'faq.psd.q': [
-    'Can I open and save Photoshop PSD files?',
-    '可以打开与保存 Photoshop PSD 文件吗？',
+    'Does PhotoCraft open PSD files?',
+    'PhotoCraft 能打开 PSD 文件吗？',
   ],
   'faq.psd.a': [
-    'PhotoCraft reads and writes layered PSD and PSB files. Complex documents can differ after re-saving, and files are not byte-identical. Keep your original and test a copy first.',
-    'PhotoCraft 支持分层 PSD 与 PSB 的读写。复杂文档重新保存后可能有差异，文件并非逐字节一致。建议保留原文件，先用副本测试。',
+    'The project documents reading and writing layered PSD and PSB files. That is useful when you want to try an existing image, but it does not promise identical handling of every Photoshop feature. Begin with a duplicate and inspect fonts, masks, effects and layer structure. Make a small change, save under a new name, then reopen the result in the application used for delivery. Keep the original file until you have checked the edited document and a flat reference export.',
+    '项目文档说明支持分层 PSD 与 PSB 的读写，方便你用现有图片试用，但不代表每项 Photoshop 功能都能完全一致地处理。先打开副本，检查字体、蒙版、效果及图层结构。做一个小修改后另存为新文件，再用实际交付的软件重新打开。确认编辑后的文档及平面参考图之前，请保留原文件。',
   ],
   'faq.replacement.q': [
-    'Can it replace Photoshop for my daily work?',
-    '目前能替代 Photoshop 日常工作吗？',
+    'PhotoCraft vs Photoshop: which should I download?',
+    'PhotoCraft vs Photoshop：应该下载哪个？',
   ],
   'faq.replacement.a': [
-    'It is still early alpha. The team explicitly says it is not yet a replacement for daily professional Photoshop work. Try small projects first, especially if you rely on plug-ins, typography or generative tools.',
-    '项目仍处于 early alpha。开发团队明确表示，尚不能替代 Photoshop 用于专业日常工作。建议先在小项目中试用，特别是依赖插件、专业排版或生成式工具时。',
+    'Try PhotoCraft if you want a free desktop editor, access to its source code or a native Linux build. If your work depends on a specific Adobe feature, plugin or team handoff, test that requirement before switching. A familiar interface and PSD support do not establish complete compatibility. Our dedicated comparison covers licensing, platforms and a practical migration test, so you can evaluate the workflow you actually use before making a commitment.',
+    '如果你想使用免费桌面编辑器、查看源码或在 Linux 原生运行，可以尝试 PhotoCraft。如果工作依赖特定 Adobe 功能、插件或团队交接要求，应先测试这些需求。熟悉的界面和 PSD 支持并不代表完整兼容。独立对比页整理了授权、平台差异和迁移检查方法，帮助你按实际工作流判断是否适用。',
+  ],
+  'faq.installer.q': [
+    'Which PhotoCraft installer should I choose?',
+    '应该选择哪个 PhotoCraft 安装包？',
+  ],
+  'faq.installer.a': [
+    'Match both your operating system and processor. Most Intel or AMD Windows PCs use x64, while Windows on ARM needs ARM64; the portable ZIP is an alternative to the MSI installer. The macOS Universal DMG covers the architectures listed by the project. On Linux, choose a matching AppImage or a package supported by your distribution. A CLI archive is intended for command-line use, so it is not the usual starting point for someone who wants the graphical editor. Check the architecture in your system settings if you are unsure.',
+    '安装包需要同时匹配系统与处理器。大多数 Intel 或 AMD Windows 电脑使用 x64，Windows on ARM 使用 ARM64；便携 ZIP 是 MSI 安装包之外的选择。macOS Universal DMG 对应项目列出的 Mac 架构。Linux 应选择匹配架构的 AppImage 或发行版支持的软件包。CLI 压缩包用于命令行，想使用图形界面时通常不选它。不确定架构时，先查看系统设置。',
   ],
   'faq.account.q': [
     'Do I need an account or internet connection?',
     '需要账号或网络连接吗？',
   ],
   'faq.account.a': [
-    'The standalone editor works locally and offline without an account. You need an internet connection to download the app and obtain updates.',
-    '独立编辑器在本地运行，可离线使用，无需账号。下载安装包与获取更新时需要网络连接。',
+    'The standalone editor is designed to run locally without an account. You need a connection to download its installer, consult online documentation and obtain updates. After installation, begin with a local image and confirm the editing and export tasks you need. The desktop package, ArtCraft Launcher and downloadable web build have different setup steps; choose the desktop installer if your goal is simply to edit files on your computer.',
+    '独立编辑器设计为无需账号在本地运行。下载安装包、查看在线文档及获取更新时需要网络。安装后可以先打开本地图片，检查所需的编辑与导出功能。桌面包、ArtCraft Launcher 与可下载的网页构建有不同的安装流程；如果只是想在电脑上编辑文件，请选择桌面安装包。',
+  ],
+  'faq.checksum.q': [
+    'How do I verify a downloaded file?',
+    '如何核对已下载的文件？',
+  ],
+  'faq.checksum.a': [
+    'Open SHA256SUMS.txt from the same official release as your installer and find the line with the exact filename. Calculate a SHA-256 checksum locally using Get-FileHash on Windows, shasum -a 256 on macOS or sha256sum on Linux. Compare the complete value, not just its beginning. If the values differ, do not run that copy: confirm you selected the matching release and download it again. A matching checksum helps verify file integrity; it does not replace checking the source or your system’s security controls.',
+    '打开与安装包同一官方版本的 SHA256SUMS.txt，找到完全相同文件名对应的一行。在 Windows 使用 Get-FileHash、macOS 使用 shasum -a 256、Linux 使用 sha256sum 计算本地 SHA-256，并比较完整数值。若不一致，先不要运行该副本，确认版本匹配后重新下载。校验一致有助于确认文件完整性，但不能替代来源核实和系统安全检查。',
   ],
   'faq.updates.q': [
     'Where can I download a newer PhotoCraft version?',
     '在哪里下载更新版本的 PhotoCraft？',
   ],
   'faq.updates.a': [
-    'Follow the latest official release link in the download section to check for a newer installer or release build. This guide lists version 0.7.0, so use that release page to confirm the version before downloading. ArtCraft also offers a launcher for installs and updates on the official PhotoCraft product page.',
-    '通过下载区的最新官方版本链接查找更新的安装包或发行文件。本指南列出 0.7.0 版本，下载前可到发布页确认版本。ArtCraft 也在官方 PhotoCraft 产品页提供管理安装与更新的启动器。',
+    'Use “Latest official release” above to see the current upstream release. This page lists version %VERSION%, with an automatic check timestamp beside the links. Our daily monitor checks for newer versions and missing files; a version change requires a review of the listed packages and installation instructions. Before installing an update, read its release notes and keep copies of ongoing projects. ArtCraft also offers a launcher for managing installations and updates from its official product page.',
+    '点击上方“最新官方版本”查看当前上游发布。本页列出 %VERSION% 版本，并在链接旁显示自动核对时间。每日巡检会检查新版本与文件缺失；升级版本前还需复核安装包及安装说明。安装更新前请阅读发布说明，并保留正在编辑的项目副本。ArtCraft 官方产品页还提供用于管理安装和更新的启动器。',
+  ],
+  'faq.failed.q': [
+    'What if a download or first launch fails?',
+    '下载或首次启动失败怎么办？',
+  ],
+  'faq.failed.a': [
+    'Retry from the official release page and check whether the file finished downloading. Confirm the operating system, architecture and available disk space before treating a launch error as an application bug. For Linux, also check executable permissions or the package’s required runtime. Keep the exact error message and version number when asking for help. Avoid changing file extensions, disabling security checks or trying an unrelated mirror as a shortcut. The Linux guide includes package-specific steps, while the app guide covers a simple first editing session.',
+    '先从官方发布页重试，确认文件已完整下载，并检查系统、处理器架构与可用磁盘空间。Linux 还需检查可执行权限或软件包所需运行时。求助时保留完整报错和版本号。不要通过改文件扩展名、关闭安全检查或使用不相关镜像来绕过问题。Linux 专题提供不同包格式的步骤，应用上手页则介绍第一次编辑流程。',
   ],
   'faq.official.q': [
     'Is this the official PhotoCraft website?',
     '这里是 PhotoCraft 官方网站吗？',
   ],
   'faq.official.a': [
-    'This is an independent download and getting-started guide. PhotoCraft is made by ArtCraft. We link to the official storytold/photocraft releases and are not affiliated with ArtCraft or Adobe.',
-    '本站是独立的下载与上手指南。PhotoCraft 由 ArtCraft 开发，本站链接至官方 storytold/photocraft 发布源，与 ArtCraft 或 Adobe 无隶属关系。',
+    'No. This is an independent download and getting-started guide. PhotoCraft is made by ArtCraft, and the download buttons lead to the official storytold/photocraft releases. We do not host modified installers or sell access to the software. For developer announcements, release notes and bug reports, use the official project. The guides linked here add installation explanations and workflow comparisons; they are not statements issued by ArtCraft or Adobe.',
+    '不是。本站是独立下载与上手指南。PhotoCraft 由 ArtCraft 开发，下载按钮指向官方 storytold/photocraft 发布源。本站不托管修改版安装包，也不出售软件访问资格。开发者公告、发布说明和问题反馈请以官方项目为准。本站专题提供安装解释与工作流比较，不代表 ArtCraft 或 Adobe 的官方声明。',
   ],
   'cta.eyebrow': ['The next idea is yours', '下一个创意，由你开始'],
   'cta.title': ['Make something your own.', '把灵感，变成你的作品。'],

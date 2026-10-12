@@ -16,6 +16,8 @@
 /dist/
 src/routeTree.gen.ts
 src/paraglide/
+src/generated/photocraft-release-check.json
+public/release-check.json
 
 # cloudflare — wrangler.jsonc is your working copy (real D1 id, URLs);
 # the committed template is wrangler.example.jsonc

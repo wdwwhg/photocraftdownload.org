@@ -1595,6 +1595,20 @@
   padding: 70px 0;
   background: #f0f2ea;
 }
+.pc-check-date a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pc-faq-guide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #a84325;
+  font-size: 13px;
+  margin: 0 0 20px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .pc-guide-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

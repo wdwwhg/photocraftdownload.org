@@ -33,7 +33,8 @@ import { guideSlugs } from './guides';
 
 import '@/styles/photocraft.css';
 
-const t = (key: string) => tDynamic(`photocraft.${key}`);
+const t = (key: string) =>
+  tDynamic(`photocraft.${key}`).replaceAll('%VERSION%', release.version);
 const platformNames = { windows: 'Windows', macos: 'macOS', linux: 'Linux' };
 
 function PlatformIcon({ platform }: { platform: Platform }) {
@@ -126,7 +127,26 @@ export function PhotoCraftHome() {
     { key: 'native', icon: Sparkles },
   ];
   const activeBuild = builds[platform][0];
-  const faqKeys = ['free', 'psd', 'account', 'updates', 'official'];
+  const faqKeys = [
+    'free',
+    'safe',
+    'psd',
+    'replacement',
+    'installer',
+    'account',
+    'checksum',
+    'updates',
+    'failed',
+    'official',
+  ];
+  const faqGuides: Record<string, string> = {
+    free: 'photocraft-open-source',
+    psd: 'photocraft-vs-photoshop',
+    replacement: 'photocraft-vs-photoshop',
+    installer: 'photocraft-linux',
+    account: 'photocraft-app',
+    failed: 'photocraft-linux',
+  };
 
   return (
     <div className="pc-site" id="top">
@@ -383,8 +403,19 @@ export function PhotoCraftHome() {
             </div>
           </div>
           <p className="pc-check-date">
-            {t('downloads.checked')} {release.checked}.{' '}
-            {t('downloads.updateNote')}
+            {t('downloads.checked')}{' '}
+            <time dateTime={release.checked}>
+              {release.checked.slice(0, 16).replace('T', ' ')} UTC
+            </time>
+            . {t('downloads.updateNote')}
+          </p>
+          <p className="pc-check-date">
+            {t('downloads.checkMethod')}{' '}
+            <OutLink href="/release-check.json">
+              {t('downloads.report')}
+            </OutLink>
+            {' · '}
+            <OutLink href={release.monitor}>{t('downloads.monitor')}</OutLink>
           </p>
         </section>
 
@@ -598,6 +629,15 @@ export function PhotoCraftHome() {
                   </span>
                 </summary>
                 <p>{t(`faq.${key}.a`)}</p>
+                {faqGuides[key] && (
+                  <Link
+                    className="pc-faq-guide-link"
+                    href={`/${faqGuides[key]}`}
+                  >
+                    {t(`guides.${faqGuides[key]}.title`)}{' '}
+                    <ArrowUpRight size={14} />
+                  </Link>
+                )}
               </details>
             ))}
           </div>

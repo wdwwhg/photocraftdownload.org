@@ -1,0 +1,39 @@
+name: Check PhotoCraft release links
+
+on:
+  schedule:
+    - cron: '23 2 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/photocraft-release.json'
+      - 'scripts/check-release-links*'
+      - '.github/workflows/check-release-links.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test failure handling
+        run: node --test scripts/check-release-links.test.mjs
+      - name: Verify latest release and every download
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-release-links.mjs
+      - name: Save successful check report
+        uses: actions/upload-artifact@v4
+        with:
+          name: photocraft-release-check
+          path: artifacts/release-check.json
+          retention-days: 30

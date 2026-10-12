@@ -1,0 +1,107 @@
+{
+  "version": "0.7.0",
+  "repository": "storytold/photocraft",
+  "builds": {
+    "windows": [
+      {
+        "name": "MSI",
+        "file": "photocraft-{version}-windows-x64.msi",
+        "architecture": "x64"
+      },
+      {
+        "name": "Portable ZIP",
+        "file": "photocraft-{version}-windows-x64-portable.zip",
+        "architecture": "x64"
+      },
+      {
+        "name": "MSI",
+        "file": "photocraft-{version}-windows-arm64.msi",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "Portable ZIP",
+        "file": "photocraft-{version}-windows-arm64-portable.zip",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "MSI",
+        "file": "photocraft-{version}-windows-x86.msi",
+        "architecture": "x86"
+      },
+      {
+        "name": "Portable ZIP",
+        "file": "photocraft-{version}-windows-x86-portable.zip",
+        "architecture": "x86"
+      }
+    ],
+    "macos": [
+      {
+        "name": "DMG",
+        "file": "photocraft-{version}-macos-universal.dmg",
+        "architecture": "Universal"
+      },
+      {
+        "name": "CLI ZIP",
+        "file": "photocraft-cli-{version}-macos-universal.zip",
+        "architecture": "Universal"
+      }
+    ],
+    "linux": [
+      {
+        "name": "AppImage",
+        "file": "photocraft-{version}-linux-x86_64.AppImage",
+        "architecture": "x86_64"
+      },
+      {
+        "name": "Flatpak",
+        "file": "photocraft-{version}-linux-x86_64.flatpak",
+        "architecture": "x86_64"
+      },
+      {
+        "name": "DEB",
+        "file": "photocraft-{version}-linux-x86_64.deb",
+        "architecture": "x86_64"
+      },
+      {
+        "name": "RPM",
+        "file": "photocraft-{version}-linux-x86_64.rpm",
+        "architecture": "x86_64"
+      },
+      {
+        "name": "tar.gz",
+        "file": "photocraft-{version}-linux-x86_64.tar.gz",
+        "architecture": "x86_64"
+      },
+      {
+        "name": "Flatpak",
+        "file": "photocraft-{version}-linux-aarch64.flatpak",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "DEB",
+        "file": "photocraft-{version}-linux-aarch64.deb",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "RPM",
+        "file": "photocraft-{version}-linux-aarch64.rpm",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "tar.gz",
+        "file": "photocraft-{version}-linux-aarch64.tar.gz",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "AppImage",
+        "file": "photocraft-{version}-linux-aarch64.AppImage",
+        "architecture": "ARM64"
+      },
+      {
+        "name": "tar.gz",
+        "file": "photocraft-{version}-linux-riscv64.tar.gz",
+        "architecture": "RISC-V 64"
+      }
+    ]
+  }
+}

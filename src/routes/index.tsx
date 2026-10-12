@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { release } from '@/components/photocraft/downloads';
 import { PhotoCraftHome } from '@/components/photocraft/home';
 
 function HomePage() {
@@ -57,15 +58,14 @@ export const Route = createFileRoute('/')({
               name: 'PhotoCraft',
               applicationCategory: 'DesignApplication',
               operatingSystem: 'Windows, macOS, Linux',
-              softwareVersion: '0.7.0',
+              softwareVersion: release.version,
               url: 'https://getartcraft.com/apps/photocraft',
               author: {
                 '@type': 'Organization',
                 name: 'ArtCraft',
                 url: 'https://getartcraft.com',
               },
-              license:
-                'https://github.com/storytold/photocraft/blob/v0.7.0/LICENSE-MIT',
+              license: `${release.repository}/blob/v${release.version}/LICENSE-MIT`,
               isAccessibleForFree: true,
             },
           }).replace(/</g, '\\u003c'),
