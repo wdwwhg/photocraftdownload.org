@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin
+Disallow: /settings
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /pricing
+Disallow: /blog
+Disallow: /privacy-policy
+Disallow: /terms-of-service
+Disallow: /zh/api/
+Disallow: /zh/admin
+Disallow: /zh/settings
+Disallow: /zh/sign-in
+Disallow: /zh/sign-up
+Disallow: /zh/pricing
+Disallow: /zh/blog
+Disallow: /zh/privacy-policy
+Disallow: /zh/terms-of-service
+
+Sitemap: https://photocraftdownload.org/sitemap.xml

@@ -1,0 +1,712 @@
+import { useEffect, useState, type ReactNode } from 'react';
+import {
+  Aperture,
+  ArrowDown,
+  ArrowDownToLine,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  CheckCheck,
+  ChevronDown,
+  Code2,
+  Copy,
+  ExternalLink,
+  Github,
+  Layers3,
+  Menu,
+  Monitor,
+  MousePointer2,
+  Palette,
+  ShieldCheck,
+  Sparkles,
+  X,
+} from 'lucide-react';
+
+import { tDynamic } from '@/core/i18n/dynamic';
+import { envConfigs } from '@/config';
+import { getLocale, localizeHref } from '@/paraglide/runtime.js';
+
+import { builds, linuxCommand, release, type Platform } from './downloads';
+
+import '@/styles/photocraft.css';
+
+const t = (key: string) => tDynamic(`photocraft.${key}`);
+const platformNames = { windows: 'Windows', macos: 'macOS', linux: 'Linux' };
+
+function PlatformIcon({ platform }: { platform: Platform }) {
+  if (platform === 'windows')
+    return (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M2 3h9v8H2zm11 0h9v8h-9zM2 13h9v8H2zm11 0h9v8h-9z" />
+      </svg>
+    );
+  if (platform === 'macos')
+    return (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M16.9 12.7c0-2 1.6-3 1.7-3.1-1-1.4-2.5-1.6-3-1.6-1.3-.1-2.6.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.5 0-2.9.9-3.7 2.2-1.6 2.7-.4 6.8 1.1 9 .7 1.1 1.6 2.2 2.7 2.1 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 2-1.1 2.7-2.1.9-1.3 1.3-2.5 1.3-2.6-.1 0-2.4-.9-2.4-3.9ZM14.7 6.5c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.2 1.8-1.1 2.9 1.1.1 2.2-.6 2.9-1.3Z" />
+      </svg>
+    );
+  return <Monitor aria-hidden="true" />;
+}
+function Brand() {
+  return (
+    <a className="pc-brand" href="#top" aria-label={envConfigs.app_name}>
+      <span className="pc-brand-icon">
+        <Aperture strokeWidth={1.8} />
+      </span>
+      <span>
+        {envConfigs.app_name}
+        <small>{t('brand.tag')}</small>
+      </span>
+    </a>
+  );
+}
+function OutLink({
+  href,
+  children,
+  className = '',
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <a
+      href={href}
+      className={className}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {children}
+    </a>
+  );
+}
+
+export function PhotoCraftHome() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [platform, setPlatform] = useState<Platform>('windows');
+  const [detected, setDetected] = useState<Platform | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
+  const locale = getLocale();
+  useEffect(() => {
+    const agent = navigator.userAgent;
+    const current = /Macintosh|Mac OS X/.test(agent)
+      ? 'macos'
+      : /Linux/.test(agent) && !/Android/.test(agent)
+        ? 'linux'
+        : /Windows/.test(agent)
+          ? 'windows'
+          : null;
+    setDetected(current);
+    if (current) setPlatform(current);
+  }, []);
+  useEffect(() => {
+    if (!copied) return;
+    const timeout = window.setTimeout(() => setCopied(false), 2500);
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+  const copyCommand = async () => {
+    try {
+      await navigator.clipboard.writeText(linuxCommand);
+      setCopied(true);
+      setCopyFailed(false);
+    } catch {
+      setCopyFailed(true);
+    }
+  };
+  const nav = ['downloads', 'install', 'features', 'compare'];
+  const featureItems = [
+    { key: 'layers', icon: Layers3 },
+    { key: 'psd', icon: Code2 },
+    { key: 'color', icon: Palette },
+    { key: 'native', icon: Sparkles },
+  ];
+  const activeBuild = builds[platform][0];
+  const faqKeys = [
+    'free',
+    'psd',
+    'replacement',
+    'account',
+    'updates',
+    'official',
+  ];
+
+  return (
+    <div className="pc-site" id="top">
+      <a className="pc-skip" href="#main">
+        {t('skip')}
+      </a>
+      <div className="pc-announcement">
+        <span className="pc-status-dot" />
+        <span>{t('announcement')}</span>
+        <OutLink href={release.notes}>
+          v{release.version}
+          <ArrowUpRight size={12} />
+        </OutLink>
+      </div>
+      <header className="pc-header pc-wrap">
+        <Brand />
+        <nav className="pc-desktop-nav" aria-label={t('nav.label')}>
+          {nav.map((item) => (
+            <a key={item} href={`#${item}`}>
+              {t(`nav.${item}`)}
+            </a>
+          ))}
+        </nav>
+        <div className="pc-header-actions">
+          <OutLink className="pc-github" href={release.repository}>
+            <Github size={18} />
+            <span>GitHub</span>
+            <ArrowUpRight size={12} />
+          </OutLink>
+          <a
+            className="pc-language"
+            href={localizeHref('/', { locale: locale === 'en' ? 'zh' : 'en' })}
+            hrefLang={locale === 'en' ? 'zh' : 'en'}
+          >
+            {locale === 'en' ? '中文' : 'EN'}
+          </a>
+          <button
+            className="pc-menu-button"
+            aria-label={mobileOpen ? t('nav.close') : t('nav.open')}
+            aria-expanded={mobileOpen}
+            aria-controls="pc-mobile-nav"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X /> : <Menu />}
+          </button>
+        </div>
+      </header>
+      {mobileOpen && (
+        <nav
+          id="pc-mobile-nav"
+          className="pc-mobile-nav"
+          aria-label={t('nav.label')}
+        >
+          {nav.map((item) => (
+            <a
+              key={item}
+              href={`#${item}`}
+              onClick={() => setMobileOpen(false)}
+            >
+              {t(`nav.${item}`)}
+              <ArrowUpRight size={16} />
+            </a>
+          ))}
+        </nav>
+      )}
+      <main id="main">
+        <section className="pc-hero pc-wrap">
+          <div className="pc-hero-copy">
+            <div className="pc-eyebrow">
+              <span className="pc-tiny-cross">✳</span>
+              {t('hero.eyebrow')}
+            </div>
+            <h1>
+              {t('hero.title1')}
+              <br />
+              <span>{t('hero.title2')}</span>
+            </h1>
+            <p className="pc-hero-description">{t('hero.description')}</p>
+            <div className="pc-hero-cta">
+              <a href="#downloads" className="pc-button pc-button-orange">
+                <ArrowDownToLine size={18} />
+                {t('hero.download')}
+                <ArrowRight size={18} />
+              </a>
+              <a className="pc-text-link" href="#features">
+                {t('hero.explore')}
+                <ArrowUpRight size={16} />
+              </a>
+            </div>
+            <div className="pc-hero-platforms">
+              <span>
+                <PlatformIcon platform="windows" />
+                Windows
+              </span>
+              <span>
+                <PlatformIcon platform="macos" />
+                macOS
+              </span>
+              <span>
+                <PlatformIcon platform="linux" />
+                Linux
+              </span>
+              <i />
+              {t('hero.noSubscription')}
+            </div>
+          </div>
+          <div className="pc-hero-visual">
+            <div className="pc-visual-grid" />
+            <div className="pc-editor-frame">
+              <div className="pc-window-bar">
+                <span className="pc-window-dots">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span>PhotoCraft — The Great Wave.psd</span>
+                <span className="pc-live-label">{t('hero.realInterface')}</span>
+              </div>
+              <img
+                src="/imgs/photocraft/interface.jpg"
+                alt={t('images.interface')}
+                width="1600"
+                height="1000"
+                fetchPriority="high"
+              />
+            </div>
+            <div className="pc-psd-note">
+              <span className="pc-file-icon">PSD</span>
+              <div>
+                <strong>{t('hero.psdTitle')}</strong>
+                <small>{t('hero.psdText')}</small>
+              </div>
+              <Check className="pc-note-check" size={18} />
+            </div>
+            <div className="pc-visual-caption">
+              <span className="pc-caption-line" />
+              {t('hero.caption')}
+              <OutLink
+                href={`${release.repository}/blob/v0.7.0/docs/images/photocraft-demo.jpg`}
+              >
+                <ArrowUpRight size={13} />
+                <span className="pc-sr-only">{t('features.imageSource')}</span>
+              </OutLink>
+            </div>
+          </div>
+        </section>
+        <div className="pc-proof-strip">
+          <div className="pc-wrap">
+            <span>
+              <Code2 />
+              {t('proof.open')}
+            </span>
+            <span>
+              <Layers3 />
+              {t('proof.psd')}
+            </span>
+            <span>
+              <ShieldCheck />
+              {t('proof.offline')}
+            </span>
+            <span>
+              <Monitor />
+              {t('proof.platforms')}
+            </span>
+          </div>
+        </div>
+
+        <section className="pc-download-section pc-wrap" id="downloads">
+          <div className="pc-section-heading">
+            <div>
+              <div className="pc-eyebrow">01 / {t('downloads.eyebrow')}</div>
+              <h2>{t('downloads.title')}</h2>
+              <p>{t('downloads.description')}</p>
+            </div>
+            <div className="pc-version-chip">
+              <span className="pc-status-dot" />v{release.version}
+              <span>Early alpha</span>
+            </div>
+          </div>
+          <div className="pc-download-grid">
+            {(['windows', 'macos', 'linux'] as const).map((os) => (
+              <article
+                className={`pc-download-card ${detected === os ? 'pc-recommended' : ''}`}
+                key={os}
+              >
+                <div className="pc-card-top">
+                  <span className="pc-os-icon">
+                    <PlatformIcon platform={os} />
+                  </span>
+                  {detected === os ? (
+                    <span className="pc-recommend-tag">
+                      {t('downloads.detected')}
+                    </span>
+                  ) : (
+                    <span className="pc-card-number">
+                      {os === 'windows' ? '01' : os === 'macos' ? '02' : '03'}
+                    </span>
+                  )}
+                </div>
+                <h3>{platformNames[os]}</h3>
+                <p>{t(`downloads.${os}.subtitle`)}</p>
+                <div className="pc-build-info">
+                  <span>{t(`downloads.${os}.format`)}</span>
+                  <span>{builds[os][0].size}</span>
+                </div>
+                <a
+                  className={`pc-button pc-download-button ${detected === os ? 'pc-button-orange' : 'pc-button-dark'}`}
+                  href={release.base + builds[os][0].file}
+                >
+                  <ArrowDownToLine size={17} />
+                  {t('downloads.button')} {platformNames[os]}
+                  <ArrowUpRight size={15} />
+                </a>
+                <a
+                  className="pc-install-link"
+                  href="#install"
+                  onClick={() => setPlatform(os)}
+                >
+                  {t('downloads.install')}
+                  <ArrowRight size={14} />
+                </a>
+                <details className="pc-build-details">
+                  <summary>
+                    {t('downloads.more')}
+                    <ChevronDown size={14} />
+                  </summary>
+                  <div>
+                    {builds[os].slice(1).map((build) => (
+                      <a href={release.base + build.file} key={build.file}>
+                        <span>
+                          {build.name}
+                          <small>{build.architecture}</small>
+                        </span>
+                        <ArrowDownToLine size={14} />
+                      </a>
+                    ))}
+                  </div>
+                </details>
+              </article>
+            ))}
+          </div>
+          <div className="pc-download-footer">
+            <span>
+              <ShieldCheck size={15} />
+              {t('downloads.original')}
+            </span>
+            <div>
+              <OutLink href={release.base + 'SHA256SUMS.txt'}>
+                {t('downloads.checksum')}
+                <ExternalLink size={12} />
+              </OutLink>
+              <OutLink href={release.latest}>
+                {t('downloads.releases')}
+                <ExternalLink size={12} />
+              </OutLink>
+            </div>
+          </div>
+          <p className="pc-check-date">
+            {t('downloads.checked')} {release.checked}.{' '}
+            {t('downloads.updateNote')}
+          </p>
+        </section>
+
+        <section className="pc-feature-section" id="features">
+          <div className="pc-wrap">
+            <div className="pc-section-heading">
+              <div>
+                <div className="pc-eyebrow">02 / {t('features.eyebrow')}</div>
+                <h2>{t('features.title')}</h2>
+              </div>
+              <p className="pc-heading-aside">{t('features.description')}</p>
+            </div>
+            <div className="pc-feature-showcase">
+              <figure className="pc-feature-image">
+                <img
+                  src="/imgs/photocraft/adjustments.jpg"
+                  alt={t('images.adjustments')}
+                  width="1600"
+                  height="1000"
+                  loading="lazy"
+                />
+                <figcaption>
+                  <span>{t('features.imageCaption')}</span>
+                  <OutLink
+                    href={`${release.repository}/blob/v0.7.0/docs/images/photocraft-adjustments.jpg`}
+                  >
+                    {t('features.imageSource')}
+                    <ArrowUpRight size={13} />
+                  </OutLink>
+                </figcaption>
+              </figure>
+              <div className="pc-feature-list">
+                {featureItems.map(({ key, icon: Icon }, i) => (
+                  <article key={key}>
+                    <span className="pc-feature-icon">
+                      <Icon size={20} />
+                    </span>
+                    <div>
+                      <span className="pc-feature-index">0{i + 1}</span>
+                      <h3>{t(`features.${key}.title`)}</h3>
+                      <p>{t(`features.${key}.description`)}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <div className="pc-interface-guide">
+              <span className="pc-guide-label">
+                <MousePointer2 size={16} />
+                {t('interface.title')}
+              </span>
+              {['toolbar', 'canvas', 'panels'].map((item, i) => (
+                <p key={item}>
+                  <b>
+                    0{i + 1} — {t(`interface.${item}.title`)}
+                  </b>
+                  <span>{t(`interface.${item}.description`)}</span>
+                </p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="pc-install-section pc-wrap" id="install">
+          <div className="pc-section-heading">
+            <div>
+              <div className="pc-eyebrow">03 / {t('install.eyebrow')}</div>
+              <h2>{t('install.title')}</h2>
+              <p>{t('install.description')}</p>
+            </div>
+            <div
+              className="pc-tabs"
+              role="tablist"
+              aria-label={t('install.tabs')}
+            >
+              {(['windows', 'macos', 'linux'] as const).map((os) => (
+                <button
+                  id={`tab-${os}`}
+                  aria-selected={platform === os}
+                  aria-controls="pc-install-panel"
+                  role="tab"
+                  tabIndex={platform === os ? 0 : -1}
+                  className={platform === os ? 'pc-active-tab' : ''}
+                  key={os}
+                  onClick={() => setPlatform(os)}
+                  onKeyDown={(event) => {
+                    const options: Platform[] = ['windows', 'macos', 'linux'];
+                    const index = options.indexOf(os);
+                    const next =
+                      event.key === 'ArrowRight'
+                        ? options[(index + 1) % 3]
+                        : event.key === 'ArrowLeft'
+                          ? options[(index + 2) % 3]
+                          : event.key === 'Home'
+                            ? options[0]
+                            : event.key === 'End'
+                              ? options[2]
+                              : null;
+                    if (next) {
+                      event.preventDefault();
+                      setPlatform(next);
+                      document.getElementById(`tab-${next}`)?.focus();
+                    }
+                  }}
+                >
+                  <PlatformIcon platform={os} />
+                  {platformNames[os]}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div
+            id="pc-install-panel"
+            role="tabpanel"
+            aria-labelledby={`tab-${platform}`}
+            tabIndex={0}
+          >
+            <div className="pc-steps">
+              {[1, 2, 3].map((step) => (
+                <article key={`${platform}-${step}`}>
+                  <span className="pc-step-number">0{step}</span>
+                  <h3>{t(`install.${platform}.${step}.title`)}</h3>
+                  <p>{t(`install.${platform}.${step}.text`)}</p>
+                  {step === 1 && (
+                    <a href={release.base + activeBuild.file}>
+                      {t('install.getFile')}
+                      <ArrowDownToLine size={13} />
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+            {platform === 'linux' && (
+              <div className="pc-terminal">
+                <div>
+                  <span>{t('install.command')}</span>
+                  <button onClick={copyCommand}>
+                    {copied ? <CheckCheck size={15} /> : <Copy size={15} />}
+                    {copied ? t('install.copied') : t('install.copy')}
+                  </button>
+                </div>
+                <pre>
+                  <code>{linuxCommand}</code>
+                </pre>
+                <span className="pc-copy-status" role="status">
+                  {copyFailed
+                    ? t('install.copyFailed')
+                    : copied
+                      ? t('install.copied')
+                      : ''}
+                </span>
+              </div>
+            )}
+            <div className="pc-install-tip">
+              <ShieldCheck size={18} />
+              <p>
+                <strong>{t('install.tip')}</strong>{' '}
+                {t(`install.${platform}.tip`)}
+              </p>
+            </div>
+          </div>
+          <div className="pc-first-edit">
+            <div>
+              <span className="pc-eyebrow">{t('firstEdit.eyebrow')}</span>
+              <h3>{t('firstEdit.title')}</h3>
+            </div>
+            <p>{t('firstEdit.text')}</p>
+            <OutLink className="pc-text-link" href={release.docs}>
+              {t('firstEdit.docs')}
+              <ArrowUpRight size={16} />
+            </OutLink>
+          </div>
+        </section>
+
+        <section className="pc-comparison-section" id="compare">
+          <div className="pc-wrap">
+            <div className="pc-section-heading">
+              <div>
+                <div className="pc-eyebrow">04 / {t('compare.eyebrow')}</div>
+                <h2>{t('compare.title')}</h2>
+              </div>
+              <p className="pc-heading-aside">{t('compare.description')}</p>
+            </div>
+            <div className="pc-table-scroll">
+              <table className="pc-table">
+                <caption className="pc-sr-only">{t('compare.title')}</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">{t('compare.feature')}</th>
+                    <th scope="col">
+                      <span className="pc-table-brand">
+                        <Aperture size={19} />
+                        PhotoCraft
+                      </span>
+                      <span className="pc-table-tag">{t('compare.open')}</span>
+                    </th>
+                    <th scope="col">Adobe Photoshop</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    'cost',
+                    'systems',
+                    'psd',
+                    'editing',
+                    'ai',
+                    'plugins',
+                    'maturity',
+                  ].map((key) => (
+                    <tr key={key}>
+                      <th scope="row">{t(`compare.${key}.label`)}</th>
+                      <td>
+                        {['psd', 'editing'].includes(key) && (
+                          <Check size={14} />
+                        )}
+                        {t(`compare.${key}.pc`)}
+                      </td>
+                      <td>{t(`compare.${key}.ps`)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="pc-comparison-note">
+              <span>{t('compare.note')}</span>
+              <div>
+                <OutLink href={release.repository}>
+                  {t('compare.pcSource')}
+                  <ArrowUpRight size={12} />
+                </OutLink>
+                <OutLink href="https://www.adobe.com/products/photoshop.html">
+                  {t('compare.psSource')}
+                  <ArrowUpRight size={12} />
+                </OutLink>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pc-faq-section pc-wrap" id="faq">
+          <div>
+            <div className="pc-eyebrow">05 / {t('faq.eyebrow')}</div>
+            <h2>{t('faq.title')}</h2>
+            <p>{t('faq.description')}</p>
+            <OutLink className="pc-text-link" href={release.product}>
+              {t('faq.officialLink')}
+              <ArrowUpRight size={16} />
+            </OutLink>
+          </div>
+          <div className="pc-faq-list">
+            {faqKeys.map((key) => (
+              <details key={key}>
+                <summary>
+                  {t(`faq.${key}.q`)}
+                  <span>
+                    <ChevronDown size={18} />
+                  </span>
+                </summary>
+                <p>{t(`faq.${key}.a`)}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="pc-bottom-cta pc-wrap">
+          <span className="pc-cta-aperture">
+            <Aperture strokeWidth={1} />
+          </span>
+          <div>
+            <div className="pc-eyebrow">{t('cta.eyebrow')}</div>
+            <h2>{t('cta.title')}</h2>
+            <p>{t('cta.description')}</p>
+          </div>
+          <a className="pc-button pc-button-dark" href="#downloads">
+            {t('hero.download')}
+            <ArrowDownToLine size={19} />
+          </a>
+        </section>
+      </main>
+      <footer className="pc-footer pc-wrap">
+        <div className="pc-footer-main">
+          <div>
+            <Brand />
+            <p>{t('footer.independent')}</p>
+          </div>
+          <div className="pc-footer-links">
+            <a href="#downloads">{t('nav.downloads')}</a>
+            <a href="#install">{t('nav.install')}</a>
+            <a href="#faq">FAQ</a>
+            <OutLink href={release.repository}>
+              GitHub
+              <ArrowUpRight size={12} />
+            </OutLink>
+            <OutLink href={release.product}>
+              ArtCraft
+              <ArrowUpRight size={12} />
+            </OutLink>
+          </div>
+        </div>
+        <div className="pc-footer-bottom">
+          <span>
+            © 2026 {envConfigs.app_name}. {t('footer.disclaimer')}
+          </span>
+          <span>
+            {t('footer.credit')}
+            <OutLink href={`${release.repository}/blob/v0.7.0/README.md`}>
+              ArtCraft
+              <ArrowUpRight size={11} />
+            </OutLink>
+          </span>
+          <a href="#top">
+            {t('footer.top')}
+            <ArrowDown size={12} className="pc-up-arrow" />
+          </a>
+        </div>
+      </footer>
+    </div>
+  );
+}
