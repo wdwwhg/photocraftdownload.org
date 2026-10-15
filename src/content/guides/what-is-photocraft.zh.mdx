@@ -1,0 +1,58 @@
+export const meta = {
+  title: 'PhotoCraft 是什么？功能、格式与项目状态',
+  heading: 'PhotoCraft 是什么？',
+  description:
+    '了解 ArtCraft 的免费开源图像编辑器 PhotoCraft，认识图层、PSD、桌面与网页构建，以及早期 Alpha 的适用边界。',
+  category: '基础认识',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    '图像编辑器能做什么',
+    '支持哪些文件',
+    '桌面、网页和启动器',
+    '与 Photoshop 和 Adobe 的关系',
+    '免费与开源',
+    '初学者下一步',
+    '来源',
+  ],
+};
+
+PhotoCraft 是 ArtCraft 家族中的免费开源图像编辑器，使用 Rust 编写，围绕图层编辑照片与合成图片。官方源码为 [storytold/photocraft](https://github.com/storytold/photocraft)。本页不涉及其他同名服务或研究项目。
+
+v0.8.2 README 标注早期 Alpha，并明确说明尚不能替代日常专业 Photoshop 工作。功能入口广泛与生产成熟度是不同问题。
+
+## 图像编辑器能做什么
+
+分层编辑将照片、标题和颜色调整分别保存，便于独立修改。蒙版控制图层或调整的可见区域，不必直接擦除原图。文档还列出画笔、选择、形状、图层效果和可编辑文字。[教程](/photocraft-tutorial)通过照片文字卡片演示这些概念。
+
+## 支持哪些文件
+
+版本 README 列出 PSD、PSB、原生 .pcraft、PNG 和 JPEG 等格式。少见格式的读写边界及可选编译特性，应查对应版本能力表。
+
+分层工作文件用于继续编辑，平面导出用于交付。可以打开 PSD 不等于所有特效、字体或插件对象都能完全编辑并保存，参见[Photoshop 交接检查](/photocraft-vs-photoshop)。
+
+## 桌面、网页和启动器
+
+官方提供多平台桌面包与浏览器静态构建。普通用户可从[下载页](/)选择现成包，不需要 Rust 编译器。GitHub 源码压缩包用于开发，不是安装器。
+
+ArtCraft Launcher 用于管理家族应用。Web ZIP 需要托管静态文件，不是桌面安装器；文档中的浏览器版没有服务器文档存储或网页自动保存，参见[网页版说明](/photocraft-web)。
+
+## 与 Photoshop 和 Adobe 的关系
+
+项目独立，README 明确排除 Adobe 关联、赞助与背书。熟悉术语和 PSD 支持不代表 Adobe 官方产品，也不保证行为完全一致。
+
+需要替换具体流程时，先记录可编辑性、视觉一致性和接收应用，再进行实际文件测试。
+
+## 免费与开源
+
+仓库标注 MIT OR Apache-2.0，并附相应授权文本。这提供有条件的源码使用权，不是仅限短期试用，也不授予所有照片、字体或外部服务的权利。[免费说明](/photocraft-free)、[开源指南](/photocraft-open-source)及 [Rust 指南](/photocraft-rust)分别处理这些问题。
+
+## 初学者下一步
+
+确认官方身份，选择对应平台包，在小图片副本上完成保存、重开和导出，然后练习一个范围明确的项目。采用决策参见[文档评测](/photocraft-review)，只将使用范围扩大到自己已验证的任务。
+
+## 来源
+
+- [v0.8.2 README](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [官方产品页](https://getartcraft.com/apps/photocraft)
+- [浏览器限制](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import { m } from '@/paraglide/messages.js';
 import { getLocale } from '@/paraglide/runtime.js';
@@ -7,6 +7,9 @@ import { Header } from '@/blocks/header';
 import { Pricing } from '@/blocks/pricing';
 
 export const Route = createFileRoute('/pricing')({
+  beforeLoad: () => {
+    throw redirect({ to: '/', hash: 'downloads' });
+  },
   loader: () => {
     const locale = getLocale();
     return {

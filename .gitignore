@@ -44,6 +44,8 @@ wrangler.jsonc
 *.pem
 
 # debug
+/output/playwright/
+/.playwright-cli/
 /artifacts/
 /.seo-cache/
 .official-assets-check.txt

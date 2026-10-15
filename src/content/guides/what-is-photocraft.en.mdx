@@ -1,0 +1,64 @@
+export const meta = {
+  title: 'What Is PhotoCraft? Features, Formats and Project Status',
+  heading: 'What Is PhotoCraft?',
+  description:
+    'PhotoCraft is an open-source ArtCraft image editor. Learn what layers, PSD support, desktop and web builds mean, and where the early-alpha limits apply.',
+  category: 'Getting started',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'What does an image editor do?',
+    'What files can it work with?',
+    'Desktop app, web build and launcher',
+    'Is it Photoshop or an Adobe product?',
+    'Is it free and open source?',
+    'Where should a beginner start?',
+    'Sources',
+  ],
+};
+
+PhotoCraft is a free, open-source image editor in the ArtCraft family. It is written in Rust and offers a layer-based workflow for editing photographs and composing images. Its official repository is [storytold/photocraft](https://github.com/storytold/photocraft). This page concerns that application, rather than unrelated services or research with a similar name.
+
+The v0.8.2 README describes an early-alpha project. It documents many familiar editing features, but also states that PhotoCraft is not yet a replacement for daily professional Photoshop work. That combination matters: the application has a broad feature surface, while readiness still depends on the particular task and document.
+
+## What does an image editor do?
+
+A layer-based editor separates parts of a composition so they can be revised independently. A photograph can occupy one layer, a title another, and a color adjustment a third. A mask controls where a layer or adjustment appears without requiring you to erase the original photograph.
+
+PhotoCraft's documented features include those building blocks, along with brushes, selections, shape tools, layer effects and editable type. A practical first project is a photo caption card. The [PhotoCraft tutorial](/photocraft-tutorial) explains how to keep its image, adjustment and text separate, then save both a working document and a final image.
+
+## What files can it work with?
+
+The versioned README lists PSD and PSB support, the native .pcraft format and multiple flat image formats, including PNG and JPEG. It also describes other import and export capabilities whose boundaries depend on the format and build features. Consult the versioned capability documentation before assuming that an uncommon format can be both read and written.
+
+A layered working document and a flat export serve different purposes. The working document preserves editing structure where supported; the export is a picture for delivery. Opening a PSD does not prove that every specialized effect, font or plugin-generated element can be edited or saved identically. The [Photoshop comparison](/photocraft-vs-photoshop) provides a handoff checklist.
+
+## Desktop app, web build and launcher
+
+Official release assets provide desktop packages for several operating systems and a static browser build. Most users who want to install the editor should choose a package from the [download page](/), not the GitHub source archive. Compiling Rust is a developer option rather than a requirement for those packages.
+
+The ArtCraft Launcher is a separate way to manage applications in the family. The web ZIP contains files to host and runs the editor in a browser. It is not a desktop installer, and the documented browser build does not provide server-side document storage or web autosave. See [PhotoCraft Web](/photocraft-web) for those distinctions.
+
+## Is it Photoshop or an Adobe product?
+
+PhotoCraft is independent. Its README explicitly disclaims affiliation, sponsorship and endorsement by Adobe. Familiar terminology and PSD workflows explain the intended editing model; they do not make it an official Adobe product or guarantee complete Photoshop behavior.
+
+If you need a particular Adobe workflow, evaluate the actual required operations rather than searching for a one-to-one replacement label. Record what must remain editable, what must render identically and which receiving application will open the final document. Those requirements create a useful test rather than an abstract comparison.
+
+## Is it free and open source?
+
+The repository identifies its software license as MIT OR Apache-2.0 and includes the corresponding license texts. That provides source access under the documented terms, rather than merely a temporary free trial. It does not supply rights to every photograph, font or external service used in an editing project.
+
+The [PhotoCraft Free guide](/photocraft-free) separates software availability from other possible costs. The [open-source guide](/photocraft-open-source) covers license and contribution questions, while [PhotoCraft Rust](/photocraft-rust) covers implementation and building.
+
+## Where should a beginner start?
+
+Confirm the official product identity, choose the package for your system and work on a copy of a small image. Complete a save, reopen and export check before using a complex document. Then follow a bounded project such as the caption-card tutorial.
+
+For an adoption decision, read the [documentation-based review](/photocraft-review). Keep the early-alpha status in view and expand use only after the tasks you need pass your own checks. This makes “What is PhotoCraft?” a practical answer: an available image-editing project with documented capabilities and version-specific limits, rather than a promise that every existing workflow transfers unchanged.
+
+## Sources
+
+- [PhotoCraft v0.8.2 README](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [Official ArtCraft product page](https://getartcraft.com/apps/photocraft)
+- [v0.8.2 browser limitations](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)

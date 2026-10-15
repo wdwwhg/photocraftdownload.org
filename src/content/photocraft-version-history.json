@@ -1,0 +1,182 @@
+{
+  "checkedAt": "2026-10-15T12:45:21.611Z",
+  "timeZone": "Asia/Singapore",
+  "releases": [
+    {
+      "version": "0.9.0",
+      "publishedAt": "2026-10-14T16:36:26Z",
+      "releaseUrl": "https://github.com/storytold/photocraft/releases/tag/v0.9.0",
+      "compareUrl": "https://github.com/storytold/photocraft/compare/v0.8.2...v0.9.0",
+      "summary": {
+        "en": "Photoshop Actions files, updated system printing and grayscale export fixes.",
+        "zh": "支持 Photoshop 动作文件，更新系统打印，修复灰度图片导出。"
+      },
+      "changes": [
+        {
+          "en": "Read and write Photoshop Actions (.atn) files.",
+          "zh": "可读取和保存 Photoshop 动作文件（.atn）。",
+          "source": "https://github.com/storytold/photocraft/pull/4434"
+        },
+        {
+          "en": "Update the handling of system print jobs.",
+          "zh": "更新系统打印流程。",
+          "source": "https://github.com/storytold/photocraft/pull/3872"
+        },
+        {
+          "en": "Preserve grayscale appearance when exporting without a color profile.",
+          "zh": "修复无色彩配置文件导出时的灰度外观。",
+          "source": "https://github.com/storytold/photocraft/pull/3978"
+        }
+      ],
+      "downloads": [
+        {
+          "platform": "windows",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-x64.msi"
+        },
+        {
+          "platform": "macos",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-macos-universal.dmg"
+        },
+        {
+          "platform": "linux",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.AppImage"
+        }
+      ],
+      "checksumUrl": "https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt",
+      "audience": {
+        "en": "Worth checking if you exchange Photoshop action files, print from the app, or export grayscale images. Test an action on a copy before using it on a batch.",
+        "zh": "如果你需要交换 Photoshop 动作文件、从应用打印或导出灰度图片，可以重点看这一版。先用副本试跑动作，再处理一批照片。"
+      }
+    },
+    {
+      "version": "0.8.2",
+      "publishedAt": "2026-10-12T21:22:47Z",
+      "releaseUrl": "https://github.com/storytold/photocraft/releases/tag/v0.8.2",
+      "compareUrl": "https://github.com/storytold/photocraft/compare/v0.7.0...v0.8.2",
+      "summary": {
+        "en": "Less UI interruption at the end of brush strokes and during saving; improved PSD reading.",
+        "zh": "减少画笔抬笔和保存时的界面停顿，并改进 PSD 读取。"
+      },
+      "changes": [
+        {
+          "en": "Avoid the freeze previously seen when finishing a brush stroke.",
+          "zh": "处理结束一笔绘画时出现的卡顿。",
+          "source": "https://github.com/storytold/photocraft/pull/2131"
+        },
+        {
+          "en": "Run save encoding in the background, reducing work on the interactive interface.",
+          "zh": "把保存时的耗时编码移到后台，减少占用操作界面。",
+          "source": "https://github.com/storytold/photocraft/pull/2517"
+        },
+        {
+          "en": "Improve PSD interoperability and decoding.",
+          "zh": "改进 PSD 解码与文件互通。",
+          "source": "https://github.com/storytold/photocraft/pull/1955"
+        }
+      ],
+      "downloads": [
+        {
+          "platform": "windows",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-x64.msi"
+        },
+        {
+          "platform": "macos",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-macos-universal.dmg"
+        },
+        {
+          "platform": "linux",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-x86_64.AppImage"
+        }
+      ],
+      "checksumUrl": "https://github.com/storytold/photocraft/releases/download/v0.8.2/SHA256SUMS.txt",
+      "audience": {
+        "en": "Relevant if finishing a brush stroke or saving a document interrupted your work in v0.7.0. These are reported fixes, not a guarantee of identical performance on every computer.",
+        "zh": "如果 v0.7.0 的抬笔或保存过程打断了操作，这一版的相关修复值得关注。实际表现仍取决于文件与电脑配置。"
+      }
+    },
+    {
+      "version": "0.7.0",
+      "publishedAt": "2026-10-11T02:12:31Z",
+      "releaseUrl": "https://github.com/storytold/photocraft/releases/tag/v0.7.0",
+      "compareUrl": "https://github.com/storytold/photocraft/compare/v0.6.0...v0.7.0",
+      "summary": {
+        "en": "A Remove tool, OpenRaster files and safer handling of layered originals when saving a flat copy.",
+        "zh": "增加移除工具、OpenRaster 读写，并改善分层原稿的另存为处理。"
+      },
+      "changes": [
+        {
+          "en": "Add a Remove tool for retouching unwanted areas.",
+          "zh": "新增移除工具，用于修补不需要的画面区域。",
+          "source": "https://github.com/storytold/photocraft/pull/2193"
+        },
+        {
+          "en": "Open and save OpenRaster (.ora) files.",
+          "zh": "支持打开和保存 OpenRaster（.ora）文件。",
+          "source": "https://github.com/storytold/photocraft/pull/2257"
+        },
+        {
+          "en": "Keep the layered original when saving a flat-format copy.",
+          "zh": "另存为平面格式时保留分层原稿。",
+          "source": "https://github.com/storytold/photocraft/pull/2611"
+        }
+      ],
+      "downloads": [
+        {
+          "platform": "windows",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-x64.msi"
+        },
+        {
+          "platform": "macos",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-macos-universal.dmg"
+        },
+        {
+          "platform": "linux",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.AppImage"
+        }
+      ],
+      "checksumUrl": "https://github.com/storytold/photocraft/releases/download/v0.7.0/SHA256SUMS.txt",
+      "audience": {
+        "en": "Useful context for older projects that use the Remove tool or OpenRaster. Keep a layered working document when you also need a flat image for sharing.",
+        "zh": "这一版适合对照旧项目中的移除工具、OpenRaster 工作流，以及另存为平面图片的行为。分享图片时也应保留可继续编辑的分层工作稿。"
+      }
+    }
+  ],
+  "ui": {
+    "en": {
+      "caption": "Verified PhotoCraft release history",
+      "version": "Version",
+      "published": "Published (UTC+8)",
+      "changes": "What changes for you",
+      "download": "Official downloads",
+      "current": "Current download",
+      "details": "See changes",
+      "allFiles": "Other architectures & formats",
+      "checksums": "SHA-256 checksums",
+      "downloadLabel": "Download",
+      "windows": "Windows x64 · MSI",
+      "macos": "macOS · Universal DMG",
+      "linux": "Linux x86_64 · AppImage",
+      "notes": "Official release notes",
+      "compare": "Compare with the previous release",
+      "changeSource": "Official change"
+    },
+    "zh": {
+      "caption": "已核实的 PhotoCraft 版本历史",
+      "version": "版本",
+      "published": "发布日期（UTC+8）",
+      "changes": "对你有什么变化",
+      "download": "官方下载",
+      "current": "当前下载版本",
+      "details": "查看变化",
+      "allFiles": "其他架构与格式",
+      "checksums": "SHA-256 校验文件",
+      "downloadLabel": "下载",
+      "windows": "Windows x64 · MSI",
+      "macos": "macOS · 通用 DMG",
+      "linux": "Linux x86_64 · AppImage",
+      "notes": "官方完整更新记录",
+      "compare": "与上一版对比",
+      "changeSource": "官方变更"
+    }
+  }
+}

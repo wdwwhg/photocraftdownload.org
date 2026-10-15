@@ -3,12 +3,7 @@ import { notFound, useLoaderData } from '@tanstack/react-router';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { envConfigs } from '@/config';
-import {
-  getLocale,
-  locales,
-  localizeHref,
-  localizeUrl,
-} from '@/paraglide/runtime.js';
+import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 import { PhotoCraftGuide } from '@/components/photocraft/guide';
 import { relatedGuides, type GuideSlug } from '@/components/photocraft/guides';
 
@@ -17,6 +12,7 @@ type GuideMeta = {
   heading: string;
   description: string;
   category: string;
+  published_at?: string;
   updated_at: string;
   sections: string[];
 };
@@ -77,7 +73,7 @@ export function guidePageRouteOptions(slug: GuideSlug) {
                   headline: meta.heading,
                   description: meta.description,
                   inLanguage: locale,
-                  datePublished: '2026-10-12',
+                  datePublished: meta.published_at ?? '2026-10-12',
                   dateModified: meta.updated_at,
                   mainEntityOfPage: urlFor(locale),
                   author: {
@@ -127,10 +123,10 @@ function GuidePage() {
       category={meta.category}
       updated={`${t('guides.updated')} ${meta.updated_at}`}
       independent={t('footer.disclaimer')}
-      languageHref={localizeHref(`/${slug}`, {
-        locale: locale === 'en' ? 'zh' : 'en',
-      })}
-      languageLabel={locale === 'en' ? '中文' : 'EN'}
+      slug={slug}
+      skipLabel={t('skip')}
+      privacyLabel={t('footer.privacy')}
+      termsLabel={t('footer.terms')}
       tocLabel={t('guides.toc')}
       relatedLabel={t('guides.related')}
       downloadLabel={t('guides.download')}

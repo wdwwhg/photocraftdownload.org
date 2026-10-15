@@ -1,0 +1,73 @@
+export const meta = {
+  title: 'PhotoCraft GitHub: Official Downloads and Source Code',
+  heading: 'PhotoCraft GitHub',
+  description:
+    'Find the official PhotoCraft GitHub repository, download release assets, distinguish installers from source archives and report reproducible issues.',
+  category: 'Source and downloads',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'Find the official repository',
+    'Download an application from Releases',
+    'Get a stable source snapshot',
+    'Verify what you downloaded',
+    'Report a useful issue',
+    'Sources',
+  ],
+};
+
+The official PhotoCraft GitHub repository is [storytold/photocraft](https://github.com/storytold/photocraft). It contains the Rust source, documentation, issue tracker and release history for the ArtCraft image editor. If you searched for “GitHub PhotoCraft,” start with that exact owner and repository name. Other projects with a similar title may have different authors and purposes.
+
+For a ready-to-run package, open [Releases](https://github.com/storytold/photocraft/releases). For code, browse the repository or select a tagged source snapshot. These are different destinations inside GitHub, and choosing the wrong one is a common reason a download does not contain an application you can launch.
+
+## Find the official repository
+
+Follow the GitHub link from the [official PhotoCraft product page](https://getartcraft.com/apps/photocraft), then confirm that the address is github.com/storytold/photocraft. This cross-check connects the product identity to the repository. A logo, familiar name or high search position alone is weaker evidence.
+
+The default repository page usually shows the current development branch. Its README can describe work added after a packaged release. When following instructions for an installed version, change the branch selector to that release tag. This guide references [v0.8.2](https://github.com/storytold/photocraft/tree/v0.8.2), while the repository's latest release may advance independently.
+
+## Download an application from Releases
+
+Open the release entry and expand Assets if needed. Choose the filename for your operating system and processor. The [download page](/) groups the verified package links so you can select a build without interpreting every file in a release.
+
+| GitHub item               | Intended use                     | What to do next                         |
+| ------------------------- | -------------------------------- | --------------------------------------- |
+| Windows MSI               | Install the desktop app          | Match x64, arm64 or x86 to your system  |
+| Windows portable ZIP      | Run an extracted desktop app     | Extract the whole archive first         |
+| macOS DMG                 | Install the desktop app on a Mac | Follow the installer instructions       |
+| Linux package or AppImage | Install or launch on Linux       | Follow the format-specific instructions |
+| Web ZIP                   | Host the browser build           | Extract and serve its static files      |
+| Source code ZIP or tar.gz | Inspect or build source          | Follow the development guide            |
+
+GitHub's automatically generated “Source code” archives are not substitutes for the packaged assets. They contain a source tree, not a prebuilt desktop installer. For Windows package selection, see [PhotoCraft Windows](/photocraft-windows). For the browser ZIP, see [PhotoCraft Web](/photocraft-web).
+
+## Get a stable source snapshot
+
+Use a tag when you want a reproducible starting point. A branch name moves as changes are merged, whereas a release tag identifies the source associated with that release. Record the tag and commit when documenting a bug or comparing behavior across builds.
+
+To obtain the version used by this guide with Git:
+
+```sh
+git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+cd photocraft
+```
+
+This downloads source only; it does not install the editor or its compiler prerequisites. You can also use the tagged source archive if you just want to read the code. Developers who plan to create patches should read the project's contribution instructions and use an appropriate fork or branch workflow rather than modifying an untracked extracted archive.
+
+## Verify what you downloaded
+
+Check the release tag, filename and platform before opening a package. If the release supplies SHA256SUMS, compare the downloaded file's hash with the matching entry. A matching checksum verifies agreement with that published file; it does not independently audit the software or establish the identity of an unrelated mirror.
+
+Prefer links from the official release over reuploaded installers. If an asset is absent or a link fails, return to Releases and check the project's release notes. Do not rename a package for another architecture to make it appear compatible.
+
+## Report a useful issue
+
+Before creating an issue, search the tracker for the behavior and check whether a newer release addresses it. A useful report includes the installed version, operating system, processor architecture, exact steps, expected result and observed result. For a rendering problem, add document dimensions, layer count and a screenshot showing the difference.
+
+Reproduce on a copy of the file. Remove personal or client information from any attachment, and create a smaller sample when possible. Separate an installation problem from a document compatibility problem so maintainers can reproduce the correct path. For build prerequisites and commands, continue to [PhotoCraft Rust](/photocraft-rust); for license details, use [PhotoCraft Open Source](/photocraft-open-source).
+
+## Sources
+
+- [Official repository](https://github.com/storytold/photocraft)
+- [Official release history](https://github.com/storytold/photocraft/releases)
+- [Versioned development guide](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)

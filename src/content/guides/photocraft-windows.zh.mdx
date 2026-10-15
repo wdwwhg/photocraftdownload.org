@@ -1,0 +1,96 @@
+export const meta = {
+  title: 'PhotoCraft Windows 安装：MSI、便携版与缺少 DLL 排查',
+  heading: 'PhotoCraft Windows 安装指南',
+  description:
+    '查清 x64、x86 与 ARM64，比较 MSI 和便携 ZIP 的安装与设置位置，按报错排查缺少 DLL、运行库和首次启动问题。',
+  category: 'Windows 安装',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-15',
+  sections: [
+    '先查自己的 x64、x86 或 ARM64',
+    'MSI 与 Portable ZIP 到底差什么',
+    '安装 MSI 或解压便携版',
+    '提示缺少 DLL 或运行库怎么办',
+    'SmartScreen 与安装失败怎么分辨',
+    '首次启动与问题记录',
+    '来源与验证范围',
+  ],
+};
+
+先打开[下载选择器](/#downloads)，确认系统、芯片和安装方式。本文以 **PhotoCraft v0.9.0** 为范围，把选包、实际安装与报错后的下一步放在一起。无需先安装 Rust 或 Visual Studio。
+
+## 先查自己的 x64、x86 或 ARM64
+
+按 **Win + I → 系统 → 系统信息（About）→ 设备规格 → 系统类型**。不同 Windows 版本的页面也可能叫“关于”，可在设置内搜索“系统类型”。同时看操作系统位数与处理器类型，不要只看电脑品牌。
+
+| 系统类型里看到的内容             | 选哪个包 | 一个容易选错的地方                                   |
+| -------------------------------- | -------- | ---------------------------------------------------- |
+| 64 位操作系统、基于 x64 的处理器 | x64      | Intel 和 AMD 都属于这一组                            |
+| 基于 ARM 的处理器 / ARM64        | ARM64    | 骁龙 Windows 电脑选这一组                            |
+| 32 位操作系统                    | x86      | 即使处理器支持 64 位，也应按当前运行的 32 位系统选包 |
+
+x86 的意思是 32 位，不是“所有 Intel 芯片”。也不要因为某台 ARM 电脑能模拟运行 x64 应用，就优先拿模拟版；有官方 ARM64 包时先选匹配的原生包。微软的[系统类型查看说明](https://support.microsoft.com/en-us/windows/experience/compatibility/32-bit-and-64-bit-windows-frequently-asked-questions)提供了设置入口。
+
+## MSI 与 Portable ZIP 到底差什么
+
+| 你关心的事     | MSI 安装包                                        | Portable ZIP 便携包                              |
+| -------------- | ------------------------------------------------- | ------------------------------------------------ |
+| 怎样开始用     | 运行安装向导，再从开始菜单启动                    | 完整解压文件夹，运行里面的 photocraft.exe        |
+| 安装权限       | 当前打包配置是整机安装，可能请求管理员授权        | 解压到自己可写的文件夹，无需 MSI 安装            |
+| 快捷方式与卸载 | 由安装程序创建开始菜单入口，通过 Windows 设置卸载 | 自行创建快捷方式；退出程序后移走应用文件夹       |
+| 设置存在哪里   | 通常在当前用户的 %APPDATA%\Photocraft             | portable.txt 存在时，存到程序旁的 PhotoCraftData |
+| 换电脑怎么带走 | 单独迁移需要保留的设置与文档                      | 退出后复制整个文件夹，包含 PhotoCraftData        |
+
+**想作为日常应用安装，选 MSI；想放在自己的文件夹或移动盘，选 ZIP。** 便携版不是精简版，也不代表能绕过公司电脑的软件策略。升级 ZIP 时保留 PhotoCraftData，并先备份；删掉便携文件夹可能连设置和恢复文件一起删除。
+
+## 安装 MSI 或解压便携版
+
+1. 从本站的官方直链或[固定版本发布页](https://github.com/storytold/photocraft/releases/tag/v0.9.0)下载匹配架构的文件。
+2. MSI：双击文件，核对发布者信息，完成安装。ZIP：在资源管理器选择“全部解压”，打开解压后的内层文件夹，运行 photocraft.exe。
+3. 不要直接在压缩包预览里启动，也不要只把 EXE 拖到桌面。便携模式需要让 portable.txt 与 EXE 保持在一起。
+4. 如果便携目录只读，项目说明程序会提示并改用 %APPDATA%\Photocraft。此时设置并没有跟着移动盘走。
+
+核对下载文件的完整性，示例在下载目录的 PowerShell 中运行：
+
+```powershell
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+```
+
+把完整结果与同一发布页的 [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt) 中**完全相同文件名**的一行比较。ZIP 或其他架构需替换命令中的文件名。
+
+## 提示缺少 DLL 或运行库怎么办
+
+**先记录缺少哪个文件，再决定修什么。** v0.9.0 的[官方 Windows 打包脚本](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1)使用静态 C 运行库，并明确说明 MSI 与 ZIP 不要求另装 VC++ Redistributable。看到启动失败就先装一整套运行库，不能定位原因。
+
+| 报错或现象                                 | 优先检查                                   | 下一步                                                         |
+| ------------------------------------------ | ------------------------------------------ | -------------------------------------------------------------- |
+| 找不到应用随附的文件，或从 ZIP 里启动失败  | 是否完整解压、是否只复制了 EXE             | 重新完整解压同版本官方 ZIP                                     |
+| 明确点名 VCRUNTIME140.dll 或 MSVCP140.dll  | 是否运行了旧版、第三方重打包，或另一个组件 | 先确认官方包与文件完整性；确实需要该运行库时，从微软安装或修复 |
+| “此应用无法在你的电脑上运行”或 0xc000007b  | 系统与应用架构、文件完整性                 | 回到“系统类型”核对包；这些提示不等于已经确定缺少 VC++          |
+| 缺少图形相关 DLL、空白画布或显卡初始化失败 | Windows 更新与显卡驱动、完整报错           | 查看下节的系统信息与日志，按设备厂商说明更新驱动               |
+
+如果错误明确要求 VC++ v14，使用[微软官方下载页](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)，按**出错应用的目标架构**选择 x64、x86 或 ARM64，按安装程序提供的 Install / Repair 操作后重试。不要从“DLL 下载站”单独找一个文件塞进系统目录。
+
+## SmartScreen 与安装失败怎么分辨
+
+“Windows 已保护你的电脑”属于信誉或信任提示，不是缺运行库。先核对下载来源、文件签名信息与校验值；不要为了安装去关闭系统防护。如果提示组织策略禁止安装，走单位批准的软件安装流程，换成 ZIP 也未必能解决。
+
+安装向导回滚或提示另一个安装正在进行时，保留完整提示，先结束或完成已有安装流程。不要连续启动多个 MSI。需要复现安装错误时，把版本、架构、Windows 版本和错误代码一起交给[官方问题反馈入口](/photocraft-github)。
+
+## 首次启动与问题记录
+
+先打开一张图片副本，保存工作文件，导出 PNG，再关闭重开。确认能启动、保存与导出之后，再按[入门教程](/photocraft-tutorial)处理图层和文字。
+
+遇到空白画布，查看 **Help → System Info** 中的显卡与渲染后端。官方开发文档还提供临时 CPU 渲染启动参数；它用于定位图形问题，不是提升性能的常规设置。默认设置路径下的日志位于 %APPDATA%\Photocraft\logs；便携模式应查看对应 PhotoCraftData 下的 logs。提交问题时保留错误文本和日志，先去除私人文件路径。
+
+## 来源与验证范围
+
+- [v0.9.0 Windows 打包实现：静态运行库、MSI 与 ZIP](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1)
+- [便携模式与设置目录](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/portable.txt)
+- [Windows 安装器配置](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/photocraft.wxs)
+- [图形启动与日志说明](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [微软 VC++ 运行库说明](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+
+文件名与打包行为已按以上来源核对；排查路径不代表每种 Windows 配置或报错均已实机复现。
+
+2026-10-15，我们实际在 Windows 11 25H2 x64 上运行了 v0.9.0 x64 便携版，完成打开原创 PNG、添加色阶图层、保存并重开三图层 PSD 的检查。[查看本站的实拍、机器信息与测试文件](/photocraft-review#hands-on)。这次记录不涵盖 MSI 安装、ARM64 或上述报错的逐项复现。

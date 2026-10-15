@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router';
 import { MDXProvider } from '@mdx-js/react';
 import { ArrowLeft, Calendar } from 'lucide-react';
 
@@ -14,6 +14,14 @@ import { formatPostDate, loadLocalPost } from '@/content/posts';
 import { getBlogPostFn } from '@/content/posts/server';
 
 export const Route = createFileRoute('/blog/$slug')({
+  beforeLoad: ({ params }) => {
+    if (
+      params.slug === 'what-is-shipany' ||
+      params.slug === 'blocks-vs-components'
+    ) {
+      throw redirect({ to: '/', hash: 'guides' });
+    }
+  },
   loader: async ({ params }) => {
     const locale = getLocale();
     const post = await getBlogPostFn({

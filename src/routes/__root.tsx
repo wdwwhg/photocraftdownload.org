@@ -13,8 +13,10 @@ import {
 import { createServerFn } from '@tanstack/react-start';
 import { ThemeProvider } from 'next-themes';
 
+import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { getQueryClient } from '@/lib/query-client';
+import { m } from '@/paraglide/messages.js';
 import { getLocale } from '@/paraglide/runtime.js';
 import { Ads } from '@/components/analytics/ads';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
@@ -41,6 +43,9 @@ const getAnalyticsConfigs = createServerFn().handler(async () => {
     plausibleDomain: configs.plausible_domain?.trim() || '',
     plausibleSrc: configs.plausible_src?.trim() || '',
     adsenseCode: configs.adsense_code?.trim() || '',
+    googleOneTapEnabled:
+      configs.google_one_tap_enabled === 'true' &&
+      !!configs.google_client_id?.trim(),
     crispWebsiteId:
       configs.crisp_enabled === 'true'
         ? configs.crisp_website_id?.trim() || ''
@@ -98,7 +103,7 @@ function RootComponent() {
         <Outlet />
         <SandboxPreviewBridge />
         <Toaster position="top-center" richColors />
-        {!isGuide && <GoogleOneTap />}
+        {analytics?.googleOneTapEnabled && !isGuide && <GoogleOneTap />}
         {analytics?.gaId ? (
           <GoogleAnalytics measurementId={analytics.gaId} />
         ) : null}
@@ -138,10 +143,10 @@ function NotFound() {
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col items-center justify-center gap-4">
       <h1 className="text-6xl font-bold">404</h1>
-      <p className="text-muted-foreground">Page not found</p>
-      <a href="/" className="text-sm underline underline-offset-4">
-        Back to home
-      </a>
+      <p className="text-muted-foreground">{m['common.not_found.message']()}</p>
+      <Link href="/" className="text-sm underline underline-offset-4">
+        {m['common.not_found.back_home']()}
+      </Link>
     </div>
   );
 }

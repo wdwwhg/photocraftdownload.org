@@ -1,0 +1,98 @@
+export const meta = {
+  title: 'PhotoCraft macOS Install: Gatekeeper and Damaged App Fixes',
+  heading: 'PhotoCraft macOS Installation Guide',
+  description:
+    'Install the Universal DMG on Intel or Apple silicon, handle an unverified developer warning, and diagnose a damaged app without disabling Gatekeeper.',
+  category: 'macOS installation',
+  published_at: '2026-10-15',
+  updated_at: '2026-10-15',
+  sections: [
+    'One DMG for Intel and Apple silicon',
+    'Install from the DMG',
+    'Open a trusted unverified app',
+    'When macOS says the app is damaged',
+    'Read-only signature and launch checks',
+    'Update or remove the app',
+    'Sources and verification scope',
+  ],
+};
+
+Two common traps are choosing the CLI ZIP instead of the desktop app and treating every macOS alert as the same error. This guide covers **PhotoCraft v0.9.0**.
+
+The official README labels its DMG **signed and notarized**. Open source does not mean unsigned. An older or self-built unsigned app may need a different path from the current official package.
+
+## One DMG for Intel and Apple silicon
+
+Open **Apple menu → About This Mac**. “Chip: Apple M…” identifies Apple silicon; “Processor: Intel…” identifies Intel. Both use the [Universal DMG](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-macos-universal.dmg): **photocraft-0.9.0-macos-universal.dmg**.
+
+A photocraft-cli ZIP is a command-line tool, not the desktop installer. The [download chooser](/#downloads) selects the desktop file.
+
+## Install from the DMG
+
+1. Open the downloaded DMG and drag PhotoCraft into **Applications**. Wait for the copy to finish.
+2. Launch the copy in Applications. Eject the mounted disk image afterward.
+3. An ordinary first-launch confirmation that the app came from the Internet is different from a verification failure.
+
+Use the exact alert to choose a path. [Apple's explanation](https://support.apple.com/en-us/102445) distinguishes these cases:
+
+| Alert                                                | Next action                                                |
+| ---------------------------------------------------- | ---------------------------------------------------------- |
+| Downloaded from the Internet; open it?               | Confirm the intended first launch                          |
+| Developer cannot be verified / Apple cannot check it | Follow the trusted-app exception steps                     |
+| App is damaged and cannot be opened                  | Verify and reinstall the file                              |
+| Will damage your computer / malware detected         | Stop launching it and obtain a corrected developer release |
+
+## Open a trusted unverified app
+
+After confirming the source and deciding to run that app:
+
+1. Try opening the app in Applications once.
+2. Open **System Settings → Privacy & Security**, then find its blocked-app entry under Security.
+3. Use **Open Anyway**, authenticate if requested, and confirm. Some versions show an Open step before Open Anyway.
+
+[Apple's instructions](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac) say this option is available for about an hour after the attempt. Retry opening once if the entry has expired. Managed Macs can restrict exceptions. Interface wording varies, so right-click Open is not a universal solution.
+
+This creates an exception for that app; installation does not require disabling Gatekeeper globally.
+
+## When macOS says the app is damaged
+
+A damaged-app alert is not simply another name for “unsigned.”
+
+1. Quit and move the problematic app copy to Trash, keeping your own documents.
+2. Download the same official DMG again and calculate its checksum:
+
+```sh
+shasum -a 256 "$HOME/Downloads/photocraft-0.9.0-macos-universal.dmg"
+```
+
+3. Compare the complete result with that filename in [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Re-download a mismatch; otherwise copy the app afresh from the DMG into Applications.
+4. If the alert remains, report the macOS version, exact text and check results to the [maintainers](/photocraft-github).
+
+Removing quarantine metadata or re-signing does not repair corrupted contents. A malware or “will damage your computer” alert should not be handled as an ordinary unidentified-developer exception.
+
+## Read-only signature and launch checks
+
+For users comfortable with Terminal, assess the installed copy:
+
+```sh
+codesign --verify --deep --strict --verbose=2 "/Applications/PhotoCraft.app"
+spctl --assess --type execute --verbose=4 "/Applications/PhotoCraft.app"
+```
+
+Use the actual installed path if its name differs. These inspect signature integrity and system assessment without changing the app. They do not prove feature reliability or eliminate every security risk.
+
+A blank canvas or a crash after launch calls for graphics diagnosis, not more Gatekeeper changes. Check Help → System Info. Default logs are under ~/Library/Application Support/Photocraft/logs. Test an image copy, save and export before starting the [tutorial](/photocraft-tutorial).
+
+## Update or remove the app
+
+Quit before replacing the installed app with a new DMG copy. Keep your projects and settings backups. Removing the application does not require deleting its documents or clearing your entire Library.
+
+## Sources and verification scope
+
+- [v0.9.0 Mac files and signing notes](https://github.com/storytold/photocraft/blob/v0.9.0/README.md#macos)
+- [Apple: safely open apps](https://support.apple.com/en-us/102445)
+- [Apple: unidentified developers](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac)
+- [Apple: code-signing verification](https://developer.apple.com/library/archive/technotes/tn2206/_index.html)
+- [PhotoCraft launch and logs](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+
+Reviewed on 2026-10-15 against official package information and Apple documentation. These steps have not been independently tested on every Mac model and macOS version.

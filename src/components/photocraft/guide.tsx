@@ -6,6 +6,7 @@ import { Link } from '@/core/i18n/navigation';
 import { mdxComponents } from '@/components/mdx-components';
 
 import { headingId } from './guides';
+import { LanguageLink } from './language-link';
 
 import '@/styles/photocraft.css';
 
@@ -56,8 +57,10 @@ export function PhotoCraftGuide({
   category,
   updated,
   independent,
-  languageHref,
-  languageLabel,
+  slug,
+  skipLabel,
+  privacyLabel,
+  termsLabel,
   tocLabel,
   relatedLabel,
   downloadLabel,
@@ -74,8 +77,10 @@ export function PhotoCraftGuide({
   category: string;
   updated: string;
   independent: string;
-  languageHref: string;
-  languageLabel: string;
+  slug: string;
+  skipLabel: string;
+  privacyLabel: string;
+  termsLabel: string;
   tocLabel: string;
   relatedLabel: string;
   downloadLabel: string;
@@ -87,6 +92,9 @@ export function PhotoCraftGuide({
 }) {
   return (
     <div className="pc-site pc-guide-site" id="top">
+      <a className="pc-skip" href="#main">
+        {skipLabel}
+      </a>
       <header className="pc-header pc-wrap">
         <Link className="pc-brand" href="/" aria-label={brand}>
           <span className="pc-brand-icon">
@@ -99,16 +107,18 @@ export function PhotoCraftGuide({
         </Link>
         <div className="pc-guide-header-links">
           <Link href="/#guides">{allGuidesLabel}</Link>
-          <Link className="pc-guide-download" href="/#downloads">
+          <Link
+            className="pc-guide-download"
+            href="/#downloads"
+            aria-label={downloadLabel}
+          >
             {downloadLabel}
             <ArrowRight size={16} />
           </Link>
-          <a className="pc-language" href={languageHref}>
-            {languageLabel}
-          </a>
+          <LanguageLink href={`/${slug}`} />
         </div>
       </header>
-      <main className="pc-wrap">
+      <main className="pc-wrap" id="main">
         <div className="pc-guide-hero">
           <div className="pc-eyebrow">{category}</div>
           <h1>{title}</h1>
@@ -150,7 +160,9 @@ export function PhotoCraftGuide({
         <p>{independent}</p>
         <div className="pc-footer-bottom">
           <span>© 2026 {brand}</span>
-          <Link href="/">
+          <Link href="/privacy-policy">{privacyLabel}</Link>
+          <Link href="/terms-of-service">{termsLabel}</Link>
+          <Link href="/#downloads">
             {downloadLabel}
             <ArrowUpRight size={14} />
           </Link>

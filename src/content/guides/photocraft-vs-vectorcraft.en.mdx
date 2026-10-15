@@ -1,0 +1,64 @@
+export const meta = {
+  title: 'PhotoCraft vs VectorCraft: Which App Fits Your Work?',
+  heading: 'PhotoCraft vs VectorCraft',
+  description:
+    'Compare PhotoCraft and VectorCraft by pixels, paths, file handoff and editing tasks. Learn how the two ArtCraft apps fit a mixed design workflow.',
+  category: 'Comparisons',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'Pixels or paths: the first decision',
+    'Where the features overlap',
+    'A practical two-app handoff',
+    'Files and compatibility checks',
+    'Which should you install first?',
+    'Sources',
+  ],
+};
+
+PhotoCraft and VectorCraft are separate ArtCraft applications with different document priorities. PhotoCraft centers on image editing with layers, masks and adjustments. VectorCraft centers on illustration with editable paths and shapes. Having vector tools inside an image editor does not make these applications interchangeable. Start with the object you need to keep editable, then choose the application around it.
+
+This comparison uses the official product descriptions and PhotoCraft v0.8.2 documentation. It is a workflow guide rather than a benchmark. For the broader product family, see [PhotoCraft and ArtCraft](/photocraft-artcraft). For standalone VectorCraft information, use the [VectorCraft guide](/vectorcraft).
+
+## Pixels or paths: the first decision
+
+A photograph is a grid of samples. Removing a blemish, changing local contrast or blending two photographs means working with those samples. PhotoCraft is the relevant starting point because its documented tools include brushes, selections, masks and adjustment layers.
+
+A logo is often a set of curves and fills. You may need to move one anchor point, change a stroke or reuse the same drawing at several sizes. VectorCraft's documented pen tools, direct selection and shape operations fit that kind of source document. The key distinction is what remains editable after you save, rather than whether both programs can display the same finished picture.
+
+| Task                                      | Start with                               | Keep editable                       |
+| ----------------------------------------- | ---------------------------------------- | ----------------------------------- |
+| Retouch a portrait or combine photographs | PhotoCraft                               | Pixel layers, masks and adjustments |
+| Draw a logo or a set of icons             | VectorCraft                              | Paths, fills and strokes            |
+| Assemble a promotional image with a logo  | PhotoCraft, with prepared vector artwork | Photo layers and placed artwork     |
+| Revise the geometry of the logo itself    | VectorCraft                              | The original path structure         |
+
+## Where the features overlap
+
+PhotoCraft is not limited to painting pixels. Its versioned README describes shape layers, pen tools, vector masks and SVG import. That is useful when a photograph needs a clean badge, a cutout boundary or a piece of scalable artwork. It does not establish that an imported drawing will retain every feature from a specialist illustration document.
+
+VectorCraft's official description emphasizes path editing, Boolean operations and snapping. Those tools matter when a shape's geometry is the work itself. Evaluate the editing operation you will repeat most often: selecting a mask and brushing an edge suggests PhotoCraft; adjusting dozens of path handles suggests VectorCraft. Neither choice should be based only on a shared word such as “design.”
+
+## A practical two-app handoff
+
+For a small event graphic, draw the emblem in VectorCraft and preserve the editable vector source. Prepare the photograph in PhotoCraft, keeping its original image layer separate from color adjustments and captions. Then test a copy of the emblem in a format both applications document, such as SVG, before relying on it for the finished composition.
+
+Inspect the handoff at the actual output size. Check strokes, gradients, text placement and transparency against a reference export from the source application. If a feature changes, use a raster export for that placement while retaining the original vector document for later revisions. A raster fallback can preserve appearance, but it does not preserve path editing; keep that tradeoff visible in your project folder.
+
+## Files and compatibility checks
+
+PhotoCraft documents PSD and PSB support alongside its native .pcraft format and flat exports. VectorCraft advertises SVG and PDF workflows. A filename alone does not guarantee a lossless round trip, so use a small representative document before exchanging a client project.
+
+For an image composition, preserve the layered working file and export a separate PNG or JPEG for delivery. For a vector asset, preserve the vector source and record the fonts needed to reproduce it. If text must look identical on another machine, discuss whether editable text or a fixed appearance is the priority before choosing the interchange format.
+
+## Which should you install first?
+
+Choose PhotoCraft first when your immediate job is editing photographs or layered image documents. Choose VectorCraft first when the job is creating or revising vector artwork. Install both when the workflow crosses those boundaries repeatedly; the ArtCraft Launcher is described as managing multiple Crafting Apps, while standalone downloads let you choose one application.
+
+Both official descriptions position these projects as free and open source. That does not remove version-specific limitations or prove professional readiness. PhotoCraft v0.8.2 explicitly describes an early-alpha status. Keep originals, test your own documents and use the [PhotoCraft review](/photocraft-review) for a structured evaluation checklist.
+
+## Sources
+
+- [PhotoCraft v0.8.2 README](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [Official VectorCraft product page](https://getartcraft.com/apps/vectorcraft)
+- [Official PhotoCraft product page](https://getartcraft.com/apps/photocraft)

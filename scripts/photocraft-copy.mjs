@@ -2,9 +2,217 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 // Editable bilingual site copy. Run once to merge into the template's Paraglide catalogs.
 const copy = {
+  'guides.photocraft-version-history.title': [
+    'PhotoCraft Version History',
+    'PhotoCraft 版本历史',
+  ],
+  'guides.photocraft-version-history.description': [
+    'Release dates, everyday changes and official downloads from v0.7.0 through v0.9.0.',
+    '查看 v0.7.0 至 v0.9.0 的发布日期、日常使用变化与各版官方下载。',
+  ],
+  'topicNav.photocraft-version-history': [
+    'PhotoCraft Version History',
+    'PhotoCraft 版本历史与旧版下载',
+  ],
+  'downloads.history': ['Version history', '版本历史与旧版下载'],
+  'chooser.title': ['Which file should I download?', '我该下哪个？'],
+  'chooser.description': [
+    'Answer three questions. Get the exact file for your computer.',
+    '回答三个问题，直接找到适合你电脑的文件。',
+  ],
+  'chooser.system': ['What is your operating system?', '你的系统是？'],
+  'chooser.chip': ['What chip does your computer use?', '你的电脑用什么芯片？'],
+  'chooser.delivery': [
+    'How would you like to use it?',
+    '你要装完就用，还是要便携版？',
+  ],
+  'chooser.chip.x64': ['Intel / AMD · 64-bit', 'Intel / AMD · 64 位'],
+  'chooser.chip.x86': ['Intel / AMD · 32-bit', 'Intel / AMD · 32 位'],
+  'chooser.chip.arm64': ['ARM64', 'ARM64'],
+  'chooser.chip.windowsArm': [
+    'ARM64 · Snapdragon / ARM PC',
+    'ARM64 · 骁龙 / ARM 电脑',
+  ],
+  'chooser.chip.intel': ['Intel', 'Intel 芯片'],
+  'chooser.chip.apple': ['Apple silicon · M series', 'Apple 芯片 · M 系列'],
+  'chooser.chip.riscv64': ['RISC-V 64', 'RISC-V 64'],
+  'chooser.chip.unknown': ['Not sure', '不确定'],
+  'chooser.help.windows': [
+    'Open Settings → System → About → System type. Most Intel/AMD PCs are 64-bit; Snapdragon PCs use ARM64. Match the system type shown on your computer.',
+    '打开「设置 → 系统 → 系统信息」，查看「系统类型」。大多数 Intel/AMD 电脑是 64 位；骁龙电脑使用 ARM64。以电脑显示的系统类型为准。',
+  ],
+  'chooser.help.macos': [
+    'Open Apple menu → About This Mac. “Chip: Apple M…” means Apple silicon; “Processor: Intel…” means Intel.',
+    '打开「苹果菜单 → 关于本机」。「芯片：Apple M…」选 Apple 芯片；「处理器：Intel…」选 Intel 芯片。',
+  ],
+  'chooser.help.linux': [
+    'Run uname -m in a terminal: x86_64 = Intel/AMD 64-bit, aarch64 = ARM64, riscv64 = RISC-V 64.',
+    '在终端运行 uname -m：x86_64 选 Intel/AMD 64 位，aarch64 选 ARM64，riscv64 选 RISC-V 64。',
+  ],
+  'chooser.mode.install': ['Install and use', '装完就用'],
+  'chooser.mode.portable': ['Portable / no installer', '便携版 / 免安装'],
+  'chooser.modeHelp.windows': [
+    'MSI installs the app. For the portable ZIP, extract the entire folder before launching.',
+    'MSI 用来安装应用；便携 ZIP 需要先完整解压，再运行里面的程序。',
+  ],
+  'chooser.modeHelp.macos': [
+    'macOS uses one Universal DMG for both Intel and Apple silicon. This release has no portable desktop ZIP; the CLI ZIP is a command-line tool.',
+    'macOS 的 Intel 和 Apple 芯片使用同一个 Universal DMG。此版本没有桌面便携 ZIP；CLI ZIP 是命令行工具。',
+  ],
+  'chooser.modeHelp.linux': [
+    'Install: Flatpak, which needs Flatpak support. Portable: AppImage; allow it to run as a program before launching.',
+    '安装版推荐 Flatpak，需要系统支持 Flatpak；便携版使用 AppImage，需要先允许文件作为程序执行。',
+  ],
+  'chooser.modeHelp.riscv64': [
+    'This release provides a tar.gz desktop archive for RISC-V 64. Extract it and follow the official Linux instructions for dependencies and launch steps.',
+    '此版本为 RISC-V 64 提供 tar.gz 桌面压缩包。解压后按官方 Linux 说明检查依赖并启动。',
+  ],
+  'chooser.chooseSystem': [
+    'Start by selecting your operating system.',
+    '先选你的操作系统。',
+  ],
+  'chooser.chooseChip': [
+    'Check your chip using the tip above, then choose the matching option. We will not guess a file for you.',
+    '按上方提示确认芯片，再选择对应选项，就能继续推荐。',
+  ],
+  'chooser.chooseMode': [
+    'Choose installation or portable use to see your file.',
+    '再选一下使用方式，就能看到该下载的文件。',
+  ],
+  'chooser.unavailable': [
+    'No matching file is listed for this combination. Check the official release files below.',
+    '当前组合没有匹配的文件，请查看下方官方发布文件。',
+  ],
+  'chooser.result': ['Download this file', '你该下载这个文件'],
+  'chooser.result.windows.install': [
+    'Run this MSI and follow the setup steps to install the desktop app.',
+    '双击这个 MSI 文件，按提示安装桌面应用。',
+  ],
+  'chooser.result.windows.portable': [
+    'Extract the entire ZIP into a folder, then launch the app inside it. No MSI installation is needed.',
+    '把 ZIP 完整解压到一个文件夹，再运行里面的应用，无需 MSI 安装。',
+  ],
+  'chooser.result.macos': [
+    'Open the DMG and drag the app into Applications. This Universal file supports both Intel and Apple silicon Macs.',
+    '打开 DMG，将应用拖入「应用程序」。这个 Universal 文件同时适用于 Intel 和 Apple 芯片的 Mac。',
+  ],
+  'chooser.result.linux.install': [
+    'Install this package with Flatpak. If your system does not have Flatpak support, follow the Linux guide first or choose the AppImage.',
+    '使用 Flatpak 安装此文件。如果系统尚未支持 Flatpak，请先看 Linux 指南，或改选 AppImage 便携版。',
+  ],
+  'chooser.result.linux.portable': [
+    'Allow this AppImage to run as a program, then launch it. See the Linux guide if your distribution needs additional dependencies.',
+    '允许此 AppImage 作为程序执行后启动；如果发行版需要额外依赖，请查看 Linux 指南。',
+  ],
+  'chooser.result.riscv64': [
+    'Extract the full archive and follow the official Linux instructions to launch it. This is the desktop archive, not a source-code download.',
+    '完整解压后，按官方 Linux 说明启动。这是桌面应用压缩包，不是源码下载。',
+  ],
+  'chooser.download': ['Download recommended file', '下载推荐文件'],
+  'chooser.guide': ['Installation help', '查看安装说明'],
+  'chooser.source': [
+    'Direct download from the official GitHub release. More builds and formats are listed below.',
+    '直接从官方 GitHub 发布页下载，其他版本与格式可在下方选择。',
+  ],
+  'guides.photocraft-vs-vectorcraft.title': [
+    'PhotoCraft vs VectorCraft',
+    'PhotoCraft 与 VectorCraft 对比',
+  ],
+  'guides.photocraft-vs-vectorcraft.description': [
+    'Compare PhotoCraft and VectorCraft by pixels, paths, file handoff and editing tasks. Learn how the two ArtCraft apps fit a mixed design workflow.',
+    '比较 PhotoCraft 和 VectorCraft 的像素、路径与文件交接流程，了解两款 ArtCraft 应用如何配合完成图像与矢量设计。',
+  ],
+  'topicNav.photocraft-vs-vectorcraft': [
+    'PhotoCraft vs VectorCraft',
+    'PhotoCraft 与 VectorCraft 对比',
+  ],
+  'guides.photocraft-github.title': ['PhotoCraft GitHub', 'PhotoCraft GitHub'],
+  'guides.photocraft-github.description': [
+    'Find the official PhotoCraft GitHub repository, download release assets, distinguish installers from source archives and report reproducible issues.',
+    '确认 PhotoCraft 官方 GitHub 仓库，区分发布安装包和源码压缩包，获取固定版本代码，并提交可复现的问题。',
+  ],
+  'topicNav.photocraft-github': ['PhotoCraft GitHub', 'PhotoCraft GitHub'],
+  'guides.photocraft-tutorial.title': [
+    'PhotoCraft Tutorial',
+    'PhotoCraft 入门教程',
+  ],
+  'guides.photocraft-tutorial.description': [
+    'Follow a beginner PhotoCraft tutorial to create a photo caption card with separate text and adjustment layers, then save and verify an editable project.',
+    '通过一个完整的小项目学习 PhotoCraft：为照片加入独立文字与调整层，保存可编辑文档，导出图片并重新打开检查。',
+  ],
+  'topicNav.photocraft-tutorial': [
+    'PhotoCraft Tutorial',
+    'PhotoCraft 入门教程',
+  ],
+  'guides.photocraft-artcraft.title': [
+    'PhotoCraft and ArtCraft',
+    'PhotoCraft 与 ArtCraft',
+  ],
+  'guides.photocraft-artcraft.description': [
+    'Understand the relationship between PhotoCraft, ArtCraft, the ArtCraft Launcher and sibling apps, with official product and repository links.',
+    '解释 PhotoCraft、ArtCraft、ArtCraft Launcher 和同系列应用的关系，提供官方产品、源码和发布入口。',
+  ],
+  'topicNav.photocraft-artcraft': [
+    'PhotoCraft and ArtCraft',
+    'PhotoCraft 与 ArtCraft',
+  ],
+  'guides.photocraft-review.title': ['PhotoCraft Review', 'PhotoCraft 评测'],
+  'guides.photocraft-review.description': [
+    'Our Windows screenshots, version and system evidence, a three-layer PSD save and reopen test, and practical limitations.',
+    '查看本站 Windows 实拍、版本与系统信息、三图层 PSD 保存重开记录，以及实际使用局限。',
+  ],
+  'topicNav.photocraft-review': ['PhotoCraft Review', 'PhotoCraft 评测'],
+  'guides.photocraft-windows.title': [
+    'PhotoCraft Windows Installation',
+    'PhotoCraft Windows 安装指南',
+  ],
+  'guides.photocraft-windows.description': [
+    'Find your x64, x86 or ARM64 build, compare MSI and portable settings, and troubleshoot missing DLLs and startup errors.',
+    '查清 x64、x86 与 ARM64，比较 MSI 与便携设置，排查缺少 DLL、运行库和启动报错。',
+  ],
+  'topicNav.photocraft-windows': ['PhotoCraft Windows', 'PhotoCraft Windows'],
+  'guides.photocraft-macos.title': [
+    'PhotoCraft macOS Installation',
+    'PhotoCraft macOS 安装指南',
+  ],
+  'guides.photocraft-macos.description': [
+    'Install the Universal DMG, handle Gatekeeper warnings and diagnose a damaged app with source and signature checks.',
+    '安装 Universal DMG，区分 Gatekeeper 提示与 App 已损坏，按步骤核对来源、签名并排查启动问题。',
+  ],
+  'topicNav.photocraft-macos': [
+    'PhotoCraft macOS',
+    'PhotoCraft macOS 安装指南',
+  ],
+  'guides.photocraft-web.title': ['PhotoCraft Web', 'PhotoCraft Web'],
+  'guides.photocraft-web.description': [
+    'Learn what the PhotoCraft web ZIP contains, how to run the browser build locally or host it, and how saving, fonts and graphics differ from desktop.',
+    '说明 PhotoCraft 网页 ZIP 的内容、本机启动与静态托管方法，以及浏览器中的保存、字体和图形能力边界。',
+  ],
+  'topicNav.photocraft-web': ['PhotoCraft Web', 'PhotoCraft Web'],
+  'guides.what-is-photocraft.title': [
+    'What Is PhotoCraft?',
+    'PhotoCraft 是什么？',
+  ],
+  'guides.what-is-photocraft.description': [
+    'PhotoCraft is an open-source ArtCraft image editor. Learn what layers, PSD support, desktop and web builds mean, and where the early-alpha limits apply.',
+    '了解 ArtCraft 的免费开源图像编辑器 PhotoCraft，认识图层、PSD、桌面与网页构建，以及早期 Alpha 的适用边界。',
+  ],
+  'topicNav.what-is-photocraft': ['What Is PhotoCraft?', 'PhotoCraft 是什么？'],
+  'guides.photocraft-free.title': ['PhotoCraft Free', 'PhotoCraft 免费说明'],
+  'guides.photocraft-free.description': [
+    'Understand what is free in PhotoCraft, how official releases differ from source code and why fonts, artwork, hosting and external services have separate terms.',
+    '区分 PhotoCraft 免费应用、开源授权与素材、字体、托管和外部服务的独立条件，正确选择官方发布包。',
+  ],
+  'topicNav.photocraft-free': ['PhotoCraft Free', 'PhotoCraft 免费说明'],
+  'guides.photocraft-rust.title': ['PhotoCraft Rust', 'PhotoCraft Rust'],
+  'guides.photocraft-rust.description': [
+    'Explore PhotoCraft’s Rust, egui and wgpu architecture, follow versioned source-build prerequisites and distinguish desktop, browser and test workflows.',
+    '了解 PhotoCraft 的 Rust、egui 和 wgpu 架构，按固定版本核对桌面与 Wasm 构建要求，并区分开发命令和实际验证。',
+  ],
+  'topicNav.photocraft-rust': ['PhotoCraft Rust', 'PhotoCraft Rust'],
   'meta.title': [
-    'PhotoCraft Download — Free Windows, macOS & Linux Editor',
-    'PhotoCraft 下载 — Windows、macOS、Linux 免费编辑器',
+    'PhotoCraft Download v%VERSION% — Free Photo Editor (%YEAR%)',
+    'PhotoCraft 下载 v%VERSION% — 免费照片编辑器（%YEAR%）',
   ],
   'meta.description': [
     'Download PhotoCraft for Windows, macOS and Linux. Find official installers, verified release links, PSD support details and clear steps to get started.',
@@ -57,8 +265,8 @@ const copy = {
     'PhotoCraft Linux 安装',
   ],
   'guides.photocraft-linux.description': [
-    'Choose AppImage, Flatpak, DEB or RPM and get running.',
-    '选择 AppImage、Flatpak、DEB 或 RPM 并完成启动。',
+    'Choose AppImage, Flatpak, DEB, RPM or tar.gz and troubleshoot FUSE, runtimes and dependencies.',
+    '选择 AppImage、Flatpak、DEB、RPM 或 tar.gz，处理 FUSE、运行时、依赖和更新问题。',
   ],
   'guides.photocraft-reddit.title': [
     'PhotoCraft on Reddit',
@@ -101,6 +309,9 @@ const copy = {
   ],
   'nav.open': ['Open navigation', '展开导航'],
   'nav.close': ['Close navigation', '关闭导航'],
+  'downloads.alpha': ['Early alpha', '早期 Alpha'],
+  'footer.privacy': ['Privacy Policy', '隐私政策'],
+  'footer.terms': ['Terms of Use', '使用条款'],
   'hero.eyebrow': ['Your next creative starting point', '从这里，开始你的创作'],
   'hero.title1': ['PhotoCraft Download', 'PhotoCraft 下载'],
   'hero.title2': [
@@ -114,23 +325,22 @@ const copy = {
   'hero.download': ['Download PhotoCraft', '下载 PhotoCraft'],
   'hero.explore': ['Meet the editor', '了解编辑器'],
   'hero.noSubscription': ['No subscription', '无需订阅'],
-  'hero.realInterface': ['REAL APP SCREENSHOT', '真实软件界面'],
-  'hero.psdTitle': ['Your layers come with you.', '你的图层，完整同行。'],
+  'hero.psdTitle': ['Explore layered PSD editing.', '探索分层 PSD 编辑。'],
   'hero.psdText': [
     'Open, edit & save layered PSD files',
     '打开、编辑、保存分层 PSD',
   ],
   'hero.caption': [
-    'Official screenshot · ArtCraft / The Great Wave, Hokusai',
-    '官方截图 · ArtCraft / 葛饰北斋《神奈川冲浪里》',
+    'Captured by this site · Windows 11 · v0.9.0 · 15 Oct 2026',
+    '本站实拍 · Windows 11 · v0.9.0 · 2026-10-15',
   ],
   'images.interface': [
-    'Official PhotoCraft interface editing Hokusai’s Great Wave with a Curves adjustment, editable text and a Layers panel.',
-    'PhotoCraft 官方界面：编辑葛饰北斋《神奈川冲浪里》，显示曲线调整、文字与图层面板。',
+    'Our Windows 11 capture of PhotoCraft with the About dialog showing version 0.9.0 and commit c699e3cda over our original COAST test document.',
+    '本站 Windows 11 真机截图：PhotoCraft「关于」对话框显示版本 0.9.0、提交 c699e3cda，背景为本站原创 COAST 测试文档。',
   ],
   'images.adjustments': [
-    'PhotoCraft editing Monet’s Impression, Sunrise with Levels, Vibrance, a histogram and the Layers panel.',
-    'PhotoCraft 编辑莫奈《印象·日出》，显示色阶、自然饱和度、直方图与图层面板。',
+    'Our PhotoCraft 0.9.0 Windows capture after reopening coast-layers.psd, showing three layers and a Levels midtone value of 1.1.',
+    '本站 PhotoCraft 0.9.0 Windows 实拍：重开 coast-layers.psd 后，三个图层与色阶中间调 1.1 仍保留。',
   ],
   'proof.open': ['Free & open source', '免费且开源'],
   'proof.psd': ['Native PSD & PSB support', '原生支持 PSD 与 PSB'],
@@ -171,6 +381,14 @@ const copy = {
   'downloads.checksum': ['SHA-256 checksums', 'SHA-256 校验文件'],
   'downloads.releases': ['Latest official release', '最新官方版本'],
   'downloads.checked': ['Release links checked:', '下载链接核对时间：'],
+  'hero.currentVersion': ['Current version', '当前版本'],
+  'hero.updated': ['Updated & verified:', '更新核验时间：'],
+  'hero.directDownloads': [
+    'Official downloads by platform',
+    '按平台直接下载官方版本',
+  ],
+  'hero.directDownload': ['Download', '下载'],
+  'hero.allBuilds': ['View all builds', '查看全部版本格式'],
   'downloads.monitor': ['View the daily check', '查看每日自动检查'],
   'downloads.report': ['View this check report', '查看本次检查报告'],
   'downloads.checkMethod': [
@@ -191,10 +409,36 @@ const copy = {
     '图层、蒙版、文字与色彩。原生桌面工作区，让创作顺着你的习惯展开。',
   ],
   'features.imageCaption': [
-    'Levels & Vibrance · Monet, Impression, Sunrise',
-    '色阶与自然饱和度 · 莫奈《印象·日出》',
+    'Our Windows capture · PSD reopened · Levels 1.10',
+    '本站 Windows 实拍 · PSD 重开后 · 色阶 1.10',
   ],
-  'features.imageSource': ['Official screenshot', '官方截图来源'],
+  'features.imageSource': ['Our test record', '本站实测记录'],
+  'captures.title': [
+    'The machine behind these screenshots',
+    '这些截图，在哪台电脑上拍的？',
+  ],
+  'captures.description': [
+    'Captured on 15 Oct 2026: PhotoCraft 0.9.0 x64 Portable on Windows 11 25H2, with an RTX 4060 Laptop GPU and Vulkan. We opened our original artwork, duplicated a layer, added Levels at 1.10, then saved and reopened this simple PSD. This check covers this file and this Windows build.',
+    '2026-10-15，Windows 11 25H2、RTX 4060 Laptop GPU、Vulkan，运行 PhotoCraft 0.9.0 x64 便携版。打开本站原创画布，复制图层，添加色阶并设为 1.10，再保存、关闭并重开 PSD。本次验证范围为这个简单文件与这款 Windows 构建。',
+  ],
+  'captures.open': ['View original PNG', '查看原始 PNG'],
+  'captures.systemAlt': [
+    'Our real PhotoCraft System Info screenshot showing version 0.9.0, windows x86_64, NVIDIA RTX 4060 Laptop GPU and Vulkan, with the reopened PSD behind it.',
+    '本站 PhotoCraft 系统信息实拍：显示 0.9.0、windows x86_64、NVIDIA RTX 4060 Laptop GPU、Vulkan，背景为重开后的 PSD。',
+  ],
+  'captures.systemCaption': [
+    'System Info · actual app dialog',
+    '系统信息 · 应用内实际对话框',
+  ],
+  'captures.record': [
+    'See the steps and all three captures',
+    '查看操作步骤与三张实拍图',
+  ],
+  'captures.file': [
+    'Download our test PSD (439 KB)',
+    '下载本站测试 PSD（439 KB）',
+  ],
+  'captures.credit': ['Captured by this independent guide', '本站独立拍摄'],
   'features.layers.title': [
     'Layers that keep your options open',
     '图层，让修改保留余地',
@@ -245,6 +489,10 @@ const copy = {
   ],
   'install.tabs': ['Installation operating system', '选择安装系统'],
   'install.getFile': ['Get the official file', '下载官方文件'],
+  'install.fullGuide': [
+    'Full installation and troubleshooting guide',
+    '查看完整安装与故障排查指南',
+  ],
   'install.windows.1.title': ['Download the installer', '下载安装包'],
   'install.windows.1.text': [
     'Use the Windows download link to get the x64 MSI installer for most Intel and AMD PCs. On a Snapdragon PC, choose the ARM64 release build under other architectures.',
@@ -299,8 +547,8 @@ const copy = {
     '使用下方第二条命令启动 AppImage，通过 File → Open 打开图片。DEB、RPM 可使用系统软件包管理器安装。',
   ],
   'install.linux.tip': [
-    'Wayland drag-and-drop is not supported in this release. Use File → Open or paste an image. The commands below are for x86_64 AppImage.',
-    '此版本暂不支持 Wayland 拖放文件，可用 File → Open 或粘贴图片。下方命令针对 x86_64 AppImage。',
+    'Wayland drag-and-drop is not supported in this release. Use File → Open or paste an image. The commands in this section are for x86_64 AppImage.',
+    '此版本暂不支持 Wayland 拖放文件，可用 File → Open 或粘贴图片。本节命令针对 x86_64 AppImage。',
   ],
   'install.tip': ['Good to know.', '小提示：'],
   'install.command': [
@@ -374,8 +622,8 @@ const copy = {
     '生产环境与专业日常工作',
   ],
   'compare.note': [
-    'Based on the PhotoCraft v0.7.0 README and Adobe product information. The developers do not yet recommend PhotoCraft as a replacement for daily professional work.',
-    '依据 PhotoCraft v0.7.0 README 与 Adobe 产品信息整理。开发者明确表示，现阶段尚不能替代 Photoshop 用于专业日常工作。',
+    'Based on the PhotoCraft v%VERSION% README and Adobe product information. The developers do not yet recommend PhotoCraft as a replacement for daily professional work.',
+    '依据 PhotoCraft v%VERSION% README 与 Adobe 产品信息整理。开发者明确表示，现阶段尚不能替代 Photoshop 用于专业日常工作。',
   ],
   'compare.pcSource': ['PhotoCraft source', 'PhotoCraft 来源'],
   'compare.psSource': ['Adobe source', 'Adobe 来源'],
@@ -465,6 +713,33 @@ const copy = {
   'cta.description': [
     'Get PhotoCraft. Open an image. See where it takes you.',
     '下载 PhotoCraft，打开图片，探索你的创作可能。',
+  ],
+  'topicNav.title': ['PhotoCraft guides by topic', 'PhotoCraft 专题导航'],
+  'topicNav.comparisons': ['Comparisons', '软件对比'],
+  'topicNav.tutorials': ['Tutorials & community', '教程与社区'],
+  'topicNav.platforms': ['Platform installation', '平台安装'],
+  'topicNav.alternatives': ['Alternatives', '替代方案'],
+  'topicNav.related': ['Related creative apps', '相关创作软件'],
+  'topicNav.photocraft-vs-photoshop': [
+    'PhotoCraft vs Photoshop',
+    'PhotoCraft vs Photoshop',
+  ],
+  'topicNav.photocraft-app': ['PhotoCraft App', 'PhotoCraft App 使用教程'],
+  'topicNav.photocraft-open-source': [
+    'PhotoCraft Open Source',
+    'PhotoCraft 开源说明',
+  ],
+  'topicNav.photocraft-reddit': [
+    'PhotoCraft Reddit',
+    'PhotoCraft Reddit 社区讨论',
+  ],
+  'topicNav.photocraft-linux': [
+    'PhotoCraft Linux',
+    'PhotoCraft Linux 安装指南',
+  ],
+  'topicNav.photocraft-alternative': [
+    'PhotoCraft Alternative',
+    'PhotoCraft 替代方案',
   ],
   'footer.independent': [
     'An independent guide to downloading and getting started with PhotoCraft. All downloads point to official sources.',

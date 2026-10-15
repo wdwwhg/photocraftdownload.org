@@ -1,0 +1,96 @@
+export const meta = {
+  title: 'PhotoCraft Windows Install: MSI, Portable ZIP and DLL Fixes',
+  heading: 'PhotoCraft Windows Installation Guide',
+  description:
+    'Find your x64, x86 or ARM64 build, compare MSI and portable settings, and troubleshoot missing DLLs, runtime messages and first-launch problems.',
+  category: 'Windows installation',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-15',
+  sections: [
+    'Find your x64, x86 or ARM64 build',
+    'MSI versus Portable ZIP',
+    'Install the MSI or extract the ZIP',
+    'Missing DLL or runtime messages',
+    'SmartScreen and installer failures',
+    'First launch and useful diagnostics',
+    'Sources and verification scope',
+  ],
+};
+
+Start with the [download chooser](/#downloads). This guide covers **PhotoCraft v0.9.0**: the right architecture, how each package behaves, and what to check when installation or launch fails. Running a packaged build does not require Rust or Visual Studio.
+
+## Find your x64, x86 or ARM64 build
+
+Press **Win + I → System → About → Device specifications → System type**. Read both the operating-system bitness and processor type.
+
+| What System type shows                       | Choose | Common mistake                                                     |
+| -------------------------------------------- | ------ | ------------------------------------------------------------------ |
+| 64-bit operating system, x64-based processor | x64    | Both Intel and AMD belong here                                     |
+| ARM-based processor / ARM64                  | ARM64  | This includes Snapdragon Windows PCs                               |
+| 32-bit operating system                      | x86    | Choose for the installed OS, even if the processor supports 64-bit |
+
+x86 means 32-bit, not every Intel computer. Prefer the native ARM64 release on an ARM PC rather than choosing x64 just because emulation exists. See [Microsoft's system-type instructions](https://support.microsoft.com/en-us/windows/experience/compatibility/32-bit-and-64-bit-windows-frequently-asked-questions).
+
+## MSI versus Portable ZIP
+
+| Question                 | MSI installer                                                                 | Portable ZIP                                                       |
+| ------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Start using it           | Run setup, then launch from Start                                             | Extract the complete folder and run photocraft.exe                 |
+| Permissions              | Current packaging installs per-machine and may request administrator approval | Extract into a folder you can write to                             |
+| Shortcuts and removal    | Installer-managed Start entry; uninstall in Windows Settings                  | Create your own shortcut; move the folder after quitting           |
+| Settings                 | Normally %APPDATA%\Photocraft                                                 | PhotoCraftData beside the executable while portable.txt is present |
+| Move to another computer | Migrate settings and documents separately                                     | Copy the entire folder, including PhotoCraftData                   |
+
+Choose MSI for a conventional installed application; choose ZIP for an application folder or removable drive. Portable does not bypass device-management policies. Back up PhotoCraftData before upgrading; deleting the portable folder can also delete its settings and recovery files.
+
+## Install the MSI or extract the ZIP
+
+1. Download the matching file through this site or the [official v0.9.0 release](https://github.com/storytold/photocraft/releases/tag/v0.9.0).
+2. For MSI, open the installer, review its publisher details and finish setup. For ZIP, use **Extract All**, open the extracted inner folder and launch photocraft.exe.
+3. Do not launch inside the compressed-folder preview or move only the executable. Keep portable.txt next to the executable for portable settings.
+4. A read-only portable folder cannot hold settings: the project documents a warning and fallback to %APPDATA%\Photocraft.
+
+In PowerShell, from the download folder:
+
+```powershell
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+```
+
+Compare the complete value with the exact filename in the release's [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Substitute your ZIP or architecture when applicable.
+
+## Missing DLL or runtime messages
+
+**Record the exact missing file first.** The v0.9.0 [Windows packaging script](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1) statically links the C runtime and explicitly says the MSI and ZIP do not require a separate VC++ Redistributable.
+
+| Symptom                                                  | Check first                                              | Next action                                                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Missing bundled file or failure when launched from a ZIP | Incomplete extraction or an isolated executable          | Extract a fresh complete official ZIP                                                          |
+| VCRUNTIME140.dll or MSVCP140.dll is named                | An older build, repackaged download or another component | Verify the package; install or repair Microsoft's runtime only when that component requires it |
+| “This app can't run on your PC” or 0xc000007b            | Application architecture and file integrity              | Recheck System type; the message alone does not diagnose a missing runtime                     |
+| Graphics DLL message or blank canvas                     | OS updates, GPU driver and exact error                   | Collect the diagnostics below                                                                  |
+
+If a component explicitly needs VC++ v14, use [Microsoft's download page](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170), matching the failing application's architecture. Follow its Install or Repair prompts. Do not fetch individual DLLs from download aggregators.
+
+## SmartScreen and installer failures
+
+“Windows protected your PC” is a trust or reputation message. Verify the source, signature details and checksum before deciding how to proceed. An organization policy requires its approved software process; switching to ZIP does not establish permission.
+
+If setup rolls back or reports another installation in progress, keep the exact message and complete the existing installation first. Avoid starting several MSI sessions. Include the version, architecture, Windows version and error code in an [upstream issue report](/photocraft-github).
+
+## First launch and useful diagnostics
+
+Open an image copy, save a working file, export PNG and reopen both. Continue with the [beginner tutorial](/photocraft-tutorial) once that succeeds.
+
+For a blank canvas, inspect **Help → System Info** for the GPU and backend. The development guide documents a temporary CPU-rendering launch option for diagnosis. Default Windows logs are under %APPDATA%\Photocraft\logs; in portable mode, inspect logs under its PhotoCraftData directory. Remove private paths before sharing logs.
+
+## Sources and verification scope
+
+- [v0.9.0 packaging and static runtime](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1)
+- [Portable settings behavior](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/portable.txt)
+- [MSI configuration](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/photocraft.wxs)
+- [Graphics and logging documentation](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [Microsoft VC++ runtime guidance](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+
+Package details were checked against these sources. This troubleshooting path does not claim reproduction of every Windows configuration or error.
+
+On 15 October 2026, we ran the v0.9.0 x64 portable build on Windows 11 25H2 x64, opened our original PNG, added a Levels layer, and saved and reopened a three-layer PSD. [See our actual captures, machine details and test files](/photocraft-review#hands-on). That check does not cover MSI installation, ARM64 or reproduction of the errors above.

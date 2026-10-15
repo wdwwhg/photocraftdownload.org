@@ -1,0 +1,75 @@
+import { release } from '@/components/photocraft/downloads';
+import {
+  VersionHistoryDetails,
+  VersionHistoryTable,
+} from '@/components/photocraft/version-history';
+import history from '@/content/photocraft-version-history.json';
+
+export const meta = {
+  title: 'PhotoCraft 版本历史：发布日期、更新与旧版下载',
+  heading: 'PhotoCraft 版本历史',
+  description:
+    '查看 PhotoCraft v0.7.0、v0.8.2 与 v0.9.0 的发布日期、面向普通用户的更新摘要，以及各版 Windows、macOS 和 Linux 官方下载。',
+  category: '版本与更新',
+  published_at: '2026-10-15',
+  updated_at: '2026-10-15',
+  sections: [
+    '版本历史一览',
+    '逐版变化与使用建议',
+    '为什么没有 v0.8.0 和 v0.8.1',
+    '升级或回退之前',
+    '来源与核对方式',
+  ],
+};
+
+想知道某一版改了什么、是否值得更新，或需要找回旧版安装文件？这里把官方技术更新记录整理为日常编辑时能用到的变化。当前覆盖 **v0.7.0 → v0.8.2 → v0.9.0**；每条摘要都附有官方来源。
+
+第一次安装，先用[下载选择器](/#downloads)获取当前版本。下面的旧版入口适合查历史、复现问题或对照工作流。
+
+## 版本历史一览
+
+发布日期取自 GitHub 的正式发布时间，统一按**新加坡时间（UTC+8）**显示，因此可能与采用其他时区的官方页面相差一天。
+
+<VersionHistoryTable
+  entries={history.releases}
+  labels={history.ui.zh}
+  locale="zh"
+  currentVersion={release.version}
+/>
+
+表内的 Windows 直链是 **x64 MSI**，macOS 是 **Intel 与 Apple 芯片通用 DMG**，Linux 是 **x86_64 AppImage**。ARM64、Windows 便携 ZIP、其他 Linux 格式请选该行的“其他架构与格式”，进入对应版本的文件列表。
+
+## 逐版变化与使用建议
+
+以下摘取与修图、保存、文件交换更直接相关的变化。它们是官方更新记录的用户化摘要，不是覆盖所有硬件和文件的兼容性测试结果。
+
+<VersionHistoryDetails
+  entries={history.releases}
+  labels={history.ui.zh}
+  locale="zh"
+/>
+
+## 为什么没有 v0.8.0 和 v0.8.1
+
+截至 **2026-10-15**，官方公开 Release 记录中，v0.8.x 能核验到的是 **v0.8.2**。未找到 v0.8.0 和 v0.8.1 的独立发布条目，因此没有可确认的发布日期和安装包链接。
+
+v0.8.2 的官方完整变更范围直接从 v0.7.0 开始，所以表中将这一段作为一个已发布版本来说明。更多历史与后续发布可查看[官方版本列表](https://github.com/storytold/photocraft/releases)。
+
+## 升级或回退之前
+
+1. **先保留工作稿副本。** 关闭应用后再更换版本；用复制的图片或项目检查打开、保存、导出与重开。
+2. **回退时使用该版的完整安装包。** 不要把新版 EXE、旧版支持文件和不同版本的便携设置混在同一个目录。
+3. **确认文件格式能回读。** 新版保存的项目未必能被旧版完整读取，特别是用了新增功能的文件。保留回退前的原始文档。
+4. **记录版本与报错。** 对比同一份副本在新旧版本的行为，再按[反馈指南](/photocraft-github)提供复现步骤。
+
+安装方式可参考 [Windows 指南](/photocraft-windows)、[macOS 指南](/photocraft-macos)和 [Linux 指南](/photocraft-linux)。这些指南以站点当前核对版本为例；安装旧版时，以旧版的文件名、系统要求和发布说明为准。
+
+## 来源与核对方式
+
+版本、发布时间和下载文件依据官方 GitHub 发布信息核对；摘要旁的“官方变更”指向该项修改，完整记录和版本对比链接保留在每版说明下方。本站不托管或修改安装包。
+
+- [v0.7.0 官方记录](https://github.com/storytold/photocraft/releases/tag/v0.7.0)
+- [v0.8.2 官方记录](https://github.com/storytold/photocraft/releases/tag/v0.8.2)
+- [v0.9.0 官方记录](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
+
+本页最近核对：2026-10-15。它是经核对的版本快照；新增版本可从[官方最新发布](https://github.com/storytold/photocraft/releases/latest)确认。

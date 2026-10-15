@@ -1,113 +1,185 @@
 export const meta = {
-  title: 'PhotoCraft Linux：AppImage、Flatpak 安装指南',
+  title: 'PhotoCraft Linux 安装：五种包怎么选与报错处理',
   heading: 'PhotoCraft Linux 安装指南',
   description:
-    '选择 PhotoCraft 的 AppImage、Flatpak、DEB 或 RPM，确认 x86_64 与 ARM64 架构、核对发布文件，并排查首次启动问题。',
+    '比较 AppImage、Flatpak、DEB、RPM 和 tar.gz，按发行版选择安装方式，处理 FUSE、运行时、依赖和权限问题，说明更新与卸载。',
   category: 'Linux 安装',
-  updated_at: '2026-10-12',
+  updated_at: '2026-10-15',
   sections: [
-    '确认架构与包格式',
-    '官方 Linux 文件',
-    '运行 AppImage',
-    '安装 Flatpak 包',
-    '安装 DEB 与 RPM',
-    '首次启动与故障排查',
-    '来源与版本范围',
+    '五种 Linux 包先选哪一种',
+    '确认发行版与处理器',
+    '官方文件与校验',
+    'AppImage：直接运行与 FUSE 问题',
+    'Flatpak：安装运行时与访问文件',
+    'DEB 与 RPM：让包管理器处理依赖',
+    'tar.gz：手动解压二进制包',
+    '按错误定位问题',
+    '更新与卸载别混用安装方式',
+    '来源与验证范围',
   ],
 };
 
-PhotoCraft 提供原生 Linux 构建。本页以 **0.7.0 版本**为例，核实日期为 2026 年 10 月 12 日。选择更新版本时，所有命令都应使用对应版本的文件名。使用已发布安装包无需编译 Rust。
+不必五种包都装一遍。**先按使用方式选格式，再按处理器选文件。** 本文以官方 **v0.9.0** 发布包为例，补充 FUSE、Flatpak 运行时、本地包依赖及 tar.gz 目录这些容易卡住的步骤。
 
-## 确认架构与包格式
+## 五种 Linux 包先选哪一种
 
-在终端查看处理器架构：
+| 你的情况                                       | 先选     | 要接受的取舍                                            |
+| ---------------------------------------------- | -------- | ------------------------------------------------------- |
+| 只想先试一下，或不想做系统级安装               | AppImage | 一个文件启动；仍可能遇到 FUSE、图形或系统库要求         |
+| 已使用 Flatpak，或更看重跨发行版的应用运行环境 | Flatpak  | 先有 Flatpak 和运行时；文件访问受沙盒约束               |
+| Ubuntu / Debian，想让系统管理应用与依赖        | DEB      | 依赖必须在当前发行版仓库里可用                          |
+| Fedora 或其他兼容 RPM 系统                     | RPM      | 使用该发行版的包管理器；RPM 后缀不保证兼容所有 RPM 系统 |
+| 想自行放置文件、并行保存多个版本               | tar.gz   | 手动管理依赖、启动路径和快捷方式                        |
+
+这是选择顺序，不是性能排名。AppImage 不是完整虚拟机，tar.gz 也不表示里面是源码。这里的 tar.gz 是已经编译的桌面程序；GitHub 自动生成的 Source code 压缩包才用于源码构建。
+
+## 确认发行版与处理器
+
+终端运行：
 
 ```sh
 uname -m
+cat /etc/os-release
 ```
 
-输出 x86_64 时选 x86_64，输出 aarch64 时选 aarch64。修改文件名无法让不同 CPU 架构的软件包兼容。
+x86_64 对应 Intel/AMD 64 位文件；aarch64 对应 ARM64。不要用改文件名或包格式转换来解决 CPU 不匹配。RISC-V 用户见官方 tar.gz 说明，v0.9.0 README 为该构建标注 **glibc 2.39+**。
 
-| 格式     | 适合的起点                  | 使用方式                  |
-| -------- | --------------------------- | ------------------------- |
-| AppImage | 用单个文件体验软件          | 添加可执行权限后启动      |
-| Flatpak  | 用户级沙盒安装              | 需要 Flatpak 与相应运行时 |
-| DEB      | Debian、Ubuntu 及兼容发行版 | 使用发行版包管理工具安装  |
-| RPM      | RPM 系发行版                | 使用对应发行版的包管理器  |
-| Tarball  | 手动放置二进制文件          | 自行管理解压和启动路径    |
+不知道从哪开始，可以返回[下载选择器](/#downloads)；若已知发行版并希望使用 DEB/RPM，直接选择下表对应文件。
 
-先选择一种方式，避免多份安装导致应用菜单打开了意外版本。下列文件均来自[官方发布](https://github.com/storytold/photocraft/releases/tag/v0.7.0)。
+## 官方文件与校验
 
-## 官方 Linux 文件
+| 格式     | Intel/AMD x86_64                                                                                                             | ARM64 / aarch64                                                                                                              |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| AppImage | [x86_64 AppImage](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.AppImage)   | [ARM64 AppImage](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.AppImage)   |
+| Flatpak  | [x86_64 Flatpak](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.flatpak)     | [ARM64 Flatpak](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.flatpak)     |
+| DEB      | [x86_64 DEB](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.deb)             | [ARM64 DEB](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.deb)             |
+| RPM      | [x86_64 RPM](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.rpm)             | [ARM64 RPM](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.rpm)             |
+| tar.gz   | [x86_64 二进制压缩包](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.tar.gz) | [ARM64 二进制压缩包](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.tar.gz) |
 
-| 格式     | x86_64                                                                                                          | ARM64 / aarch64                                                                                                  |
-| -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| AppImage | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.AppImage) | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.AppImage) |
-| Flatpak  | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.flatpak)  | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.flatpak)  |
-| DEB      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.deb)      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.deb)      |
-| RPM      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.rpm)      | [下载](https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.rpm)      |
-
-链接指向 ArtCraft 的 GitHub 发布附件。其他系统与版本更新入口见[下载首页](/)。
-
-## 运行 AppImage
-
-下载后，在文件所在目录打开终端。x86_64 示例：
+[RISC-V tar.gz](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-riscv64.tar.gz) 也在固定发布中。下载后以 AppImage 为例计算：
 
 ```sh
-chmod +x photocraft-0.7.0-linux-x86_64.AppImage
-./photocraft-0.7.0-linux-x86_64.AppImage
+sha256sum photocraft-0.9.0-linux-x86_64.AppImage
 ```
 
-ARM64 将两条命令中的 x86_64 改为 aarch64。可执行权限只作用于该文件，更新后可能需要重新设置。无需用 root 启动编辑器。
+与同一版本 [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt) 中相同文件名的完整值比较。下面所有命令都假定你已在下载文件所在目录；换架构时，把文件名中的 x86_64 改为 aarch64。
 
-如果提示缺少运行组件，保留完整报错，按发行版说明处理，或尝试官方 Flatpak 包。[AppImage 文档](https://docs.appimage.org/user-guide/run-appimages.html)解释权限与运行条件；单文件形式不保证所有系统配置都无需依赖。
-
-## 安装 Flatpak 包
-
-先按照发行版说明安装 Flatpak，再在下载目录运行：
+## AppImage：直接运行与 FUSE 问题
 
 ```sh
-flatpak install --user ./photocraft-0.7.0-linux-x86_64.flatpak
+chmod +x photocraft-0.9.0-linux-x86_64.AppImage
+./photocraft-0.9.0-linux-x86_64.AppImage
+```
+
+有的文件管理器也能在“属性 → 权限”勾选“允许作为程序执行”。新下载的文件可能要重新设置权限。
+
+出现 libfuse.so.2 或“AppImages require FUSE”时，按发行版查 FUSE 2 兼容库：例如 Ubuntu 22.04 使用 libfuse2，Ubuntu 24.04 使用 libfuse2t64。不要把“安装兼容库”误写成替换现有 fuse3。具体操作见 [AppImage FUSE 排查](https://docs.appimage.org/user-guide/troubleshooting/fuse.html)。
+
+无法使用 FUSE 时，当前打包采用支持提取运行的 Type 2 runtime，可尝试：
+
+```sh
+./photocraft-0.9.0-linux-x86_64.AppImage --appimage-extract-and-run
+```
+
+它需要额外解压空间，不能替你解决所有系统库问题；也可改选 Flatpak 或发行版原生包。不要用 sudo 启动编辑器来“修复”普通权限报错。
+
+## Flatpak：安装运行时与访问文件
+
+先按发行版说明装好 Flatpak。在终端确认可用后，用本地下载包安装：
+
+```sh
+flatpak --version
+flatpak install --user ./photocraft-0.9.0-linux-x86_64.flatpak
 flatpak run ai.storyteller.photocraft
 ```
 
-ARM64 使用 aarch64 文件名。检查运行时与权限提示。PhotoCraft README 说明其包依赖 Flathub 的 Freedesktop 运行时；缺少运行时时，遵循提示与当前上游说明。
-
-本地 bundle 与从远端仓库安装的应用，其更新方式可能不同。检查当前安装是否有更新源，不要默认本地包会持续自动更新。包管理参考 [Flatpak 使用文档](https://docs.flatpak.org/en/latest/using-flatpak.html)。
-
-## 安装 DEB 与 RPM
-
-Debian、Ubuntu 使用本地 DEB：
+这不是“在 Flathub 搜索 PhotoCraft”的命令；官方提供的是本地 bundle。打包脚本设置了 Flathub 运行时来源，首次安装可能下载较大的运行时。若提示缺少运行时，先看当前用户配置：
 
 ```sh
-sudo apt install ./photocraft-0.7.0-linux-x86_64.deb
+flatpak remotes --user
 ```
 
-Fedora 使用本地 RPM：
+确认需要添加 Flathub 时，使用：
 
 ```sh
-sudo dnf install ./photocraft-0.7.0-linux-x86_64.rpm
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
-./ 表示本地文件。ARM64 应替换文件名。其他 RPM 发行版使用各自工具，Fedora 命令不是所有 Linux 的通用命令。确认依赖与卸载提示后再接受安装操作。
+然后重试本地包安装，阅读运行时提示。用户级和系统级安装不要混着排查；这里统一使用 --user。
 
-## 首次启动与故障排查
+如果应用看不到文件，先用“文件 → 打开”的文件选择器授权访问，确认文件所在位置；不要直接给整个主目录或全系统访问权。Flatpak 沙盒与本机文件管理器的可见范围可能不同。参考 [Flatpak 使用说明](https://docs.flatpak.org/en/latest/using-flatpak.html)及[沙盒权限说明](https://docs.flatpak.org/en/latest/sandbox-permissions.html)。
 
-通过“文件 → 打开”选择可替换图片，按[首次编辑指南](/photocraft-app)保存工作副本并检查导出，再处理重要项目。
+## DEB 与 RPM：让包管理器处理依赖
 
-- **Permission denied**：检查 AppImage 可执行权限与目录是否允许执行。
-- **Exec format error**：比较文件架构与 uname -m 的输出。
-- **缺少运行时**：记录报错，核对所选包的要求。
-- **Wayland 拖放异常**：先使用“文件 → 打开”。当前上游 README 说明了 Wayland 拖放限制，具体应核对所用版本。
-- **版本与预期不同**：检查启动的是哪一份安装和快捷方式。
+Ubuntu / Debian：
 
-报告问题时附上版本、发行版、CPU 架构与报错，避免提交私人图片。[开源指南](/photocraft-open-source)提供贡献入口。
+```sh
+sudo apt install ./photocraft-0.9.0-linux-x86_64.deb
+```
 
-## 来源与版本范围
+Fedora：
 
-- [PhotoCraft 0.7.0 发布](https://github.com/storytold/photocraft/releases/tag/v0.7.0)
-- [上游 Linux 说明](https://github.com/storytold/photocraft#downloads)
-- [AppImage 文档](https://docs.appimage.org/user-guide/run-appimages.html)
-- [Flatpak 文档](https://docs.flatpak.org/en/latest/using-flatpak.html)
+```sh
+sudo dnf install ./photocraft-0.9.0-linux-x86_64.rpm
+```
 
-文件可用性依据官方来源核实，本文未在所有发行版与硬件组合上进行实测。
+openSUSE 使用自己的工具，例如：
+
+```sh
+sudo zypper install ./photocraft-0.9.0-linux-x86_64.rpm
+```
+
+开头的 ./ 表示“当前目录里的本地文件”。相比只用 dpkg 或 rpm 解包，发行版包管理器会尝试从配置的软件源解析依赖。
+
+如果报告依赖不存在或版本过低，先记录完整内容，确认发行版版本和架构。不要用忽略依赖参数硬装，也不要把其他发行版的基础库覆盖进系统；可以改用适合该系统的 Flatpak，或核对上游支持范围。DEB/RPM 安装成功并不意味着你已经添加了自动更新仓库。
+
+## tar.gz：手动解压二进制包
+
+适合需要控制位置、保留多个版本的用户。先查看目录结构：
+
+```sh
+tar -tzf photocraft-0.9.0-linux-x86_64.tar.gz
+```
+
+当前官方打包树包含版本顶层目录和 bin、share。解压到自己的独立版本目录，去掉归档的第一层目录：
+
+```sh
+mkdir -p "$HOME/Applications/photocraft-0.9.0"
+tar -xzf photocraft-0.9.0-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/Applications/photocraft-0.9.0"
+"$HOME/Applications/photocraft-0.9.0/bin/photocraft"
+```
+
+保留 bin 与 share 的相对位置，不要只拷贝一个二进制文件。它不自动注册系统包或开始菜单入口，也不自带全部系统库；缺少依赖时按发行版处理。结构依据[官方 Linux 打包脚本](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/package.sh)。
+
+## 按错误定位问题
+
+| 看到的报错                    | 先查什么                                           |
+| ----------------------------- | -------------------------------------------------- |
+| Permission denied             | 可执行位、目录是否允许执行；不要直接 sudo 运行     |
+| Exec format error             | uname -m 与文件架构                                |
+| libfuse.so.2                  | AppImage 的 FUSE 2 兼容库或提取运行                |
+| Flatpak runtime not installed | 运行时来源与安装范围是否一致                       |
+| GLIBC_x.xx not found          | 发行版系统库是否满足该原生包要求                   |
+| 空白画布或显卡初始化失败      | 从终端保留输出，查看 Help → System Info 的显卡后端 |
+| 应用菜单打开了旧版            | 是否同时存在 Flatpak、系统包和手动解压版本         |
+
+启动后，先用图片副本做打开、保存、导出和重新打开的小测试。图形问题不等于安装包选错；报告时提供发行版、桌面会话、架构、版本和完整错误，见[反馈指南](/photocraft-github)。
+
+## 更新与卸载别混用安装方式
+
+- **AppImage**：保存需要的文档，退出后替换文件；若配置 AppImageUpdate，按其流程更新。删除应用文件不等于删除用户设置。
+- **Flatpak**：用 flatpak list --app 检查安装项，查看其来源再决定更新方式；本地 GitHub bundle 不会因为运行 flatpak update 就必然追踪新的 GitHub 发布。卸载使用 flatpak uninstall --user ai.storyteller.photocraft，默认不等于清除所有应用数据。
+- **DEB/RPM**：通过安装时使用的包管理器升级或卸载，先预览将修改哪些依赖。
+- **tar.gz**：新版本解压到新目录，确认工作后再移走旧版本；更新自己的快捷方式，避免仍指向旧路径。
+
+## 来源与验证范围
+
+- [v0.9.0 官方文件与架构](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
+- [Linux 归档与 AppImage 打包实现](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/package.sh)
+- [Flatpak bundle 与运行时来源](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/flatpak-bundle.sh)
+- [AppImage 运行说明](https://docs.appimage.org/user-guide/run-appimages.html)
+- [Ubuntu 包管理](https://documentation.ubuntu.com/server/how-to/software/package-management/)
+- [DNF 官方命令参考](https://dnf.readthedocs.io/en/latest/command_ref.html)
+- [openSUSE 软件包管理](https://doc.opensuse.org/documentation/leap/reference/html/book-reference/cha-sw-cl.html)
+
+核对日期为 2026-10-15，依据官方发布与包管理文档整理。尚未覆盖所有发行版、沙盒或显卡组合的独立实测。

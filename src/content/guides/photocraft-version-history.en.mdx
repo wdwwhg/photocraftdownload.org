@@ -1,0 +1,75 @@
+import { release } from '@/components/photocraft/downloads';
+import {
+  VersionHistoryDetails,
+  VersionHistoryTable,
+} from '@/components/photocraft/version-history';
+import history from '@/content/photocraft-version-history.json';
+
+export const meta = {
+  title: 'PhotoCraft Version History: Release Dates & Old Downloads',
+  heading: 'PhotoCraft Version History',
+  description:
+    'Compare PhotoCraft v0.7.0, v0.8.2 and v0.9.0 release dates, plain-language changes and official Windows, macOS and Linux downloads for each version.',
+  category: 'Versions and updates',
+  published_at: '2026-10-15',
+  updated_at: '2026-10-15',
+  sections: [
+    'Release history at a glance',
+    'What each version changes for you',
+    'Where are v0.8.0 and v0.8.1?',
+    'Before updating or rolling back',
+    'Sources and verification',
+  ],
+};
+
+Find what changed before you update, or locate an older installer for a particular workflow. This page turns the official technical notes into everyday editing changes, covering **v0.7.0 → v0.8.2 → v0.9.0**, with sources for each highlighted change.
+
+For a first installation, use the [download chooser](/#downloads) for the current release. Historical files below are useful for checking past behavior or reproducing an issue.
+
+## Release history at a glance
+
+Dates use the official GitHub publication time, displayed in **Singapore time (UTC+8)**. Another time zone can show a different calendar date.
+
+<VersionHistoryTable
+  entries={history.releases}
+  labels={history.ui.en}
+  locale="en"
+  currentVersion={release.version}
+/>
+
+The direct links select **Windows x64 MSI**, **macOS Universal DMG for Intel and Apple silicon**, and **Linux x86_64 AppImage**. For ARM64, portable Windows ZIPs or other Linux packages, use that row's “Other architectures & formats” link to the same version.
+
+## What each version changes for you
+
+These selected changes focus on editing, saving and file exchange. They summarize upstream records; they are not compatibility benchmarks across every computer and document.
+
+<VersionHistoryDetails
+  entries={history.releases}
+  labels={history.ui.en}
+  locale="en"
+/>
+
+## Where are v0.8.0 and v0.8.1?
+
+As checked on **2026-10-15**, **v0.8.2** is the verifiable public Release entry in the v0.8.x series. No separate public Release entry was found for v0.8.0 or v0.8.1, so their publication dates and installer links cannot be confirmed.
+
+The complete v0.8.2 changelog compares directly against v0.7.0. This page treats that span as one published release. See the [official release list](https://github.com/storytold/photocraft/releases) for additional history or later versions.
+
+## Before updating or rolling back
+
+1. **Keep a working-document copy.** Quit before replacing the application, then test opening, saving, exporting and reopening a copy.
+2. **Use a complete package for the chosen version.** Avoid mixing executables, supporting files and portable settings from different releases.
+3. **Check backward file compatibility.** An older build may not fully read a project saved by a newer one, especially after using a new feature. Preserve the earlier original.
+4. **Record the version and error.** Compare the same copied file, then follow the [issue-reporting guide](/photocraft-github).
+
+Use the [Windows](/photocraft-windows), [macOS](/photocraft-macos) or [Linux installation guide](/photocraft-linux) for setup. Those guides use the site's currently reviewed version; older releases need their own filenames and requirements.
+
+## Sources and verification
+
+Versions, publication times and files were checked against official GitHub release information. Each highlighted change links to its upstream record; full release notes and version comparisons are provided under each version. This site does not host or modify installers.
+
+- [Official v0.7.0 record](https://github.com/storytold/photocraft/releases/tag/v0.7.0)
+- [Official v0.8.2 record](https://github.com/storytold/photocraft/releases/tag/v0.8.2)
+- [Official v0.9.0 record](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
+
+Last reviewed: 2026-10-15. This is a checked snapshot. Confirm newer versions on the [official latest release](https://github.com/storytold/photocraft/releases/latest).

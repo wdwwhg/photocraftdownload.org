@@ -1,0 +1,81 @@
+export const meta = {
+  title: 'PhotoCraft Rust：架构与固定版本源码构建',
+  heading: 'PhotoCraft Rust',
+  description:
+    '了解 PhotoCraft 的 Rust、egui 和 wgpu 架构，按固定版本核对桌面与 Wasm 构建要求，并区分开发命令和实际验证。',
+  category: '开发指南',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    '架构能说明什么',
+    '获取版本源码',
+    '平台前置条件',
+    '桌面构建与运行',
+    '浏览器构建',
+    '测试与贡献',
+    '来源',
+  ],
+};
+
+PhotoCraft 使用 Rust，文档介绍 egui 界面和 wgpu 渲染，网页版通过 WebAssembly 运行。本页面向源码阅读与构建；只需编辑图片时，从[下载页](/)取得现成包，无需 Rust 环境。以下要求固定到 v0.8.2。
+
+## 架构能说明什么
+
+README 描述无 Electron 外壳的原生应用、GPU 合成器和文档处理组件。开发说明介绍通过 eframe 浏览器运行器复用应用。这些解释实现结构，不足以证明所有设备上更快。性能比较必须记录文档、操作和构建模式。
+
+## 获取版本源码
+
+```sh
+git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+cd photocraft
+```
+
+先阅读当前检出的 README、Cargo.toml 和开发文档。v0.8.2 声明 rust-version 为 1.95，要求 Rust stable 1.95 或更新。记录标签、编译器和系统，不将此要求扩大到所有未来版本。
+
+## 平台前置条件
+
+Windows 使用 MSVC 工具链与 Visual Studio 或 Microsoft C++ Build Tools 的 Desktop development with C++ 工作负载。安装后在新终端确认 rustc 和 cargo 版本。现成 MSI 不需要这些工具。
+
+Debian / Ubuntu 的版本文档列出：
+
+```sh
+sudo apt install libxkbcommon-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libgtk-3-dev
+```
+
+其他发行版使用文档对应列表，避免猜包名。macOS 同样先确认基本 Rust 环境正常。
+
+## 桌面构建与运行
+
+在仓库根目录执行文档命令：
+
+```sh
+cargo run --release -p photocraft
+cargo run --release -p photocraft -- path/to/image.psd
+```
+
+第二条中的路径换成练习副本。交互式图像处理建议 release 模式。首次构建需获取依赖，失败时保留首个相关错误，不要同时修改多个设置。
+
+受管理 Windows 的应用控制可能阻止编译产物，按组织要求使用批准环境；移动目标目录不能建立文件可信性。
+
+## 浏览器构建
+
+```sh
+rustup target add wasm32-unknown-unknown
+cargo install trunk --locked
+cd apps/photocraft-web
+trunk build --release
+```
+
+文档说明输出到仓库根目录 dist/web。复现发布时需核对标签工作流固定的 Trunk 版本。静态资产仍需正确响应头和浏览器图形环境，参见[网页指南](/photocraft-web)。
+
+## 测试与贡献
+
+完整测试命令为 cargo test --workspace，cargo xtask ci 汇集格式、检查和其他验证。部分语料测试需要额外设置，缺少样本不应当成文件功能失败。
+
+贡献从小型复现和集中修改开始，记录实际运行的验证。本页列的是官方开发步骤，不声称已执行上游全套测试。授权参见[开源说明](/photocraft-open-source)，用户边界参见[评测](/photocraft-review)。
+
+## 来源
+
+- [v0.8.2 Cargo workspace](https://github.com/storytold/photocraft/blob/v0.8.2/Cargo.toml)
+- [版本化开发指南](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
+- [架构概要](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)

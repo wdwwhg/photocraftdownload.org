@@ -1,0 +1,76 @@
+export const meta = {
+  title: 'PhotoCraft Web：浏览器构建、托管与保存限制',
+  heading: 'PhotoCraft Web',
+  description:
+    '说明 PhotoCraft 网页 ZIP 的内容、本机启动与静态托管方法，以及浏览器中的保存、字体和图形能力边界。',
+  category: '平台指南',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'ZIP 中有什么',
+    '在本机运行',
+    '静态托管设置',
+    '关闭前保存',
+    '图形与字体',
+    '验证编辑会话',
+    '来源',
+  ],
+};
+
+PhotoCraft Web 是在浏览器运行的 WebAssembly 构建。官方 Web ZIP 包含可托管的静态站点文件，不等于下载后自动获得一个在线编辑会话。本页依据 v0.8.2 托管说明，使用现成包无需 Rust 编译器。桌面包参见[下载页](/)，源码构建参见 [Rust 指南](/photocraft-rust)。
+
+## ZIP 中有什么
+
+包含 index.html、生成的 JavaScript、Wasm 文件、示例响应头配置及可选字体目录，没有服务器应用代码。编辑运行于访问者设备。“网页版”不意味着提供云端文档存储、协作或同步，应分别核对这些能力。
+
+## 在本机运行
+
+从[官方发布](https://github.com/storytold/photocraft/releases)下载 Web ZIP，解压后进入包含 index.html 的目录。通过静态服务器提供文件，不要直接以 file:// 打开。如已安装 Python 3：
+
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1
+```
+
+Windows 的 Python Launcher 可使用：
+
+```powershell
+py -3 -m http.server 8765 --bind 127.0.0.1
+```
+
+浏览器打开 http://localhost:8765/，测试结束后停止服务器。绑定回环地址使练习服务器仅供本机访问。加载资源失败时，核对根目录与完整解压结构。
+
+## 静态托管设置
+
+上传应用文件夹内容并保留相对路径。公开部署使用 HTTPS。子路径托管需要核对尾部斜杠和服务器路径行为。
+
+| 设置         | 要求                |
+| ------------ | ------------------- |
+| Wasm         | application/wasm    |
+| JavaScript   | text/javascript     |
+| 压缩         | gzip 或 Brotli      |
+| 哈希资产缓存 | 长期不可变缓存      |
+| HTML 缓存    | index.html 重新验证 |
+
+上传前核对实际二进制大小与主机当前限制，不用旧尺寸报告替代检查。示例响应头只是起点，应检查实际返回值。
+
+## 关闭前保存
+
+版本文档说明打开通过浏览器文件选择器，保存和导出下载文件，偏好使用 localStorage；不提供服务器文档存储或网页自动保存、崩溃恢复。
+
+刷新和关闭前下载工作文件，确认下载位置并在新会话重开。页面仍显示图片不代表项目已持久保存。重要编辑应定期保存不同副本。
+
+## 图形与字体
+
+渲染优先使用 WebGPU，回退到 WebGL2；文档提供 ?webgl 参数用于排查。两者均不可用时不能正常运行。记录浏览器、系统和图形环境后再比较桌面行为。
+
+网页不能自动继承所有桌面字体。托管说明提供 fonts 目录和清单机制；排版变化时检查字体可用性与分发许可。
+
+## 验证编辑会话
+
+打开小图、修改、保存可编辑文件、导出，再重开下载文档并在其他查看器检查导出。页面加载成功不能代替完整编辑验证。参见[评测](/photocraft-review)及 [GitHub 指南](/photocraft-github)。
+
+## 来源
+
+- [v0.8.2 托管说明](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)
+- [v0.8.2 开发说明](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
+- [发布资产](https://github.com/storytold/photocraft/releases)

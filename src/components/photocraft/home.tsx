@@ -25,16 +25,27 @@ import {
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
-import { getLocale, localizeHref } from '@/paraglide/runtime.js';
 
-import { builds, linuxCommand, release, type Platform } from './downloads';
+import { CaptureGallery } from './capture-gallery';
+import { DownloadChooser } from './download-chooser';
+import {
+  builds,
+  formatReleaseCopy,
+  linuxCommand,
+  release,
+  type Platform,
+} from './downloads';
 import { GuideCards } from './guide';
-import { guideSlugs } from './guides';
+import {
+  guideSlugs,
+  homepageGuideGroups,
+  homepageRelatedGuides,
+} from './guides';
+import { LanguageLink } from './language-link';
 
 import '@/styles/photocraft.css';
 
-const t = (key: string) =>
-  tDynamic(`photocraft.${key}`).replaceAll('%VERSION%', release.version);
+const t = (key: string) => formatReleaseCopy(tDynamic(`photocraft.${key}`));
 const platformNames = { windows: 'Windows', macos: 'macOS', linux: 'Linux' };
 
 function PlatformIcon({ platform }: { platform: Platform }) {
@@ -92,7 +103,6 @@ export function PhotoCraftHome() {
   const [detected, setDetected] = useState<Platform | null>(null);
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
-  const locale = getLocale();
   useEffect(() => {
     const agent = navigator.userAgent;
     const current = /Macintosh|Mac OS X/.test(agent)
@@ -143,9 +153,9 @@ export function PhotoCraftHome() {
     free: 'photocraft-open-source',
     psd: 'photocraft-vs-photoshop',
     replacement: 'photocraft-vs-photoshop',
-    installer: 'photocraft-linux',
+    installer: `photocraft-${platform}`,
     account: 'photocraft-app',
-    failed: 'photocraft-linux',
+    failed: `photocraft-${platform}`,
   };
 
   return (
@@ -176,13 +186,7 @@ export function PhotoCraftHome() {
             <span>GitHub</span>
             <ArrowUpRight size={12} />
           </OutLink>
-          <a
-            className="pc-language"
-            href={localizeHref('/', { locale: locale === 'en' ? 'zh' : 'en' })}
-            hrefLang={locale === 'en' ? 'zh' : 'en'}
-          >
-            {locale === 'en' ? '中文' : 'EN'}
-          </a>
+          <LanguageLink />
           <button
             className="pc-menu-button"
             aria-label={mobileOpen ? t('nav.close') : t('nav.open')}
@@ -219,14 +223,49 @@ export function PhotoCraftHome() {
               <span className="pc-tiny-cross">✳</span>
               {t('hero.eyebrow')}
             </div>
-            <h1>
-              {t('hero.title1')} <span>{t('hero.title2')}</span>
-            </h1>
+            <div className="pc-hero-heading">
+              <h1>{t('hero.title1')}</h1>
+              <p className="pc-hero-subtitle">{t('hero.title2')}</p>
+            </div>
             <p className="pc-hero-description">{t('hero.description')}</p>
+            <div className="pc-release-summary">
+              <OutLink href={release.notes}>
+                <span className="pc-status-dot" />
+                {t('hero.currentVersion')} <strong>v{release.version}</strong>
+                <ArrowUpRight size={12} />
+              </OutLink>
+              <span>
+                {t('hero.updated')}{' '}
+                <time dateTime={release.checked}>{release.checkedDisplay}</time>
+              </span>
+            </div>
+            <div
+              className="pc-quick-downloads"
+              role="group"
+              aria-label={t('hero.directDownloads')}
+            >
+              {(['windows', 'macos', 'linux'] as const).map((os) => (
+                <a
+                  href={release.base + builds[os][0].file}
+                  key={os}
+                  aria-label={`${t('hero.directDownload')} PhotoCraft ${platformNames[os]} · ${builds[os][0].name} · ${builds[os][0].architecture}`}
+                >
+                  <PlatformIcon platform={os} />
+                  <span>
+                    <strong>
+                      {t('hero.directDownload')} {platformNames[os]}
+                    </strong>
+                    <small>
+                      {builds[os][0].name} · {builds[os][0].architecture}
+                    </small>
+                  </span>
+                </a>
+              ))}
+            </div>
             <div className="pc-hero-cta">
               <a href="#downloads" className="pc-button pc-button-orange">
                 <ArrowDownToLine size={18} />
-                {t('hero.download')}
+                {t('hero.allBuilds')}
                 <ArrowRight size={18} />
               </a>
               <a className="pc-text-link" href="#features">
@@ -254,40 +293,28 @@ export function PhotoCraftHome() {
           <div className="pc-hero-visual">
             <div className="pc-visual-grid" />
             <div className="pc-editor-frame">
-              <div className="pc-window-bar">
-                <span className="pc-window-dots">
-                  <i />
-                  <i />
-                  <i />
-                </span>
-                <span>PhotoCraft — The Great Wave.psd</span>
-                <span className="pc-live-label">{t('hero.realInterface')}</span>
-              </div>
-              <img
-                src="/imgs/photocraft/interface.jpg"
-                alt={t('images.interface')}
-                width="1600"
-                height="1000"
-                fetchPriority="high"
-              />
-            </div>
-            <div className="pc-psd-note">
-              <span className="pc-file-icon">PSD</span>
-              <div>
-                <strong>{t('hero.psdTitle')}</strong>
-                <small>{t('hero.psdText')}</small>
-              </div>
-              <Check className="pc-note-check" size={18} />
+              <a
+                href="/imgs/photocraft/captures/windows-0.9.0-about.png"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('captures.open')}
+              >
+                <img
+                  src="/imgs/photocraft/captures/windows-0.9.0-about.webp"
+                  alt={t('images.interface')}
+                  width="1440"
+                  height="900"
+                  fetchPriority="high"
+                />
+              </a>
             </div>
             <div className="pc-visual-caption">
               <span className="pc-caption-line" />
               {t('hero.caption')}
-              <OutLink
-                href={`${release.repository}/blob/v0.7.0/docs/images/photocraft-demo.jpg`}
-              >
+              <Link href="/photocraft-review#hands-on">
                 <ArrowUpRight size={13} />
                 <span className="pc-sr-only">{t('features.imageSource')}</span>
-              </OutLink>
+              </Link>
             </div>
           </div>
         </section>
@@ -321,9 +348,13 @@ export function PhotoCraftHome() {
             </div>
             <div className="pc-version-chip">
               <span className="pc-status-dot" />v{release.version}
-              <span>Early alpha</span>
+              <span>{t('downloads.alpha')}</span>
             </div>
           </div>
+          <DownloadChooser
+            text={(key) => t(`chooser.${key}`)}
+            onPlatformChange={setPlatform}
+          />
           <div className="pc-download-grid">
             {(['windows', 'macos', 'linux'] as const).map((os) => (
               <article
@@ -358,14 +389,10 @@ export function PhotoCraftHome() {
                   {t('downloads.button')} {platformNames[os]}
                   <ArrowUpRight size={15} />
                 </a>
-                <a
-                  className="pc-install-link"
-                  href="#install"
-                  onClick={() => setPlatform(os)}
-                >
+                <Link className="pc-install-link" href={`/photocraft-${os}`}>
                   {t('downloads.install')}
                   <ArrowRight size={14} />
-                </a>
+                </Link>
                 <details className="pc-build-details">
                   <summary>
                     {t('downloads.more')}
@@ -400,14 +427,16 @@ export function PhotoCraftHome() {
                 {t('downloads.releases')}
                 <ExternalLink size={12} />
               </OutLink>
+              <Link href="/photocraft-version-history">
+                {t('downloads.history')}
+                <ArrowRight size={12} />
+              </Link>
             </div>
           </div>
           <p className="pc-check-date">
             {t('downloads.checked')}{' '}
-            <time dateTime={release.checked}>
-              {release.checked.slice(0, 16).replace('T', ' ')} UTC
-            </time>
-            . {t('downloads.updateNote')}
+            <time dateTime={release.checked}>{release.checkedDisplay}</time>.{' '}
+            {t('downloads.updateNote')}
           </p>
           <p className="pc-check-date">
             {t('downloads.checkMethod')}{' '}
@@ -430,21 +459,26 @@ export function PhotoCraftHome() {
             </div>
             <div className="pc-feature-showcase">
               <figure className="pc-feature-image">
-                <img
-                  src="/imgs/photocraft/adjustments.jpg"
-                  alt={t('images.adjustments')}
-                  width="1600"
-                  height="1000"
-                  loading="lazy"
-                />
+                <a
+                  href="/imgs/photocraft/captures/windows-0.9.0-levels.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t('captures.open')}
+                >
+                  <img
+                    src="/imgs/photocraft/captures/windows-0.9.0-levels.webp"
+                    alt={t('images.adjustments')}
+                    width="1440"
+                    height="900"
+                    loading="lazy"
+                  />
+                </a>
                 <figcaption>
                   <span>{t('features.imageCaption')}</span>
-                  <OutLink
-                    href={`${release.repository}/blob/v0.7.0/docs/images/photocraft-adjustments.jpg`}
-                  >
+                  <Link href="/photocraft-review#hands-on">
                     {t('features.imageSource')}
                     <ArrowUpRight size={13} />
-                  </OutLink>
+                  </Link>
                 </figcaption>
               </figure>
               <div className="pc-feature-list">
@@ -462,6 +496,26 @@ export function PhotoCraftHome() {
                 ))}
               </div>
             </div>
+            <CaptureGallery
+              title={t('captures.title')}
+              description={t('captures.description')}
+              openLabel={t('captures.open')}
+              images={[
+                {
+                  file: 'windows-0.9.0-system-info',
+                  alt: t('captures.systemAlt'),
+                  caption: t('captures.systemCaption'),
+                },
+              ]}
+            />
+            <p className="pc-capture-links">
+              <Link href="/photocraft-review#hands-on">
+                {t('captures.record')}
+              </Link>
+              <OutLink href="/imgs/photocraft/captures/coast-layers.psd">
+                {t('captures.file')}
+              </OutLink>
+            </p>
             <div className="pc-interface-guide">
               <span className="pc-guide-label">
                 <MousePointer2 size={16} />
@@ -485,6 +539,10 @@ export function PhotoCraftHome() {
               <div className="pc-eyebrow">03 / {t('install.eyebrow')}</div>
               <h2>{t('install.title')}</h2>
               <p>{t('install.description')}</p>
+              <Link className="pc-text-link" href={`/photocraft-${platform}`}>
+                {t('install.fullGuide')}
+                <ArrowRight size={14} />
+              </Link>
             </div>
             <div
               className="pc-tabs"
@@ -657,6 +715,36 @@ export function PhotoCraftHome() {
             <ArrowDownToLine size={19} />
           </a>
         </section>
+        <nav
+          className="pc-topic-nav pc-wrap"
+          aria-labelledby="pc-topic-nav-title"
+        >
+          <h2 id="pc-topic-nav-title">{t('topicNav.title')}</h2>
+          <div className="pc-topic-nav-groups">
+            {homepageGuideGroups.map((group) => (
+              <div key={group.key}>
+                <h3>{t(`topicNav.${group.key}`)}</h3>
+                <ul>
+                  {group.slugs.map((slug) => (
+                    <li key={slug}>
+                      <Link href={`/${slug}`}>{t(`topicNav.${slug}`)}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="pc-topic-nav-related">
+            <h3>{t('topicNav.related')}</h3>
+            <ul>
+              {homepageRelatedGuides.map((slug) => (
+                <li key={slug}>
+                  <Link href={`/${slug}`}>{t(`guides.${slug}.title`)}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
       </main>
       <footer className="pc-footer pc-wrap">
         <div className="pc-footer-main">
@@ -665,6 +753,8 @@ export function PhotoCraftHome() {
             <p>{t('footer.independent')}</p>
           </div>
           <div className="pc-footer-links">
+            <Link href="/privacy-policy">{t('footer.privacy')}</Link>
+            <Link href="/terms-of-service">{t('footer.terms')}</Link>
             <a href="#downloads">{t('nav.downloads')}</a>
             <a href="#install">{t('nav.install')}</a>
             <a href="#guides">{t('nav.guides')}</a>
@@ -688,10 +778,10 @@ export function PhotoCraftHome() {
           </span>
           <span>
             {t('footer.credit')}
-            <OutLink href={`${release.repository}/blob/v0.7.0/README.md`}>
-              ArtCraft
+            <Link href="/photocraft-review#hands-on">
+              {t('captures.credit')}
               <ArrowUpRight size={11} />
-            </OutLink>
+            </Link>
           </span>
           <a href="#top">
             {t('footer.top')}

@@ -1,0 +1,84 @@
+export const meta = {
+  title: 'PhotoCraft Web: Browser Build, Hosting and Save Limits',
+  heading: 'PhotoCraft Web',
+  description:
+    'Learn what the PhotoCraft web ZIP contains, how to run the browser build locally or host it, and how saving, fonts and graphics differ from desktop.',
+  category: 'Platforms',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'What is inside the web ZIP?',
+    'Run the release locally',
+    'Host it as a static site',
+    'Save before closing the tab',
+    'Graphics and fonts',
+    'Verify a browser deployment',
+    'Sources',
+  ],
+};
+
+PhotoCraft Web is a WebAssembly build of the editor for running in a browser. The official release provides a web ZIP containing a static site. Downloading that ZIP gives you files to serve; it does not by itself open a hosted editing session. This guide explains the packaged browser build documented at v0.8.2.
+
+For a desktop installer, return to the [download page](/). For building the web app from Rust source, use [PhotoCraft Rust](/photocraft-rust). The steps here start with the ready-made release archive, so no Rust compiler is required.
+
+## What is inside the web ZIP?
+
+The [versioned hosting guide](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md) describes a folder containing index.html, generated JavaScript glue, a WebAssembly binary and sample header configuration. Optional fonts can be served alongside those files. There is no server-side application code in that release folder.
+
+The browser loads the assets and runs the editor on the visitor's device. “Web” describes this delivery environment, not a promise of cloud document storage, collaboration or automatic synchronization. Treat those features separately and only rely on capabilities explicitly documented for your version.
+
+## Run the release locally
+
+Get the web ZIP from [official GitHub Releases](https://github.com/storytold/photocraft/releases), extract it and find the directory containing index.html. Start a static server in that directory rather than opening index.html as a file:// URL. If Python 3 is already installed:
+
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1
+```
+
+On Windows, an installed Python launcher may use:
+
+```powershell
+py -3 -m http.server 8765 --bind 127.0.0.1
+```
+
+Open http://localhost:8765/ in your browser. Binding to loopback keeps this practice server local to your machine. Stop the server when the test is finished. These commands serve an extracted release; they do not download or compile PhotoCraft.
+
+If the page cannot find its assets, check that the server's root contains index.html and the matching hashed JavaScript and Wasm files. Preserve the folder structure from the archive, including any fonts you choose to host.
+
+## Host it as a static site
+
+Upload the contents of the extracted app folder to a host that serves static files. Keep the relative asset URLs intact. For a public deployment, use HTTPS so secure-context browser features can work. The versioned guide supports hosting under a subdirectory, but the path and trailing-slash behavior still need to match your server configuration.
+
+| Setting              | Expected behavior                             |
+| -------------------- | --------------------------------------------- |
+| Wasm MIME type       | Serve .wasm as application/wasm               |
+| JavaScript MIME type | Serve .js as text/javascript                  |
+| Compression          | Enable gzip or Brotli for large assets        |
+| Hashed asset caching | Long-lived immutable caching                  |
+| HTML caching         | Revalidate index.html so new deployments load |
+
+Check the actual binary size against your hosting plan's current per-file limit before uploading. Do not rely on an older size measurement in a document as proof that a newly compiled binary fits. Sample header files are a starting point; verify the headers your server really returns.
+
+## Save before closing the tab
+
+The v0.8.2 hosting documentation says Open uses the browser file picker and Save or Export downloads files. Preferences use localStorage. It explicitly states that there is no server-side document storage or web autosave/crash recovery.
+
+Download a working copy before refreshing or closing the tab. Confirm where the browser placed it and reopen that file in a fresh session. A browser tab that still shows your image is not evidence that a durable project file exists. For an important edit, periodically save distinct working copies and keep the original outside the session.
+
+## Graphics and fonts
+
+The renderer uses WebGPU where available and WebGL2 as a fallback. The documented ?webgl URL option forces the fallback for troubleshooting. A browser with neither capability cannot run the editor normally. If rendering fails, record the browser, operating system and graphics context before comparing the result with desktop behavior.
+
+The web build does not simply inherit every desktop system font. The hosting guide documents an optional fonts folder and manifest for additional fonts. If text differs after opening a document, check whether the required family is available and whether you have permission to distribute that font with your hosted files.
+
+## Verify a browser deployment
+
+Open a small image, make a simple edit, save an editable document and export a separate image. Reopen the downloaded document and inspect the export in another viewer. Repeat a representative text or PSD test if those are part of your workflow.
+
+This separates a successful page load from a successful editing session. For known project limitations, use the [PhotoCraft review](/photocraft-review). For release navigation, use [PhotoCraft GitHub](/photocraft-github).
+
+## Sources
+
+- [v0.8.2 web packaging and hosting guide](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)
+- [v0.8.2 web development guide](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
+- [Official release assets](https://github.com/storytold/photocraft/releases)

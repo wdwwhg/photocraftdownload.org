@@ -111,6 +111,14 @@ export default defineConfig({
       srcDirectory: 'src',
     }),
     viteReact(),
-    nitro(),
+    nitro({
+      cloudflare: {
+        pages: {
+          // Match entire asset directories so generated file names cannot
+          // exceed the Pages route limit and fall through to the app.
+          routes: { exclude: ['/assets/*', '/imgs/*'] },
+        },
+      },
+    }),
   ],
 });

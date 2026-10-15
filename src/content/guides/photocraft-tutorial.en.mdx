@@ -1,0 +1,67 @@
+export const meta = {
+  title: 'PhotoCraft Tutorial: Make a Layered Photo Caption Card',
+  heading: 'PhotoCraft Tutorial',
+  description:
+    'Follow a beginner PhotoCraft tutorial to create a photo caption card with separate text and adjustment layers, then save and verify an editable project.',
+  category: 'Tutorials',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'Prepare a small practice project',
+    'Open, frame and organize the photo',
+    'Add one reversible adjustment',
+    'Add a caption on its own layer',
+    'Save a project and a delivery image',
+    'Reopen and check the result',
+    'Sources',
+  ],
+};
+
+This PhotoCraft tutorial walks through a small, complete project: a photograph with a readable caption, a reversible color adjustment and two saved outputs. The goal is to learn a repeatable editing process, rather than clicking every tool once. You will keep the image, caption and adjustment independent so a later revision does not require rebuilding the entire card.
+
+The workflow uses capabilities documented in PhotoCraft v0.8.2: layers, editable type, adjustment layers, saving and image export. It is a documentation-based walkthrough, not a claim that we tested every command in your installed build. Menu placement may change. If a command is unavailable, preserve the project and check that version's documentation before substituting a destructive operation.
+
+## Prepare a small practice project
+
+Install a desktop build from the [download page](/). Use a photograph you own or have permission to edit. Make a copy in a practice folder, and leave the original outside the working set. Start with a modest image so you can distinguish editing mistakes from resource problems.
+
+Write a short caption before opening the app. For example, use “Weekend by the coast” as a title and a separate line for the date or credit. Decide where the result will be displayed and what dimensions that destination requires. This makes cropping and text size choices concrete instead of arbitrary.
+
+If the interface is unfamiliar, read the [PhotoCraft app orientation](/photocraft-app) first. This tutorial concentrates on a finished composition; that guide explains the canvas, panels and tool roles.
+
+## Open, frame and organize the photo
+
+Open the copied image using the app's File menu. Check that its orientation and colors look plausible before editing. If the composition needs a different frame, use the Crop tool and confirm that the subject has enough space for the caption. Keep the crop restrained while learning, because cropping changes the boundaries of the composition.
+
+Use the Layers panel to identify the image layer. Give it a meaningful name if your build permits renaming, such as “Photo.” Before an operation that changes image pixels, create a working duplicate and retain the original layer. Selecting the intended layer is part of every edit: a correct tool applied to the wrong layer can still produce the wrong result.
+
+## Add one reversible adjustment
+
+Create a supported adjustment layer, such as Curves or Vibrance. Make a small change and switch the adjustment's visibility off and on to compare it with the original. The official README describes adjustment layers as live edits, so the purpose here is to keep the underlying photograph intact.
+
+Do not stack several adjustments before you understand the first one. Look at bright areas, shadows and any skin tones after the change. If the edit makes the caption area too busy, solve that locally with the composition rather than forcing a large global contrast change. A layer mask can restrict an adjustment, but a simple first project can use one restrained full-image adjustment.
+
+## Add a caption on its own layer
+
+Use the Type tool to create the title as editable text. Position it where it does not cover the main subject, then choose a size that reads at the intended output dimensions. A second text layer for the credit keeps that line independently editable.
+
+If the photograph is busy, place a simple shape behind the caption or use a subtle documented layer style, such as a shadow. Keep the text separate from both the photograph and the backing shape. Check the result at approximately its final display size; text that looks comfortable while zoomed in may be unreadable in a small card.
+
+Change the title wording once before saving. This deliberately tests the benefit of editable type. If the change affects the photograph, stop and inspect the layer selection rather than continuing with more edits.
+
+## Save a project and a delivery image
+
+Save an editable working document, using the native .pcraft format or a layered format appropriate to your handoff. Then export a separate PNG or JPEG for delivery. The working document is for revisions; the exported image is for viewing and sharing.
+
+Choose PNG when transparency matters. JPEG is useful for a flat photographic image, but it does not retain editable layers or transparency. Record the intended dimensions and inspect the actual exported file in another viewer. Check the caption, crop, colors and any transparent edges there, rather than assuming an export dialog guarantees the expected result.
+
+## Reopen and check the result
+
+Close the saved practice document and reopen it. Confirm that the caption can still be edited, the adjustment can still be toggled and the original image layer remains available. Keep both the working file and the export in the practice folder with distinct filenames.
+
+If you plan to exchange PSD files, add a separate round-trip test with the receiving application; see [PhotoCraft vs Photoshop](/photocraft-vs-photoshop). If a step fails, record the version and smallest reproducible example using the [GitHub issue guidance](/photocraft-github). PhotoCraft is early-alpha software, so a successful small tutorial should be followed by testing your actual workflow before important work.
+
+## Sources
+
+- [PhotoCraft v0.8.2 features and formats](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [Official product screenshots](https://getartcraft.com/apps/photocraft)

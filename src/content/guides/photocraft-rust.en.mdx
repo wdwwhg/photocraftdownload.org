@@ -1,0 +1,96 @@
+export const meta = {
+  title: 'PhotoCraft Rust: Architecture and Building from Source',
+  heading: 'PhotoCraft Rust',
+  description:
+    'Explore PhotoCraft’s Rust, egui and wgpu architecture, follow versioned source-build prerequisites and distinguish desktop, browser and test workflows.',
+  category: 'Development',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    'What Rust explains, and what it does not',
+    'Obtain a versioned source tree',
+    'Install the platform prerequisites',
+    'Build and run the desktop app',
+    'Build the browser target',
+    'Test and contribute deliberately',
+    'Sources',
+  ],
+};
+
+PhotoCraft is implemented in Rust. Its documented desktop stack uses egui for the interface and wgpu for rendering, while the browser application runs through WebAssembly. This page is for developers who want to inspect or build the source. If you only want to edit images, choose an official package from [PhotoCraft Download](/); no Rust toolchain is required for that route.
+
+The commands and prerequisites below refer to the v0.8.2 tag. Development-branch requirements can change independently of packaged releases. Keep the source tag, compiler version and operating system in your build notes so a later result can be reproduced.
+
+## What Rust explains, and what it does not
+
+The versioned README describes a native application without an Electron shell, a GPU compositor and separate components for document processing. The development guide documents a shared PhotoCraft app running through eframe's browser runner in the web build.
+
+Those details help you find implementation layers and understand why both native and browser targets exist. They do not establish a performance advantage on every device. Measure your own operation, document and build configuration before making a speed claim. A release build and an unoptimized development build can also behave differently.
+
+## Obtain a versioned source tree
+
+Start with the [official GitHub repository](/photocraft-github), then select the version you intend to build. For the tag used by this guide:
+
+```sh
+git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+cd photocraft
+```
+
+Read README.md, Cargo.toml and docs/development.md in that checkout before installing dependencies. The v0.8.2 workspace declares rust-version = 1.95, and its development guide asks for Rust stable 1.95 or newer. Treat that as a version-specific requirement rather than a permanent minimum for every future release.
+
+## Install the platform prerequisites
+
+Windows source builds use the Rust MSVC toolchain and Visual Studio or Microsoft C++ Build Tools with the Desktop development with C++ workload. Open a new terminal after setup and check rustc --version and cargo --version. A packaged MSI does not require those build tools.
+
+For Debian or Ubuntu, the tagged guide lists these development libraries:
+
+```sh
+sudo apt install libxkbcommon-dev libwayland-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libgtk-3-dev
+```
+
+Use the distribution-specific list in the source documentation for Fedora, Arch or openSUSE rather than translating package names by guesswork. On macOS, follow the same versioned prerequisites and ensure the normal Rust build environment is working before diagnosing an application-specific error.
+
+## Build and run the desktop app
+
+From the repository root, the documented interactive command is:
+
+```sh
+cargo run --release -p photocraft
+```
+
+To open a test document at launch:
+
+```sh
+cargo run --release -p photocraft -- path/to/image.psd
+```
+
+Use your own disposable file path. The project recommends release mode for interactive image processing. The first build needs to obtain dependencies and can take substantially longer than a repeated build. If compilation fails, preserve the first relevant error, the source tag and toolchain versions before changing several settings at once.
+
+On managed Windows devices, application-control policies can block compiler-generated executables. The tagged documentation distinguishes those policy errors from a broken compiler installation. Use an approved development environment when required; changing the target folder does not establish trust in a blocked program.
+
+## Build the browser target
+
+The web application lives in apps/photocraft-web. The documented workflow adds the Wasm target and uses Trunk:
+
+```sh
+rustup target add wasm32-unknown-unknown
+cargo install trunk --locked
+cd apps/photocraft-web
+trunk build --release
+```
+
+The tagged guide says the output is written to dist/web at the repository root. For release reproduction, check the Trunk version pinned by that tag's workflow; an arbitrary newer tool can produce different artifacts. The resulting static files still need correct hosting headers and a working browser graphics backend. See [PhotoCraft Web](/photocraft-web) for serving and saving behavior.
+
+## Test and contribute deliberately
+
+The documented full test command is cargo test --workspace. The project also exposes cargo xtask ci for formatting, linting, tests and additional checks. Some fixtures and integration tasks have extra setup described in the development guide, so a missing corpus should not be misreported as proof that the app cannot open files.
+
+Start a contribution with a small reproducible problem and a focused change. Identify the responsible crate, follow its existing test style and include the exact commands you ran. Do not present this guide's commands as tests we executed against the upstream editor: they are documented instructions for your source build.
+
+For the distinction between licenses and implementation, see [PhotoCraft Open Source](/photocraft-open-source). For user-facing capabilities and early-alpha limits, see the [review](/photocraft-review).
+
+## Sources
+
+- [v0.8.2 Cargo workspace](https://github.com/storytold/photocraft/blob/v0.8.2/Cargo.toml)
+- [v0.8.2 development guide](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
+- [v0.8.2 architecture overview](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)

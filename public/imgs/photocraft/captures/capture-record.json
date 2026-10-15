@@ -1,0 +1,48 @@
+{
+  "capturedAt": "2026-10-15T13:20:34.113Z",
+  "appVersion": "0.9.0",
+  "appCommit": "c699e3cda",
+  "os": "Windows 11 25H2 (26200.9711), x64",
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "renderer": "Vulkan",
+  "package": "photocraft-0.9.0-windows-x64-portable.zip",
+  "packageSha256": "e87bbe26f84d3c359765b61d128b9cc59f016a995956fe7909b328a97650fc97",
+  "captureMethod": "Real application window via Windows Computer Use",
+  "processing": "Unmodified PNG originals; WebP compression only. No synthetic application chrome or overlays.",
+  "workflow": [
+    "Open original 1200×800 PNG test artwork",
+    "Duplicate pixel layer",
+    "Add Levels adjustment layer and set RGB midtone to 1.10",
+    "Save as coast-layers.psd",
+    "Close and reopen PSD",
+    "Verify three layers and midtone 1.10",
+    "Capture About and System Info from Help menu"
+  ],
+  "limits": "Single Windows x64 portable build and this simple three-layer file. No macOS/Linux, MSI, complex PSD or Adobe round-trip test.",
+  "screenshots": [
+    {
+      "file": "windows-0.9.0-levels",
+      "originalSha256": "785b9a3092c4939be7f29bd299dcb946c059f899bdf6352200d4ac24d37fac2d",
+      "pngBytes": 103751,
+      "webpBytes": 70798,
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "windows-0.9.0-about",
+      "originalSha256": "8de954134f497fde9b29d5fe5327d5d6657e89692e07c0ed77ff361d2f023620",
+      "pngBytes": 108605,
+      "webpBytes": 75240,
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "file": "windows-0.9.0-system-info",
+      "originalSha256": "261658aa856929699733883ebab0eb835fdf1a9a4c66fd7bbc92d53f31f7ca0c",
+      "pngBytes": 120965,
+      "webpBytes": 86780,
+      "width": 1440,
+      "height": 900
+    }
+  ]
+}

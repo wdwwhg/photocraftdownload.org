@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
-import { release } from '@/components/photocraft/downloads';
+import { formatReleaseCopy, release } from '@/components/photocraft/downloads';
 import { PhotoCraftHome } from '@/components/photocraft/home';
 
 function HomePage() {
@@ -18,8 +18,10 @@ export const Route = createFileRoute('/')({
       localizeUrl(`${envConfigs.app_url.replace(/\/$/, '')}/`, {
         locale: loc as 'en' | 'zh',
       }).href;
-    const title = m['photocraft.meta.title']({}, { locale });
-    const description = m['photocraft.meta.description']({}, { locale });
+    const title = formatReleaseCopy(m['photocraft.meta.title']({}, { locale }));
+    const description = formatReleaseCopy(
+      m['photocraft.meta.description']({}, { locale })
+    );
     return {
       meta: [
         { title },
@@ -30,7 +32,7 @@ export const Route = createFileRoute('/')({
         { property: 'og:url', content: urlFor(locale) },
         {
           property: 'og:image',
-          content: `${envConfigs.app_url.replace(/\/$/, '')}/imgs/photocraft/interface.jpg`,
+          content: `${envConfigs.app_url.replace(/\/$/, '')}/imgs/photocraft/captures/windows-0.9.0-levels.png`,
         },
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
@@ -53,6 +55,7 @@ export const Route = createFileRoute('/')({
             description,
             url: urlFor(locale),
             inLanguage: locale,
+            dateModified: release.checked,
             about: {
               '@type': 'SoftwareApplication',
               name: 'PhotoCraft',

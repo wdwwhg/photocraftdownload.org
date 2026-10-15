@@ -1,0 +1,116 @@
+import { CaptureGallery } from '@/components/photocraft/capture-gallery';
+
+export const meta = {
+  title: 'PhotoCraft Review: Windows Screenshots & PSD Reopen Test',
+  heading: 'PhotoCraft Review',
+  description:
+    'Our PhotoCraft 0.9.0 Windows screenshots, version and system evidence, a three-layer PSD save and reopen test, original test files and limitations.',
+  category: 'Evaluation',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-15',
+  sections: [
+    'Our Windows captures and test steps',
+    'What the documentation supports',
+    'Who should evaluate it first?',
+    'Strengths and open questions',
+    'Important limitations',
+    'Run a representative evaluation',
+    'Review conclusion',
+    'Sources',
+  ],
+};
+
+PhotoCraft is worth evaluating if you want a free, open-source image editor with layers. We ran its Windows x64 portable build and saved and reopened a simple three-layer PSD. The record below covers that task; the broader feature assessment also draws on the versioned official documentation.
+
+<span id="hands-on" />
+
+## Our Windows captures and test steps
+
+**Captured on 15 October 2026 (UTC+8).** We used the official `photocraft-0.9.0-windows-x64-portable.zip`. About PhotoCraft reports **0.9.0 (c699e3cda, 2026-10-14)**. The machine runs Windows 11 25H2 (26200.9711), x64, with an NVIDIA GeForce RTX 4060 Laptop GPU. System Info reports the Vulkan backend. The app UI is in Chinese; the captures retain its actual window, menus, document name and dialogs.
+
+The downloaded [official v0.9.0 portable package](https://github.com/storytold/photocraft/releases/tag/v0.9.0) matched the [official SHA-256 list](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). The package checksum and original screenshot hashes are in our [capture record](/imgs/photocraft/captures/capture-record.json).
+
+What we actually did:
+
+1. Open our original 1200 × 800 PNG test artwork. Its COAST lettering and shapes were rasterized before import; this was not an editable-type test.
+2. Duplicate the pixel layer, add a Levels adjustment layer and set the RGB midtone to **1.10**.
+3. Save as `coast-layers.psd`, close the document, then reopen it from Recent Files.
+4. Confirm that `Layer 0`, `Layer 0 copy` and `Levels 1` remain. Select the adjustment thumbnail and confirm the midtone still reads **1.1**.
+5. Open About PhotoCraft and System Info from Help and capture the actual windows.
+
+<CaptureGallery
+  title="Three captures of the actual workflow and version"
+  description="Captured by this independent site on the same Windows machine. Click for the full PNG. Web previews use WebP compression only; the app UI, version text and window controls have not been redrawn or replaced."
+  openLabel="View original PNG"
+  images={[
+    {
+      file: 'windows-0.9.0-levels',
+      alt: 'Our capture of reopened coast-layers.psd with three layers and the Levels midtone at 1.1',
+      caption: 'After reopening: three layers and Levels 1.10 retained',
+    },
+    {
+      file: 'windows-0.9.0-about',
+      alt: 'Actual About PhotoCraft dialog displaying version 0.9.0 and commit c699e3cda',
+      caption: 'About PhotoCraft: version 0.9.0',
+    },
+    {
+      file: 'windows-0.9.0-system-info',
+      alt: 'Actual System Info dialog displaying windows x86_64, RTX 4060 Laptop GPU and Vulkan',
+      caption: 'System Info: Windows x64 and Vulkan',
+    },
+  ]}
+/>
+
+Download the [original SVG artwork](/imgs/photocraft/captures/coast-test.svg), [imported PNG](/imgs/photocraft/captures/coast-test.png) and [saved PSD (439 KB)](/imgs/photocraft/captures/coast-layers.psd) to repeat the steps. Our COAST test artwork is provided under CC0. The application interface belongs to ArtCraft and its contributors; these screenshots are our independent record.
+
+This result is limited to this Windows machine, this portable build and these steps on this simple file. We did not test macOS, Linux, MSI installation, complex PSD documents or a Photoshop round trip. We have not run comparative performance benchmarks or a long-term reliability study. Broader features below are assessed from documentation.
+
+## What the documentation supports
+
+The versioned README documents pixel layers, masks, adjustment layers, editable type, shape tools, layer styles and smart-object workflows. It also lists PSD and PSB support, a native .pcraft format and multiple image exports. That is a substantial feature surface for assembling and revising layered images.
+
+These descriptions establish that the project exposes relevant tools. They do not show that every tool has the depth, edge-case behavior or compatibility you need. The project itself distinguishes wired menu commands from behavioral parity. Treat a feature list as the starting point for testing, rather than the final evidence of suitability.
+
+Native desktop and browser builds offer different delivery options. Rust, egui and wgpu explain part of the implementation, but implementation language alone does not establish faster editing, smaller memory use or fewer crashes on your machine.
+
+## Who should evaluate it first?
+
+A small personal composition is a sensible first test: one photograph, one caption and one adjustment. The [beginner tutorial](/photocraft-tutorial) provides that workflow. Developers and contributors may also value the source access and documented automation interfaces; see [PhotoCraft Rust](/photocraft-rust).
+
+For a paid client job with a strict handoff deadline, test copies alongside your established application before making PhotoCraft the only working environment. A project with specialized fonts, plugins, unusual layer effects or high-depth color requirements needs a more demanding evaluation than a flat web graphic. The consequence of a failed save or changed render matters as much as the number of available tools.
+
+## Strengths and open questions
+
+| Area          | Documented strength                 | What still needs your test                        |
+| ------------- | ----------------------------------- | ------------------------------------------------- |
+| Editing model | Layers, masks and live adjustments  | Revisions remain editable after reopen            |
+| PSD workflow  | Read, edit and save support         | Your effects, fonts and handoff survive           |
+| Delivery      | Desktop packages and a web build    | Installation and graphics behavior on your system |
+| Source access | Public Rust repository and licenses | Build reproducibility for your chosen version     |
+| Automation    | Documented command interfaces       | Required operations and integration boundaries    |
+
+The project publishes corpus results in its README. Those are the project's own tests, not results we reproduced. A corpus is informative, but a client's document can use a combination of features absent from those examples. Do not convert a reported corpus result into a promise that every PSD round trip is byte-identical or visually identical.
+
+## Important limitations
+
+The v0.8.2 status note calls out gaps in AI and generative features, typography depth, professional workflows and plugin compatibility. That makes it inappropriate to promise a full Adobe replacement from a familiar interface alone. The [Photoshop comparison](/photocraft-vs-photoshop) covers the handoff questions in more detail.
+
+The browser build has additional documented constraints: saving downloads a file, and web autosave or crash recovery is not provided. Desktop behavior should not be assumed to apply automatically to the browser. If that distinction matters, read [PhotoCraft Web](/photocraft-web) before opening a long editing session.
+
+## Run a representative evaluation
+
+First, record the installed version, operating system and graphics environment. Open a copy of a small document and confirm a basic save and reopen. Next, create a separate adjustment and editable text, then export a delivery image and inspect it in another viewer.
+
+Then test one document representative of your real work. List the features it needs before opening it: masks, blend modes, fonts, smart objects, layer effects, color depth and any external dependencies. Compare the result to a reference render from the originating application. Save under a new filename and reopen both there and in PhotoCraft when the handoff requires it.
+
+Finally, test recovery expectations and document the steps that failed. Keep source files and working backups outside the test. A useful decision is conditional: “Suitable for these checked tasks in this version,” rather than a universal replacement claim.
+
+## Review conclusion
+
+PhotoCraft offers a promising documented editing model with free source access, but its own early-alpha warning should shape adoption. Evaluate it first for experiments, learning and clearly bounded tasks. For production work, let successful tests of your actual files determine the scope. If a required task remains unsupported, consult [PhotoCraft alternatives](/photocraft-alternative) and report a reproducible issue through the [official GitHub workflow](/photocraft-github).
+
+## Sources
+
+- [v0.8.2 features, corpus notes and status](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [v0.8.2 browser-build documentation](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)
+- [Official product description](https://getartcraft.com/apps/photocraft)

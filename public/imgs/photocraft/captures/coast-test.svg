@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<rect width="1200" height="800" fill="#ecebde"/>
+<rect x="48" y="48" width="1104" height="704" rx="5" fill="#e1e5d7"/>
+<circle cx="900" cy="242" r="115" fill="#d57443"/>
+<path d="M48 480 Q340 240 645 470 T1152 400 V752 H48Z" fill="#859b88"/>
+<path d="M48 575 Q380 405 700 574 T1152 510 V752 H48Z" fill="#426d68"/>
+<path d="M48 690 Q420 510 780 680 T1152 605 V752 H48Z" fill="#244b4c"/>
+<path d="M90 580 Q360 440 650 572" fill="none" stroke="#dce6dd" stroke-width="3"/>
+<path d="M130 640 Q410 480 760 636" fill="none" stroke="#acc7b9" stroke-width="3"/>
+<text x="96" y="143" font-family="Arial, sans-serif" font-size="20" letter-spacing="6" fill="#244b4c">FIELD NOTES / 001</text>
+<text x="91" y="274" font-family="Arial, sans-serif" font-weight="700" font-size="128" letter-spacing="-4" fill="#244b4c">COAST</text>
+<text x="98" y="323" font-family="Arial, sans-serif" font-size="22" letter-spacing="3" fill="#426d68">LIGHT · COLOR · LAYERS</text>
+<text x="98" y="712" font-family="Arial, sans-serif" font-size="15" letter-spacing="2" fill="#ecebde">PHOTOCRAFT DOWNLOAD — ORIGINAL TEST ARTWORK</text>
+</svg>

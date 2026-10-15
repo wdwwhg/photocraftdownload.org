@@ -1,0 +1,65 @@
+export const meta = {
+  title: 'PhotoCraft GitHub：官方下载与源码入口',
+  heading: 'PhotoCraft GitHub',
+  description:
+    '确认 PhotoCraft 官方 GitHub 仓库，区分发布安装包和源码压缩包，获取固定版本代码，并提交可复现的问题。',
+  category: '源码与下载',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    '确认官方仓库',
+    '从 Releases 下载应用',
+    '获取固定版本源码',
+    '核对下载结果',
+    '提交可复现问题',
+    '来源',
+  ],
+};
+
+ArtCraft 图像编辑器的官方仓库是 [storytold/photocraft](https://github.com/storytold/photocraft)，包含 Rust 源码、文档、问题跟踪和发布记录。搜索“GitHub PhotoCraft”时，请确认仓库所有者与名称。
+
+## 确认官方仓库
+
+从[官方产品页](https://getartcraft.com/apps/photocraft)进入 GitHub，再检查完整地址。仅凭标志、名称或搜索排名不能确认来源。默认分支会持续变化；针对已安装版本阅读文档时，应切换到对应标签。本页使用 v0.8.2，不将开发分支视为已发布功能。
+
+## 从 Releases 下载应用
+
+打开 [Releases](https://github.com/storytold/photocraft/releases) 并展开 Assets，按系统和处理器选择文件。
+
+| 项目                     | 用途                               |
+| ------------------------ | ---------------------------------- |
+| Windows MSI              | 安装桌面应用，区分 x64、arm64、x86 |
+| Windows portable ZIP     | 完整解压后运行应用                 |
+| macOS DMG                | Mac 桌面安装                       |
+| Linux 包或 AppImage      | 按格式安装或运行                   |
+| Web ZIP                  | 提取静态文件并通过服务器提供       |
+| Source code ZIP / tar.gz | 阅读或编译源码                     |
+
+GitHub 自动生成的 Source code 压缩包不是预编译安装包。需要直接运行时，使用[下载页](/)整理的官方资产；Windows 与网页版分别参见[平台指南](/photocraft-windows)和[网页构建指南](/photocraft-web)。
+
+## 获取固定版本源码
+
+为便于复现，应记录标签和提交。以下命令只获取源码，不安装编辑器或编译环境：
+
+```sh
+git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+cd photocraft
+```
+
+只需阅读代码，也可以下载标签对应的源码压缩包。准备提交修改时，应阅读贡献说明，使用合适的分支或 Fork 流程。编译要求参见 [Rust 指南](/photocraft-rust)。
+
+## 核对下载结果
+
+检查版本、文件名、平台及来源。如发布包含 SHA256SUMS，可计算下载文件的 SHA256 并对照同名条目。校验和一致表示文件与发布记录相符，不等于独立安全审计。优先使用官方发布，避免来源不明的重传包。
+
+## 提交可复现问题
+
+先搜索已有问题，并检查新版是否修复。报告中应写明应用版本、系统、架构、操作步骤、预期和实际结果。渲染问题补充尺寸、图层数和截图。
+
+使用文件副本复现，删除附件中的个人或客户信息，尽可能制作小型样本。安装错误与文档兼容问题分开说明。授权问题参见[开源说明](/photocraft-open-source)。
+
+## 来源
+
+- [官方仓库](https://github.com/storytold/photocraft)
+- [官方发布记录](https://github.com/storytold/photocraft/releases)
+- [v0.8.2 开发指南](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)

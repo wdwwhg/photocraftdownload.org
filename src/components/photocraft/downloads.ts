@@ -6,6 +6,8 @@ const repository = `https://github.com/${manifest.repository}`;
 export const release = {
   version: manifest.version,
   checked: verification.checkedAt,
+  checkedDisplay: `${verification.checkedAt.slice(0, 16).replace('T', ' ')} UTC`,
+  year: verification.checkedAt.slice(0, 4),
   notes: `${repository}/releases/tag/v${manifest.version}`,
   latest: `${repository}/releases/latest`,
   repository,
@@ -15,6 +17,12 @@ export const release = {
   monitor:
     'https://github.com/wdwwhg/photocraftdownload.org/actions/workflows/check-release-links.yml',
 };
+
+export function formatReleaseCopy(text: string) {
+  return text
+    .replaceAll('%VERSION%', release.version)
+    .replaceAll('%YEAR%', release.year);
+}
 export type Platform = 'windows' | 'macos' | 'linux';
 export type Build = {
   name: string;

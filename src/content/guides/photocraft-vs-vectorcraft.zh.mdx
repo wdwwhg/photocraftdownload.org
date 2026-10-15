@@ -1,0 +1,58 @@
+export const meta = {
+  title: 'PhotoCraft 与 VectorCraft：按工作任务选择应用',
+  heading: 'PhotoCraft 与 VectorCraft 对比',
+  description:
+    '比较 PhotoCraft 和 VectorCraft 的像素、路径与文件交接流程，了解两款 ArtCraft 应用如何配合完成图像与矢量设计。',
+  category: '产品对比',
+  published_at: '2026-10-13',
+  updated_at: '2026-10-13',
+  sections: [
+    '先判断编辑像素还是路径',
+    '功能重叠的边界',
+    '两款应用如何交接',
+    '保存与兼容性检查',
+    '安装选择',
+    '来源',
+  ],
+};
+
+PhotoCraft 和 VectorCraft 是 ArtCraft 家族中的独立应用。PhotoCraft 侧重图层、蒙版与调整；VectorCraft 侧重可编辑路径和形状。本页依据官方产品说明与 PhotoCraft v0.8.2 文档比较工作流，不提供未经实测的性能排名。
+
+## 先判断编辑像素还是路径
+
+修补照片、合成图像、调整局部对比度，首先考虑 PhotoCraft。绘制标志、修改锚点、调整描边并在多个尺寸复用图形，首先考虑 VectorCraft。判断依据是保存后需要继续编辑的对象。
+
+| 任务               | 优先应用                | 应保留的结构           |
+| ------------------ | ----------------------- | ---------------------- |
+| 人像修饰与照片合成 | PhotoCraft              | 像素图层、蒙版、调整层 |
+| 标志与图标绘制     | VectorCraft             | 路径、填充、描边       |
+| 带标志的宣传图     | PhotoCraft 配合矢量素材 | 照片图层与独立素材     |
+| 修改标志形状       | VectorCraft             | 原始路径               |
+
+## 功能重叠的边界
+
+PhotoCraft 文档也列出形状图层、钢笔、矢量蒙版及 SVG 导入。这些功能适合照片中的图形装饰，不代表可以完整保留所有专业矢量文档特性。VectorCraft 产品页强调直接选择、布尔运算和吸附。按最常重复的操作选择工具，避免只凭共同的“设计”标签判断。
+
+## 两款应用如何交接
+
+制作活动宣传图时，可以在 VectorCraft 绘制徽标并保存矢量源文件，在 PhotoCraft 单独处理照片、调整层和文字。先用 SVG 等双方有说明的格式测试一个素材副本，检查描边、渐变、文字和透明度。
+
+如导入后外观发生变化，可使用源应用导出的位图作为最终合成素材，同时保留矢量原稿。位图能固定外观，但无法继续编辑路径；应明确记录这种取舍。
+
+## 保存与兼容性检查
+
+PhotoCraft 文档列出 PSD、PSB、原生 .pcraft 与平面导出；VectorCraft 产品页介绍 SVG 和 PDF 工作流。扩展名相同不等于所有特性都能无损往返。先用小型代表文件测试，再交接正式项目。
+
+图像项目应同时保留分层工作文件与交付用 PNG 或 JPEG。矢量项目保留源文件并记录字体。跨设备交接前，确认对方更需要文字可编辑性还是固定外观。
+
+## 安装选择
+
+照片任务先安装 PhotoCraft，路径绘制先安装 VectorCraft，经常跨越两种任务时再考虑同时使用。ArtCraft Launcher 用于管理多个家族应用，独立下载则便于只安装所需产品。
+
+官方将两者描述为免费开源，但这不等于没有版本限制。PhotoCraft v0.8.2 标注早期 Alpha。参见[评测与自测清单](/photocraft-review)、[VectorCraft 指南](/vectorcraft)及[品牌关系说明](/photocraft-artcraft)。
+
+## 来源
+
+- [PhotoCraft v0.8.2 README](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [VectorCraft 官方产品页](https://getartcraft.com/apps/vectorcraft)
+- [PhotoCraft 官方产品页](https://getartcraft.com/apps/photocraft)
