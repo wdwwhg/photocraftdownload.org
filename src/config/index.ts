@@ -22,6 +22,10 @@ export const envConfigs: Record<string, string> = {
     'PhotoCraft official downloads and installation guides for Windows, macOS and Linux.',
   app_logo: publicEnv('VITE_APP_LOGO') ?? '/logo.svg',
 
+  // GA4 measurement IDs are public. The shared root analytics component
+  // uses this default on every page; DB settings can still override it.
+  google_analytics_id: publicEnv('VITE_GOOGLE_ANALYTICS_ID') ?? 'G-RRGBXP8SN7',
+
   // Database
   database_url: procEnv.DATABASE_URL ?? '',
   database_auth_token: procEnv.DATABASE_AUTH_TOKEN ?? '',

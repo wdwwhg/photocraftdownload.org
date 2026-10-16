@@ -19,6 +19,8 @@ pnpm dev
 - 中英双语文案：`scripts/photocraft-copy.mjs`，修改后运行 `node scripts/photocraft-copy.mjs`，将文案合并到 `messages/en.json`、`messages/zh.json`
 - 搜索元信息与结构化数据：`src/routes/index.tsx`
 
+Google Analytics 4 通过根布局的现有 `GoogleAnalytics` 组件在全站加载一次，默认统计编号为 `G-RRGBXP8SN7`，位于 `src/config/index.ts`。可通过 `VITE_GOOGLE_ANALYTICS_ID` 覆盖默认值（空值关闭），后台数据库中的 `google_analytics_id` 配置优先。无需在各页面重复粘贴脚本；修改编号后重新构建并推送 GitHub。中英文隐私页已说明启用 GA4。
+
 下载清单现为 v0.9.0，2026-10-15 已核对官方发布文件名。构建会通过官方 Release 元数据和每个文件的 HTTP HEAD 请求重新验证可用性、体积及最新版本。页面显示版本、核对日期与官方最新版本链接。更新版本时同步检查下载清单、安装指南中的命令与版本来源；不要只修改版本号。
 
 下载区最上方的决策模块位于 `src/components/photocraft/download-chooser.tsx`，通过系统、芯片和安装方式从同一份下载清单中选择文件，不单独拼接文件名。macOS 的 Intel 和 Apple 芯片都匹配 Universal DMG；CLI ZIP 不作为桌面便携版。新增架构或包格式后，应同步核对该模块的选择规则及中英文文案。
