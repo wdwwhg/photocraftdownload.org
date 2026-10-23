@@ -3,11 +3,24 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 const origin = 'https://photocraftdownload.org';
 const directory = new URL('../src/content/guides/', import.meta.url);
 const files = readdirSync(directory);
+const policy = JSON.parse(
+  readFileSync(
+    new URL('../src/content/search-policy.json', import.meta.url),
+    'utf8'
+  )
+);
 const slugs = files
   .filter((name) => name.endsWith('.en.mdx'))
   .map((name) => name.slice(0, -7))
   .sort();
-const routes = ['', ...slugs];
+const routes = [
+  '',
+  ...slugs.filter(
+    (slug) =>
+      !policy.noindexGuideSlugs.includes(slug) &&
+      !policy.retiredGuideSlugs.includes(slug)
+  ),
+];
 const urlFor = (slug, locale) =>
   locale === 'zh'
     ? `${origin}/zh${slug ? `/${slug}` : ''}`
@@ -20,20 +33,13 @@ for (const slug of slugs) {
   readFileSync(route, 'utf8');
 }
 
-const entries = routes.flatMap((slug) =>
-  ['en', 'zh'].map((locale) => {
-    const links = ['en', 'zh', 'x-default']
-      .map(
-        (language) =>
-          `    <xhtml:link rel="alternate" hreflang="${language}" href="${urlFor(slug, language === 'zh' ? 'zh' : 'en')}" />`
-      )
-      .join('\n');
-    return `  <url>\n    <loc>${urlFor(slug, locale)}</loc>\n${links}\n  </url>`;
-  })
+const entries = routes.map(
+  (slug) =>
+    `  <url>\n    <loc>${urlFor(slug, policy.primaryLocale)}</loc>\n  </url>`
 );
 
 writeFileSync(
   new URL('../public/sitemap.xml', import.meta.url),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`
 );
 console.log(`Generated sitemap with ${entries.length} canonical URLs.`);

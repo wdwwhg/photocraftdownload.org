@@ -1,0 +1,16 @@
+{
+  "file": "photocraft-0.9.0-windows-x64.msi",
+  "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-x64.msi",
+  "sha256": "785c81a5fc78c9b683b0f9e6653c38f95b306a38303f60b391670a9e1ac590d4",
+  "bytes": 69443584,
+  "startedAt": "2026-10-23T11:28:51.7432131Z",
+  "completedAt": "2026-10-23T11:28:54.1173694Z",
+  "scanner": "Microsoft Defender Antivirus",
+  "productVersion": "4.18.26090.9",
+  "engineVersion": "1.1.26090.9",
+  "signatureVersion": "1.461.161.0",
+  "signatureUpdatedAt": "2026-10-23T01:20:34.0000000Z",
+  "exitCode": 0,
+  "output": "Scan starting...\r\nScan finished.\r\nScanning photocraft-0.9.0-windows-x64.msi found no threats.",
+  "scope": "One official Windows x64 MSI; custom file scan with remediation disabled. Installer not executed. No macOS, Linux or other Windows package was scanned."
+}

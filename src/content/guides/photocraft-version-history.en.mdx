@@ -12,7 +12,7 @@ export const meta = {
     'Compare PhotoCraft v0.7.0, v0.8.2 and v0.9.0 release dates, plain-language changes and official Windows, macOS and Linux downloads for each version.',
   category: 'Versions and updates',
   published_at: '2026-10-15',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-23',
   sections: [
     'Release history at a glance',
     'What each version changes for you',
@@ -22,7 +22,7 @@ export const meta = {
   ],
 };
 
-Find what changed before you update, or locate an older installer for a particular workflow. This page turns the official technical notes into everyday editing changes, covering **v0.7.0 → v0.8.2 → v0.9.0**, with sources for each highlighted change.
+Find what changed before you update, or locate an older installer for a particular workflow. This page turns the official technical notes into everyday editing changes, covering the reviewed historical range **v0.7.0 → v0.8.2 → v0.9.0**, with sources for each highlighted change. This is a selected archive, not a complete list of later releases. Find newer releases on the [official release list](https://github.com/storytold/photocraft/releases).
 
 For a first installation, use the [download chooser](/#downloads) for the current release. Historical files below are useful for checking past behavior or reproducing an issue.
 
@@ -65,6 +65,12 @@ The complete v0.8.2 changelog compares directly against v0.7.0. This page treats
 Use the [Windows](/photocraft-windows), [macOS](/photocraft-macos) or [Linux installation guide](/photocraft-linux) for setup. Those guides use the site's currently reviewed version; older releases need their own filenames and requirements.
 
 ## Sources and verification
+
+<time dateTime={history.checkedAt}>
+  File metadata and download checks: {history.checkedAt}
+</time>
+
+Each version section includes its own filenames, byte counts and full SHA256 values. Hashes are read from that version’s SHA256SUMS.txt and compared with GitHub asset digests where available. This metadata check does not scan installer contents.
 
 Versions, publication times and files were checked against official GitHub release information. Each highlighted change links to its upstream record; full release notes and version comparisons are provided under each version. This site does not host or modify installers.
 

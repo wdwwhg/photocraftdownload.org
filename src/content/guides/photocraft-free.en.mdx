@@ -1,3 +1,5 @@
+import { CaptureGallery } from '@/components/photocraft/capture-gallery';
+
 export const meta = {
   title: 'Is PhotoCraft Free? Downloads, Source and Other Costs',
   heading: 'PhotoCraft Free',
@@ -5,9 +7,11 @@ export const meta = {
     'Understand what is free in PhotoCraft, how official releases differ from source code and why fonts, artwork, hosting and external services have separate terms.',
   category: 'Availability',
   published_at: '2026-10-13',
-  updated_at: '2026-10-13',
+  updated_at: '2026-10-18',
   sections: [
+    'What is free, and what did we verify?',
     'Free application, not just source access',
+    'A free Photoshop alternative with PSD support?',
     'What the software license covers',
     'Costs outside the editor',
     'Does free mean ready for professional work?',
@@ -21,11 +25,48 @@ PhotoCraft is presented by its official project as a free, open-source image edi
 
 This guide answers the availability question. For the actual packages, use [PhotoCraft Download](/). For license texts and contributions, use [PhotoCraft Open Source](/photocraft-open-source). For whether the editor fits your work, use the [PhotoCraft review](/photocraft-review).
 
+## What is free, and what did we verify?
+
+For the desktop editor, start with the official package rather than a trial-download advertisement. This is the scope of our evidence for **v0.9.0**:
+
+| Task or cost                                      | Evidence                                            | Boundary                                                |
+| ------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------- |
+| Download the packaged editor                      | Official release assets are publicly available      | Source archives are separate from installers            |
+| Open a PNG and duplicate its pixel layer          | Completed in our Windows portable test              | One 1200 × 800 sample                                   |
+| Add Levels and retain the adjustment              | RGB midtone 1.10 survived save and reopen           | Other adjustments were not tested                       |
+| Save and reopen a layered PSD                     | Three layers remained in our saved file             | No Photoshop handoff test                               |
+| Buy a subscription to complete those steps        | Our recorded test required no purchase              | Not an audit of every feature or future version         |
+| Reuse or modify the software                      | Read the release's MIT and Apache-2.0 license files | Third-party components and assets need their own review |
+| Fonts, stock images, external services or hosting | Outside our desktop test                            | Check each supplier separately                          |
+
+<CaptureGallery
+  title="The saved result from the free desktop build"
+  description="Existing capture from 15 October 2026: Windows 11, v0.9.0 x64 Portable. This shows the reopened document, not a paid-feature comparison or a Mac test."
+  openLabel="View original PNG"
+  images={[
+    {
+      file: 'windows-0.9.0-levels',
+      alt: 'PhotoCraft 0.9.0 showing the reopened three-layer PSD with Levels midtone 1.1',
+      caption: 'Three layers retained after save and reopen',
+    },
+  ]}
+/>
+
+To check the same scope yourself, download our [practice PNG](/imgs/photocraft/captures/coast-test.png), follow the [tested Levels exercise](/photocraft-tutorial), and compare your result with the [saved PSD](/imgs/photocraft/captures/coast-layers.psd). The [test record](/photocraft-review#hands-on) identifies the package, machine and limitations. We have not verified unrestricted access to every menu item, plugin or AI service.
+
 ## Free application, not just source access
 
 GitHub contains both the source tree and release assets. A user who wants to edit images can select a ready-made package rather than compiling the repository. The automatically generated source archives serve a different purpose and may not contain an executable to run.
 
 The official product page and repository describe the application as free and open source. We do not present it as a timed trial or invent a premium tier. If an unrelated download site asks for payment, compare its offer with the official release and confirm whether it is selling a separate service, repackaging or a different product with the same name.
+
+## A free Photoshop alternative with PSD support?
+
+If you need a **free Photoshop alternative with PSD support**, separate the download price from the file handoff. The official PhotoCraft desktop packages are available without purchasing a subscription. Our Windows v0.9.0 test opened a PNG, added a duplicate pixel layer and a Levels adjustment, then saved and reopened a three-layer PSD with midtone 1.10 intact.
+
+That makes a small layered-editing trial practical, but does not establish full Photoshop compatibility. Our sample did not test editable text, smart objects, layer effects, third-party plugins or reopening the file in Adobe Photoshop. Use a copy of your own PSD, make one required change, save to a new file and reopen it in the receiving application. Keep your original unchanged.
+
+For the right package, choose [PhotoCraft download for Windows](/photocraft-windows), [macOS](/photocraft-macos) or [Linux](/photocraft-linux). For the file-handling decision, use the [PSD comparison checklist](/photocraft-vs-photoshop) and [alternatives by task](/photocraft-alternative).
 
 ## What the software license covers
 
@@ -50,7 +91,7 @@ Do not infer that an external AI provider, plugin or commercial asset library sh
 
 ## Does free mean ready for professional work?
 
-No pricing label establishes reliability or compatibility. PhotoCraft v0.8.2 identifies itself as early alpha and explicitly cautions against treating it as a daily professional Photoshop replacement. That limitation applies even when the software costs nothing to download.
+No pricing label establishes reliability or compatibility. PhotoCraft v0.9.0 identifies itself as early alpha and explicitly cautions against treating it as a daily professional Photoshop replacement. That limitation applies even when the software costs nothing to download.
 
 Test the required tasks on copies of your own files. Start with opening, saving, reopening and exporting. If the workflow depends on PSD effects, fonts or plugins, use the [Photoshop comparison checklist](/photocraft-vs-photoshop). A failed handoff can cost more time than a download saves, so suitability should be checked separately from price.
 
@@ -58,7 +99,7 @@ Test the required tasks on copies of your own files. Start with opening, saving,
 
 Confirm that the project is the ArtCraft image editor and that the repository is storytold/photocraft. Select the release package for your operating system and processor. For Windows, distinguish the MSI installer from the portable ZIP; for the web version, distinguish the static site archive from an already-hosted service.
 
-The [GitHub guide](/photocraft-github) walks through source and release navigation. The [web guide](/photocraft-web) explains hosting and browser save behavior. If you only need a desktop editing session, there is no reason to begin by provisioning a web host or installing a Rust toolchain.
+The [GitHub guide](/photocraft-github) walks through source and release navigation. The [web guide](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web) explains hosting and browser save behavior. If you only need a desktop editing session, there is no reason to begin by provisioning a web host or installing a Rust toolchain.
 
 ## A simple decision before downloading
 
@@ -67,6 +108,6 @@ Write down the task, the package you need and any outside materials required to 
 ## Sources
 
 - [Official PhotoCraft description](https://getartcraft.com/apps/photocraft)
-- [v0.8.2 README and project status](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
-- [MIT license](https://github.com/storytold/photocraft/blob/v0.8.2/LICENSE-MIT)
-- [Apache-2.0 license](https://github.com/storytold/photocraft/blob/v0.8.2/LICENSE-APACHE)
+- [v0.9.0 README and project status](https://github.com/storytold/photocraft/blob/v0.9.0/README.md)
+- [MIT license](https://github.com/storytold/photocraft/blob/v0.9.0/LICENSE-MIT)
+- [Apache-2.0 license](https://github.com/storytold/photocraft/blob/v0.9.0/LICENSE-APACHE)

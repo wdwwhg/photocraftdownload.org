@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
+import { pageRobots } from '@/lib/search-policy';
 import { m } from '@/paraglide/messages.js';
-import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { formatReleaseCopy, release } from '@/components/photocraft/downloads';
 import { PhotoCraftHome } from '@/components/photocraft/home';
 
@@ -26,6 +27,7 @@ export const Route = createFileRoute('/')({
       meta: [
         { title },
         { name: 'description', content: description },
+        { name: 'robots', content: pageRobots('/', locale) },
         { property: 'og:title', content: title },
         { property: 'og:description', content: description },
         { property: 'og:type', content: 'website' },
@@ -36,15 +38,7 @@ export const Route = createFileRoute('/')({
         },
         { name: 'twitter:card', content: 'summary_large_image' },
       ],
-      links: [
-        { rel: 'canonical', href: urlFor(locale) },
-        ...locales.map((loc) => ({
-          rel: 'alternate',
-          hrefLang: loc,
-          href: urlFor(loc),
-        })),
-        { rel: 'alternate', hrefLang: 'x-default', href: urlFor('en') },
-      ],
+      links: [{ rel: 'canonical', href: urlFor(locale) }],
       scripts: [
         {
           type: 'application/ld+json',

@@ -23,6 +23,7 @@ public/release-check.json
 # the committed template is wrangler.example.jsonc
 /.wrangler/
 wrangler.jsonc
+wrangler.toml
 
 # claude code local state
 .claude/scheduled_tasks.lock
@@ -47,6 +48,7 @@ wrangler.jsonc
 /output/playwright/
 /.playwright-cli/
 /artifacts/
+src/generated/photocraft-release-check-history.json
 /.seo-cache/
 .official-assets-check.txt
 npm-debug.log*

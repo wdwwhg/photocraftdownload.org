@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-15T12:45:21.611Z",
+  "checkedAt": "2026-10-23T11:25:28.487Z",
   "timeZone": "Asia/Singapore",
   "releases": [
     {
@@ -46,7 +46,180 @@
       "audience": {
         "en": "Worth checking if you exchange Photoshop action files, print from the app, or export grayscale images. Test an action on a copy before using it on a batch.",
         "zh": "如果你需要交换 Photoshop 动作文件、从应用打印或导出灰度图片，可以重点看这一版。先用副本试跑动作，再处理一批照片。"
-      }
+      },
+      "files": [
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "MSI",
+          "file": "photocraft-0.9.0-windows-x64.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-x64.msi",
+          "bytes": 69443584,
+          "sha256": "785c81a5fc78c9b683b0f9e6653c38f95b306a38303f60b391670a9e1ac590d4"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.9.0-windows-x64-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-x64-portable.zip",
+          "bytes": 83169235,
+          "sha256": "e87bbe26f84d3c359765b61d128b9cc59f016a995956fe7909b328a97650fc97"
+        },
+        {
+          "platform": "windows",
+          "architecture": "ARM64",
+          "name": "MSI",
+          "file": "photocraft-0.9.0-windows-arm64.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-arm64.msi",
+          "bytes": 64647168,
+          "sha256": "98f005f4de27d2412b69cb6866f9c31ac252ea60a951a579ce26696113a75098"
+        },
+        {
+          "platform": "windows",
+          "architecture": "ARM64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.9.0-windows-arm64-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-arm64-portable.zip",
+          "bytes": 78587831,
+          "sha256": "2c26983c9acbb3b3197c71a21ca55842cb322937c520ec299613846ae6fe040e"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "MSI",
+          "file": "photocraft-0.9.0-windows-x86.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-x86.msi",
+          "bytes": 67239936,
+          "sha256": "226892dbc266cea6d338081ec5683de7d5520411fa0da7124225239c4321eca4"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.9.0-windows-x86-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-windows-x86-portable.zip",
+          "bytes": 79169347,
+          "sha256": "184dc700d4a1bc923e854882f18c4bbeb76be3358c48490d641c85779d75d72a"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "DMG",
+          "file": "photocraft-0.9.0-macos-universal.dmg",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-macos-universal.dmg",
+          "bytes": 90386785,
+          "sha256": "06503eb1c845990e99f8824831cc73b274e2b1dbe4461eb6460dfc9a6008239d"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "CLI ZIP",
+          "file": "photocraft-cli-0.9.0-macos-universal.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-cli-0.9.0-macos-universal.zip",
+          "bytes": 67890072,
+          "sha256": "eaa662e0eef8f1aa27fa7c4aebdc242f6e2834f1eef62eb2589ddadede128982"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "AppImage",
+          "file": "photocraft-0.9.0-linux-x86_64.AppImage",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.AppImage",
+          "bytes": 77478392,
+          "sha256": "483a9a79200e0c0864bb54cf3faa6a55e2b79c1433dacfcb153d3862e78f32bc"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "Flatpak",
+          "file": "photocraft-0.9.0-linux-x86_64.flatpak",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.flatpak",
+          "bytes": 61114608,
+          "sha256": "3d3a6cdde84bf39d190545228344e1dc334080949cda32d53de7baeb5f387175"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "DEB",
+          "file": "photocraft-0.9.0-linux-x86_64.deb",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.deb",
+          "bytes": 82784576,
+          "sha256": "18598fd17711b2618396c859426ef3e8ed7902f0d99c5e8c0657847ebfc740df"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "RPM",
+          "file": "photocraft-0.9.0-linux-x86_64.rpm",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.rpm",
+          "bytes": 82233240,
+          "sha256": "9803aa3a4c5a57733f843809034bffbbd7deb5776c0b6638a44782c0872c9446"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "tar.gz",
+          "file": "photocraft-0.9.0-linux-x86_64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.tar.gz",
+          "bytes": 81541649,
+          "sha256": "91300c1485ad710839604b085531c90e77ac7ebdb2a30259309ad74afcfdb90d"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "Flatpak",
+          "file": "photocraft-0.9.0-linux-aarch64.flatpak",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.flatpak",
+          "bytes": 56541728,
+          "sha256": "df11591dbc49b946886e0d0abc873f491df2e6c3f23bade9e98395dd8507a69a"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "DEB",
+          "file": "photocraft-0.9.0-linux-aarch64.deb",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.deb",
+          "bytes": 79466474,
+          "sha256": "dcf8e473124729d38120a5775be08151d13ff0e5125f33d6533110c780b45314"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "RPM",
+          "file": "photocraft-0.9.0-linux-aarch64.rpm",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.rpm",
+          "bytes": 78767925,
+          "sha256": "670865e0178da8fd151c977544d658cbfcb9e03a9325e007b31ff0b9d576d4f3"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "tar.gz",
+          "file": "photocraft-0.9.0-linux-aarch64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.tar.gz",
+          "bytes": 77231227,
+          "sha256": "c956084444653142dd25274cff08dbc17e8bf99815380db7f64eec026e882fc7"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "AppImage",
+          "file": "photocraft-0.9.0-linux-aarch64.AppImage",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.AppImage",
+          "bytes": 73615880,
+          "sha256": "2752b5097e2788cc1ab0c7b410657b1eab790bcc3b576f8749de707282dba9e3"
+        },
+        {
+          "platform": "linux",
+          "architecture": "RISC-V 64",
+          "name": "tar.gz",
+          "file": "photocraft-0.9.0-linux-riscv64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-riscv64.tar.gz",
+          "bytes": 79291057,
+          "sha256": "15fd29f40f8622e5c18ae31ceaf180cef8cc2e3b6ac1e37907d42967d534e22d"
+        }
+      ]
     },
     {
       "version": "0.8.2",
@@ -92,7 +265,180 @@
       "audience": {
         "en": "Relevant if finishing a brush stroke or saving a document interrupted your work in v0.7.0. These are reported fixes, not a guarantee of identical performance on every computer.",
         "zh": "如果 v0.7.0 的抬笔或保存过程打断了操作，这一版的相关修复值得关注。实际表现仍取决于文件与电脑配置。"
-      }
+      },
+      "files": [
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "MSI",
+          "file": "photocraft-0.8.2-windows-x64.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-x64.msi",
+          "bytes": 67420160,
+          "sha256": "cca4415e073ecb2255e8deea180c2e69e29f2f3b2c402c832b9d67e0dc386a8b"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.8.2-windows-x64-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-x64-portable.zip",
+          "bytes": 80555417,
+          "sha256": "242acd4134e7947b462d68748b32a6f038fa97099601da950652489690f81799"
+        },
+        {
+          "platform": "windows",
+          "architecture": "ARM64",
+          "name": "MSI",
+          "file": "photocraft-0.8.2-windows-arm64.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-arm64.msi",
+          "bytes": 62885888,
+          "sha256": "d3bb740ba3ef654467101aaa08ca5deee8e5def339128db45a6d36f54cc42cf2"
+        },
+        {
+          "platform": "windows",
+          "architecture": "ARM64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.8.2-windows-arm64-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-arm64-portable.zip",
+          "bytes": 76194232,
+          "sha256": "9a90b6c818db33b82234475a9785bb6e2727528a4f286e71ea9ecaace0ea5877"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "MSI",
+          "file": "photocraft-0.8.2-windows-x86.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-x86.msi",
+          "bytes": 65314816,
+          "sha256": "354111d2466d46e280fa72c12272a5f957a3c1ec3f68acefca30307a60c14ab5"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.8.2-windows-x86-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-windows-x86-portable.zip",
+          "bytes": 76771720,
+          "sha256": "db3c497897d09d2acf7905deeacb4a00dd42f522f601bbb9ea8a7d806078b505"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "DMG",
+          "file": "photocraft-0.8.2-macos-universal.dmg",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-macos-universal.dmg",
+          "bytes": 87987312,
+          "sha256": "d31fe9f86b521319e412515c5313a56dfa7ca015203e2cbaf49a5b1ddb59a601"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "CLI ZIP",
+          "file": "photocraft-cli-0.8.2-macos-universal.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-cli-0.8.2-macos-universal.zip",
+          "bytes": 66648236,
+          "sha256": "38fd0463f20bc6600aac75ad5e9dd5ec4c35ef23b1dd86ea18a390580c074eac"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "AppImage",
+          "file": "photocraft-0.8.2-linux-x86_64.AppImage",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-x86_64.AppImage",
+          "bytes": 75782648,
+          "sha256": "5eb656de686af504d8160d5198c2c8d414cf8b7a8d3ecc636bc8ba8fb56448a7"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "Flatpak",
+          "file": "photocraft-0.8.2-linux-x86_64.flatpak",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-x86_64.flatpak",
+          "bytes": 59803480,
+          "sha256": "5a912ca930783a6168c5ed7c8f587f20c2104dae6788df00b6eb8621274ccb34"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "DEB",
+          "file": "photocraft-0.8.2-linux-x86_64.deb",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-x86_64.deb",
+          "bytes": 80868116,
+          "sha256": "d527d721dd32131d600013b90fbcaf6f90c49b4cca8c7f4431a143ef7bc7c4c2"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "RPM",
+          "file": "photocraft-0.8.2-linux-x86_64.rpm",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-x86_64.rpm",
+          "bytes": 80341131,
+          "sha256": "6567164f10b5f61e18ceb16197f8caeb07755264e6b8d045216720be86ea8241"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "tar.gz",
+          "file": "photocraft-0.8.2-linux-x86_64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-x86_64.tar.gz",
+          "bytes": 79671114,
+          "sha256": "16c3089976eee2d290dbe73986db4835c1ec5a043c5c16b017b24848ff5ea827"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "Flatpak",
+          "file": "photocraft-0.8.2-linux-aarch64.flatpak",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-aarch64.flatpak",
+          "bytes": 55430816,
+          "sha256": "467345156043f20c560bf46a4311b3122c88ceddcc9e4c38c2f61df2873be54a"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "DEB",
+          "file": "photocraft-0.8.2-linux-aarch64.deb",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-aarch64.deb",
+          "bytes": 77655050,
+          "sha256": "6746360afd551ad095b2c2b7507f40667252ae68275556d6402e2e6642e626f5"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "RPM",
+          "file": "photocraft-0.8.2-linux-aarch64.rpm",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-aarch64.rpm",
+          "bytes": 76990024,
+          "sha256": "6b1fd2d3049de26ca9a007be10d8371bcfc900ef41aadfee61eb57e69dec47ff"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "tar.gz",
+          "file": "photocraft-0.8.2-linux-aarch64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-aarch64.tar.gz",
+          "bytes": 75507878,
+          "sha256": "f3920f31406574d1d3f9ca152d46703c8e7f3b504e0d2b2e394f0ad10f0df348"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "AppImage",
+          "file": "photocraft-0.8.2-linux-aarch64.AppImage",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-aarch64.AppImage",
+          "bytes": 71997960,
+          "sha256": "d387c94d03870f09fe2e35b9aefd88cb65408d2d0fd891e3a8c63e030cf21cd3"
+        },
+        {
+          "platform": "linux",
+          "architecture": "RISC-V 64",
+          "name": "tar.gz",
+          "file": "photocraft-0.8.2-linux-riscv64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.8.2/photocraft-0.8.2-linux-riscv64.tar.gz",
+          "bytes": 77502939,
+          "sha256": "0d8beeeef86131ccc26e9c278f3b07d0a7ee8f99229f6fb1724af80730133fed"
+        }
+      ]
     },
     {
       "version": "0.7.0",
@@ -138,7 +484,180 @@
       "audience": {
         "en": "Useful context for older projects that use the Remove tool or OpenRaster. Keep a layered working document when you also need a flat image for sharing.",
         "zh": "这一版适合对照旧项目中的移除工具、OpenRaster 工作流，以及另存为平面图片的行为。分享图片时也应保留可继续编辑的分层工作稿。"
-      }
+      },
+      "files": [
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "MSI",
+          "file": "photocraft-0.7.0-windows-x64.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-x64.msi",
+          "bytes": 64626688,
+          "sha256": "af959a169ba0b93bdcec4df0e9dfdbac365b7759d3d74b06c3f8f96ed45ff9a0"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.7.0-windows-x64-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-x64-portable.zip",
+          "bytes": 76833799,
+          "sha256": "331e3111ed068b3f41df7d44401c3b51a312abde393e5829a4f24df2c9405b87"
+        },
+        {
+          "platform": "windows",
+          "architecture": "ARM64",
+          "name": "MSI",
+          "file": "photocraft-0.7.0-windows-arm64.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-arm64.msi",
+          "bytes": 60682240,
+          "sha256": "19dc2e1b00163dacd69d552d088f5fd2727b435efc8195c7ee75aab89cbd1e80"
+        },
+        {
+          "platform": "windows",
+          "architecture": "ARM64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.7.0-windows-arm64-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-arm64-portable.zip",
+          "bytes": 73155957,
+          "sha256": "776b6c89173ae32c73de206bea0879c0a6a58f5f1cf33bb61a11a06eeb2492b3"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "MSI",
+          "file": "photocraft-0.7.0-windows-x86.msi",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-x86.msi",
+          "bytes": 62763008,
+          "sha256": "b3dc6af0c151f89e7c3471d26dd04c6c31c315518e21eb124cc4f565f36c5f58"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.7.0-windows-x86-portable.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-windows-x86-portable.zip",
+          "bytes": 73497548,
+          "sha256": "61ea06d07bff7a8e82cf3f2a37e8d04455acf45d843461c7244e2f7eb39be23f"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "DMG",
+          "file": "photocraft-0.7.0-macos-universal.dmg",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-macos-universal.dmg",
+          "bytes": 84113310,
+          "sha256": "cd04389f15518c6208ef3a1e4b9b16f9edbbd1ece3fa63f7876b5d8d411c8a4a"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "CLI ZIP",
+          "file": "photocraft-cli-0.7.0-macos-universal.zip",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-cli-0.7.0-macos-universal.zip",
+          "bytes": 64701365,
+          "sha256": "caf41eee1827ef740bc4495fb1fee77f6a4e0be82fb131106ad06cd591fd8091"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "AppImage",
+          "file": "photocraft-0.7.0-linux-x86_64.AppImage",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.AppImage",
+          "bytes": 72579576,
+          "sha256": "87ebce36bcdf6b31d16a9ca22ce29f9ad8db68185e4d98118800d1c2de78ac42"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "Flatpak",
+          "file": "photocraft-0.7.0-linux-x86_64.flatpak",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.flatpak",
+          "bytes": 57387304,
+          "sha256": "ee3bddfeb94c533d3ecf046812bbb873fd11c50d99bc35e4a05776d98ed51455"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "DEB",
+          "file": "photocraft-0.7.0-linux-x86_64.deb",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.deb",
+          "bytes": 77385472,
+          "sha256": "7dad0049352595cdabb867ccabe47854ce6a7d12e242424495d3e4a49ff0d0b4"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "RPM",
+          "file": "photocraft-0.7.0-linux-x86_64.rpm",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.rpm",
+          "bytes": 76895539,
+          "sha256": "46e29ebaa30286dfd464e48eef239f64c7d297ebd515f0b8be4f7631af9539e1"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "tar.gz",
+          "file": "photocraft-0.7.0-linux-x86_64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-x86_64.tar.gz",
+          "bytes": 76259298,
+          "sha256": "641f831252fd31b43ee1a12e572d7442e5652c2e5bf623de085741c370f0c91d"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "Flatpak",
+          "file": "photocraft-0.7.0-linux-aarch64.flatpak",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.flatpak",
+          "bytes": 53610064,
+          "sha256": "837582cf3c442e0720abf854268d11d2880711acd863f9a26c0ac5888498313c"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "DEB",
+          "file": "photocraft-0.7.0-linux-aarch64.deb",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.deb",
+          "bytes": 74761020,
+          "sha256": "67d32d76b9038e685a518d8917c93de9ef96e1f16eb3c8328fc314fbc61b52d1"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "RPM",
+          "file": "photocraft-0.7.0-linux-aarch64.rpm",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.rpm",
+          "bytes": 74133379,
+          "sha256": "b26fcf7ab01c0f64860ce481c90d460d33eb6a10ac48315c0c75c0a347e6156c"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "tar.gz",
+          "file": "photocraft-0.7.0-linux-aarch64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.tar.gz",
+          "bytes": 72758732,
+          "sha256": "8540eb1db80cad4a5a57ce54a0c866116daa003612a442e94382c422a0b2fda9"
+        },
+        {
+          "platform": "linux",
+          "architecture": "ARM64",
+          "name": "AppImage",
+          "file": "photocraft-0.7.0-linux-aarch64.AppImage",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-aarch64.AppImage",
+          "bytes": 69474824,
+          "sha256": "0aea5a09cf85d5eb49f58a45bed89da57962d8f3ec38e19b5fe48ffb445c335f"
+        },
+        {
+          "platform": "linux",
+          "architecture": "RISC-V 64",
+          "name": "tar.gz",
+          "file": "photocraft-0.7.0-linux-riscv64.tar.gz",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.7.0/photocraft-0.7.0-linux-riscv64.tar.gz",
+          "bytes": 74603832,
+          "sha256": "74eecb6a2e00036ca728c685f91ef85b5b1e7ff5f9e8e61cfc3f393a1896fc36"
+        }
+      ]
     }
   ],
   "ui": {

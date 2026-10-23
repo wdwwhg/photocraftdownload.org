@@ -1,6 +1,7 @@
 import handler from '@tanstack/react-start/server-entry';
 
 import { getCookieFromHeader } from './lib/cookie';
+import { isPageIndexable } from './lib/search-policy';
 import { paraglideMiddleware } from './paraglide/server.js';
 
 // On Cloudflare Workers, stash the binding env (D1, ASSETS, …) on globalThis
@@ -30,6 +31,12 @@ export default {
   async fetch(req: Request): Promise<Response> {
     await ensureCloudflareEnv();
     const response = await paraglideMiddleware(req, () => handler.fetch(req));
+    if (
+      response.headers.get('Content-Type')?.includes('text/html') &&
+      !isPageIndexable(new URL(req.url).pathname)
+    ) {
+      response.headers.set('X-Robots-Tag', 'noindex, follow');
+    }
     const utmSource = new URL(req.url).searchParams.get('utm_source');
     const existing = getCookieFromHeader(
       req.headers.get('cookie'),

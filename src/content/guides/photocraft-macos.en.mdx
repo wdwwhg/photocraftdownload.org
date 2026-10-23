@@ -1,3 +1,6 @@
+import { PlatformDownloads } from '@/components/photocraft/download-table';
+import downloadLabels from '@/content/download-labels.json';
+
 export const meta = {
   title: 'PhotoCraft macOS Install: Gatekeeper and Damaged App Fixes',
   heading: 'PhotoCraft macOS Installation Guide',
@@ -5,10 +8,11 @@ export const meta = {
     'Install the Universal DMG on Intel or Apple silicon, handle an unverified developer warning, and diagnose a damaged app without disabling Gatekeeper.',
   category: 'macOS installation',
   published_at: '2026-10-15',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-23',
   sections: [
     'One DMG for Intel and Apple silicon',
     'Install from the DMG',
+    'Check the first document before relying on the installation',
     'Open a trusted unverified app',
     'When macOS says the app is damaged',
     'Read-only signature and launch checks',
@@ -19,9 +23,15 @@ export const meta = {
 
 Two common traps are choosing the CLI ZIP instead of the desktop app and treating every macOS alert as the same error. This guide covers **PhotoCraft v0.9.0**.
 
+**Verification scope:** we have not completed a Mac installation test or captured a macOS application window. The installation instructions below use official package information and Apple guidance. Our [Windows screenshots](/photocraft-review#hands-on) demonstrate one editing exercise on Windows; they do not verify DMG installation, Metal rendering, Intel Macs or Apple silicon.
+
 The official README labels its DMG **signed and notarized**. Open source does not mean unsigned. An older or self-built unsigned app may need a different path from the current official package.
 
 ## One DMG for Intel and Apple silicon
+
+<PlatformDownloads platform="macos" labels={downloadLabels.en} />
+
+The table covers v0.9.0 and includes the CLI archive so you can distinguish it from the desktop DMG. Check the complete hash using [macOS SHA256 verification](/is-photocraft-safe#macos-sha256-verification); for launch alerts, use the [installer troubleshooting guide](/photocraft-installer-not-working#macos-gatekeeper-and-damaged-app-alerts).
 
 Open **Apple menu → About This Mac**. “Chip: Apple M…” identifies Apple silicon; “Processor: Intel…” identifies Intel. Both use the [Universal DMG](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-macos-universal.dmg): **photocraft-0.9.0-macos-universal.dmg**.
 
@@ -41,6 +51,27 @@ Use the exact alert to choose a path. [Apple's explanation](https://support.appl
 | Developer cannot be verified / Apple cannot check it | Follow the trusted-app exception steps                     |
 | App is damaged and cannot be opened                  | Verify and reinstall the file                              |
 | Will damage your computer / malware detected         | Stop launching it and obtain a corrected developer release |
+
+## Check the first document before relying on the installation
+
+After copying the app into Applications, close the DMG's app copy and launch the installed one. Record the version from **Help → About** and the graphics information from **Help → System Info**. Keep the exact macOS version and whether About This Mac reports an Intel processor or an Apple chip with any report.
+
+Use this small acceptance sequence after launch:
+
+1. Download our [1200 × 800 PNG](/imgs/photocraft/captures/coast-test.png) and open it through File → Open.
+2. Duplicate the pixel layer and add a separate Levels adjustment at RGB midtone **1.10**.
+3. Save a new PSD in a writable practice folder, close it and reopen it.
+4. Check that two pixel layers and the Levels adjustment remain, and inspect the midtone value again.
+5. Quit and reopen the installed app to confirm you are launching the intended Applications copy.
+
+| Check                     | Record on your Mac                       | Current evidence on this site             |
+| ------------------------- | ---------------------------------------- | ----------------------------------------- |
+| DMG copy and first launch | macOS version, CPU family, exact alerts  | Not independently tested                  |
+| Signature assessment      | Complete codesign and spctl output below | Commands supplied; no captured Mac result |
+| Canvas rendering          | GPU/backend and any blank-canvas symptom | Not independently tested on Metal         |
+| PSD save and reopen       | Layer count and retained Levels value    | Reference result exists on Windows only   |
+
+The [tutorial](/photocraft-tutorial) provides the reference file and screenshot for the editing sequence. If your Mac differs, include the failing step and version in a [GitHub report](/photocraft-github). This checklist is a way to verify your installation; it is not a claim that we completed it on a Mac.
 
 ## Open a trusted unverified app
 
@@ -95,4 +126,4 @@ Quit before replacing the installed app with a new DMG copy. Keep your projects 
 - [Apple: code-signing verification](https://developer.apple.com/library/archive/technotes/tn2206/_index.html)
 - [PhotoCraft launch and logs](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
 
-Reviewed on 2026-10-15 against official package information and Apple documentation. These steps have not been independently tested on every Mac model and macOS version.
+Reviewed against official package information and Apple documentation. The page was expanded on 2026-10-18; no new Mac test was performed. A Mac-specific installation screenshot and recorded Intel/Apple silicon results are still missing.

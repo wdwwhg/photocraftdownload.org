@@ -1,11 +1,16 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
+import { assetChecksum, parseChecksums } from './release-assets.mjs';
+
 const root = new URL('../', import.meta.url);
 const history = JSON.parse(
   await readFile(
     new URL('src/content/photocraft-version-history.json', root),
     'utf8'
   )
+);
+const manifest = JSON.parse(
+  await readFile(new URL('src/content/photocraft-release.json', root), 'utf8')
 );
 const report = {
   checkedAt: new Date().toISOString(),
@@ -39,6 +44,9 @@ try {
         headers: {
           'User-Agent': 'photocraft-version-history-check',
           Accept: 'application/vnd.github+json',
+          ...(process.env.GITHUB_TOKEN
+            ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+            : {}),
         },
       })
     ).json();
@@ -63,28 +71,54 @@ try {
       )
     )
       throw new Error(`Missing platform: ${entry.version}`);
-    const links = [
-      ...entry.downloads.map((item) => item.url),
-      entry.checksumUrl,
-    ];
-    for (const link of links) {
-      const asset = metadata.assets.find(
-        (item) =>
-          item.browser_download_url === link &&
-          item.state === 'uploaded' &&
-          item.size > 0
+    const checksumText = await (
+      await request(entry.checksumUrl, { redirect: 'follow' })
+    ).text();
+    const checksums = parseChecksums(checksumText);
+    entry.files = Object.entries(manifest.builds).flatMap(
+      ([platform, builds]) =>
+        builds.map((build) => {
+          const file = build.file.replaceAll('{version}', entry.version);
+          const asset = metadata.assets.find((asset) => asset.name === file);
+          if (!asset || asset.state !== 'uploaded' || !(asset.size > 0))
+            throw new Error(`Missing historical file: ${file}`);
+          const url = `https://github.com/${manifest.repository}/releases/download/v${entry.version}/${file}`;
+          if (asset.browser_download_url !== url)
+            throw new Error(`Unexpected historical URL: ${file}`);
+          return {
+            platform,
+            architecture: build.architecture,
+            name: build.name,
+            file,
+            url,
+            bytes: asset.size,
+            sha256: assetChecksum(asset, checksums),
+          };
+        })
+    );
+    const links = [...entry.files.map((file) => file.url), entry.checksumUrl];
+    for (let offset = 0; offset < links.length; offset += 4) {
+      await Promise.all(
+        links.slice(offset, offset + 4).map(async (link) => {
+          const asset = metadata.assets.find(
+            (item) =>
+              item.browser_download_url === link &&
+              item.state === 'uploaded' &&
+              item.size > 0
+          );
+          if (!asset) throw new Error(`Unverified historical asset: ${link}`);
+          const response = await request(link, {
+            method: 'HEAD',
+            redirect: 'follow',
+          });
+          if (response.headers.get('content-type')?.includes('text/html'))
+            throw new Error(`Historical asset returned HTML: ${link}`);
+          const size = response.headers.get('content-length');
+          if (size && Number(size) !== asset.size)
+            throw new Error(`Historical asset size mismatch: ${link}`);
+          report.checkedDownloads++;
+        })
       );
-      if (!asset) throw new Error(`Unverified historical asset: ${link}`);
-      const response = await request(link, {
-        method: 'HEAD',
-        redirect: 'follow',
-      });
-      if (response.headers.get('content-type')?.includes('text/html'))
-        throw new Error(`Historical asset returned HTML: ${link}`);
-      const size = response.headers.get('content-length');
-      if (size && Number(size) !== asset.size)
-        throw new Error(`Historical asset size mismatch: ${link}`);
-      report.checkedDownloads++;
     }
     report.releases.push({
       version: entry.version,
@@ -94,6 +128,13 @@ try {
     });
   }
   if (!report.releases.length) throw new Error('Empty version history');
+  if (process.argv.includes('--write')) {
+    history.checkedAt = report.checkedAt;
+    await writeFile(
+      new URL('src/content/photocraft-version-history.json', root),
+      JSON.stringify(history, null, 2) + '\n'
+    );
+  }
   await mkdir(new URL('artifacts/', root), { recursive: true });
   await writeFile(
     new URL('artifacts/version-history-check.json', root),

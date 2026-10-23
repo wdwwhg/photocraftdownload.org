@@ -1,67 +1,99 @@
+import { CaptureGallery } from '@/components/photocraft/capture-gallery';
+
 export const meta = {
-  title: 'PhotoCraft Tutorial: Make a Layered Photo Caption Card',
-  heading: 'PhotoCraft Tutorial',
+  title: 'PhotoCraft Tutorial: Layers, Levels and a Verified PSD Save',
+  heading: 'PhotoCraft Tutorial: Repeat Our Three-Layer PSD Test',
   description:
-    'Follow a beginner PhotoCraft tutorial to create a photo caption card with separate text and adjustment layers, then save and verify an editable project.',
+    'Repeat our PhotoCraft 0.9.0 Windows exercise with downloadable artwork: duplicate a layer, add Levels at 1.10, save a PSD and check it after reopening.',
   category: 'Tutorials',
   published_at: '2026-10-13',
-  updated_at: '2026-10-13',
+  updated_at: '2026-10-18',
   sections: [
-    'Prepare a small practice project',
-    'Open, frame and organize the photo',
-    'Add one reversible adjustment',
-    'Add a caption on its own layer',
-    'Save a project and a delivery image',
-    'Reopen and check the result',
-    'Sources',
+    'Download the practice files',
+    'Open the PNG and duplicate its layer',
+    'Add Levels at midtone 1.10',
+    'Save, close and reopen the PSD',
+    'Compare your result with our capture',
+    'Diagnose a different result',
+    'What to test next',
+    'Evidence and scope',
   ],
 };
 
-This PhotoCraft tutorial walks through a small, complete project: a photograph with a readable caption, a reversible color adjustment and two saved outputs. The goal is to learn a repeatable editing process, rather than clicking every tool once. You will keep the image, caption and adjustment independent so a later revision does not require rebuilding the entire card.
+This exercise reproduces the small editing sequence in our **15 October 2026 Windows test**. It uses original artwork and an inspectable saved file, so you can check the outcome instead of guessing from a feature list. Allow time to inspect the layers after saving; creating a file alone is not the final check.
 
-The workflow uses capabilities documented in PhotoCraft v0.8.2: layers, editable type, adjustment layers, saving and image export. It is a documentation-based walkthrough, not a claim that we tested every command in your installed build. Menu placement may change. If a command is unavailable, preserve the project and check that version's documentation before substituting a destructive operation.
+Our recorded environment was PhotoCraft **0.9.0**, Windows 11 25H2 x64, the x64 portable package, an RTX 4060 Laptop GPU and Vulkan. The actual application UI in our screenshots is Chinese. English menu labels below describe the same editing concepts; wording can vary by UI language. We have not repeated this exercise on macOS or Linux.
 
-## Prepare a small practice project
+## Download the practice files
 
-Install a desktop build from the [download page](/). Use a photograph you own or have permission to edit. Make a copy in a practice folder, and leave the original outside the working set. Start with a modest image so you can distinguish editing mistakes from resource problems.
+1. Obtain the desktop package from the [download page](/#downloads). The [Windows guide](/photocraft-windows) explains complete ZIP extraction and architecture selection.
+2. Download our [1200 × 800 practice PNG](/imgs/photocraft/captures/coast-test.png) to a practice folder. Our artwork is provided under CC0.
+3. Keep the [reference PSD](/imgs/photocraft/captures/coast-layers.psd) in that folder under a distinct name. It is the result to inspect, not the input for the first run.
 
-Write a short caption before opening the app. For example, use “Weekend by the coast” as a title and a separate line for the date or credit. Decide where the result will be displayed and what dimensions that destination requires. This makes cropping and text size choices concrete instead of arbitrary.
+The word COAST is already rasterized into the PNG. This exercise does not create or test editable text. The [SVG source](/imgs/photocraft/captures/coast-test.svg) is available to inspect the original artwork, but use the PNG for this sequence.
 
-If the interface is unfamiliar, read the [PhotoCraft app orientation](/photocraft-app) first. This tutorial concentrates on a finished composition; that guide explains the canvas, panels and tool roles.
+## Open the PNG and duplicate its layer
 
-## Open, frame and organize the photo
+Use **File → Open** and choose the PNG. Confirm a 1200 × 800 document and identify the pixel layer in the Layers panel. Our imported layer was named **Layer 0**.
 
-Open the copied image using the app's File menu. Check that its orientation and colors look plausible before editing. If the composition needs a different frame, use the Crop tool and confirm that the subject has enough space for the caption. Keep the crop restrained while learning, because cropping changes the boundaries of the composition.
+Select that layer and use the layer duplication command. In our result, the duplicate is **Layer 0 copy**. Before continuing, count two pixel layers. If you see a different document or only one layer, correct that now rather than adding adjustments to the reference PSD by mistake.
 
-Use the Layers panel to identify the image layer. Give it a meaningful name if your build permits renaming, such as “Photo.” Before an operation that changes image pixels, create a working duplicate and retain the original layer. Selecting the intended layer is part of every edit: a correct tool applied to the wrong layer can still produce the wrong result.
+## Add Levels at midtone 1.10
 
-## Add one reversible adjustment
+With the working document active, create a **Levels adjustment layer**, keeping it separate from the pixel layers. Our resulting layer is named **Levels 1**. Select its adjustment thumbnail to inspect the Levels controls.
 
-Create a supported adjustment layer, such as Curves or Vibrance. Make a small change and switch the adjustment's visibility off and on to compare it with the original. The official README describes adjustment layers as live edits, so the purpose here is to keep the underlying photograph intact.
+Choose the **RGB** channel and set the middle input value to **1.10**. Leave the other values at their defaults for this exercise. The screenshot displays **1.1**, which is the same numerical value. Count three layers: two pixel layers and the Levels adjustment.
 
-Do not stack several adjustments before you understand the first one. Look at bright areas, shadows and any skin tones after the change. If the edit makes the caption area too busy, solve that locally with the composition rather than forcing a large global contrast change. A layer mask can restrict an adjustment, but a simple first project can use one restrained full-image adjustment.
+Applying Levels directly to a pixel layer would produce a different document structure. If no Levels layer appears, undo and create the separate adjustment before saving.
 
-## Add a caption on its own layer
+## Save, close and reopen the PSD
 
-Use the Type tool to create the title as editable text. Position it where it does not cover the main subject, then choose a size that reads at the intended output dimensions. A second text layer for the credit keeps that line independently editable.
+1. Save the working document as **coast-practice.psd** in your practice folder. Keep the input PNG and reference PSD intact.
+2. Close the document after saving.
+3. Reopen your saved PSD through File → Open or Recent Files. Our recorded run reopened it through Recent Files.
+4. Confirm that there are still three layers.
+5. Select the Levels adjustment thumbnail and check that RGB midtone still reads **1.1** or **1.10**.
 
-If the photograph is busy, place a simple shape behind the caption or use a subtle documented layer style, such as a shadow. Keep the text separate from both the photograph and the backing shape. Check the result at approximately its final display size; text that looks comfortable while zoomed in may be unreadable in a small card.
+The original test saved as coast-layers.psd; your different filename keeps your output separate from our reference. A flat PNG export cannot pass the layer check because it does not preserve an editable layer stack.
 
-Change the title wording once before saving. This deliberately tests the benefit of editable type. If the change affects the photograph, stop and inspect the layer selection rather than continuing with more edits.
+## Compare your result with our capture
 
-## Save a project and a delivery image
+<CaptureGallery
+  title="The result after reopening"
+  description="Our unmodified Windows application capture from the existing test record. The preview is compressed as WebP; the original PNG is available at full resolution."
+  openLabel="View original PNG"
+  images={[
+    {
+      file: 'windows-0.9.0-levels',
+      alt: 'PhotoCraft reopened coast-layers.psd, showing two pixel layers, Levels 1 and the RGB midtone value 1.1',
+      caption: 'Expected structure: Layer 0, Layer 0 copy and Levels 1',
+    },
+  ]}
+/>
 
-Save an editable working document, using the native .pcraft format or a layered format appropriate to your handoff. Then export a separate PNG or JPEG for delivery. The working document is for revisions; the exported image is for viewing and sharing.
+| Check             | Expected result                     | What a difference suggests                                      |
+| ----------------- | ----------------------------------- | --------------------------------------------------------------- |
+| Canvas size       | 1200 × 800                          | Wrong input or an accidental size change                        |
+| Layer stack       | Two pixel layers and one adjustment | Missing duplication, flattening or direct pixel adjustment      |
+| RGB midtone       | 1.1 after reopening                 | Wrong adjustment selected, wrong channel or an unsaved change   |
+| Document reopened | Your saved PSD                      | You may still be viewing the original PNG or supplied reference |
 
-Choose PNG when transparency matters. JPEG is useful for a flat photographic image, but it does not retain editable layers or transparency. Record the intended dimensions and inspect the actual exported file in another viewer. Check the caption, crop, colors and any transparent edges there, rather than assuming an export dialog guarantees the expected result.
+Use the screenshot for structure and settings. It does not establish calibrated color accuracy or a pixel-identical comparison on a different display.
 
-## Reopen and check the result
+## Diagnose a different result
 
-Close the saved practice document and reopen it. Confirm that the caption can still be edited, the adjustment can still be toggled and the original image layer remains available. Keep both the working file and the export in the practice folder with distinct filenames.
+If the Layers panel is hidden, show it before comparing the stack. If Levels controls are absent, select the adjustment thumbnail rather than a pixel layer or its mask. If the file reopened flat, confirm the saved extension and whether you used a flattened export.
 
-If you plan to exchange PSD files, add a separate round-trip test with the receiving application; see [PhotoCraft vs Photoshop](/photocraft-vs-photoshop). If a step fails, record the version and smallest reproducible example using the [GitHub issue guidance](/photocraft-github). PhotoCraft is early-alpha software, so a successful small tutorial should be followed by testing your actual workflow before important work.
+If a difference persists, record the installed version from **Help → About** and the graphics backend from **Help → System Info**. Include the exact failing step and a copy of this public sample in a [reproducible issue report](/photocraft-github). The sample avoids having to share a private project to demonstrate the same basic failure.
 
-## Sources
+## What to test next
 
-- [PhotoCraft v0.8.2 features and formats](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
-- [Official product screenshots](https://getartcraft.com/apps/photocraft)
+After the small exercise succeeds, use a duplicate of one real project. Add separate checks for editable type, masks, effects and any required export. Saving the sample above does not verify those features. For an Adobe handoff, open the PSD in the recipient's Photoshop version as well; follow the [comparison checklist](/photocraft-vs-photoshop).
+
+A PNG or JPEG export is useful as a viewing copy, but keep the editable document for revisions. Export and cross-application rendering are follow-up checks, not results recorded in this exercise.
+
+## Evidence and scope
+
+Our [review record](/photocraft-review#hands-on) contains the test environment and three original screenshots. The machine-readable [capture record](/imgs/photocraft/captures/capture-record.json) lists the application commit, package checksum, image hashes and sequence. This tutorial was rewritten from that existing record; it does not claim a new test on 18 October.
+
+The result covers a simple three-layer document in one Windows portable build. It does not cover MSI installation, macOS, Linux, complex PSD compatibility, a Photoshop round trip or long-term reliability.

@@ -7,7 +7,7 @@ export const meta = {
     'Our PhotoCraft 0.9.0 Windows screenshots, version and system evidence, a three-layer PSD save and reopen test, original test files and limitations.',
   category: 'Evaluation',
   published_at: '2026-10-13',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-18',
   sections: [
     'Our Windows captures and test steps',
     'What the documentation supports',
@@ -75,7 +75,7 @@ Native desktop and browser builds offer different delivery options. Rust, egui a
 
 ## Who should evaluate it first?
 
-A small personal composition is a sensible first test: one photograph, one caption and one adjustment. The [beginner tutorial](/photocraft-tutorial) provides that workflow. Developers and contributors may also value the source access and documented automation interfaces; see [PhotoCraft Rust](/photocraft-rust).
+A small personal composition is a sensible first test. Our [beginner tutorial](/photocraft-tutorial) reproduces the recorded two-pixel-layer and Levels exercise, including a check after reopening. Add editable type and masks as separate tests when your work needs them. Developers and contributors may also value the source access and documented automation interfaces; see [PhotoCraft Rust](/photocraft-rust).
 
 For a paid client job with a strict handoff deadline, test copies alongside your established application before making PhotoCraft the only working environment. A project with specialized fonts, plugins, unusual layer effects or high-depth color requirements needs a more demanding evaluation than a flat web graphic. The consequence of a failed save or changed render matters as much as the number of available tools.
 
@@ -93,9 +93,9 @@ The project publishes corpus results in its README. Those are the project's own 
 
 ## Important limitations
 
-The v0.8.2 status note calls out gaps in AI and generative features, typography depth, professional workflows and plugin compatibility. That makes it inappropriate to promise a full Adobe replacement from a familiar interface alone. The [Photoshop comparison](/photocraft-vs-photoshop) covers the handoff questions in more detail.
+The v0.9.0 status note calls out gaps in AI and generative features, typography depth, professional workflows and plugin compatibility. That makes it inappropriate to promise a full Adobe replacement from a familiar interface alone. The [Photoshop comparison](/photocraft-vs-photoshop) covers the handoff questions in more detail.
 
-The browser build has additional documented constraints: saving downloads a file, and web autosave or crash recovery is not provided. Desktop behavior should not be assumed to apply automatically to the browser. If that distinction matters, read [PhotoCraft Web](/photocraft-web) before opening a long editing session.
+The browser build has additional documented constraints: saving downloads a file, and web autosave or crash recovery is not provided. Desktop behavior should not be assumed to apply automatically to the browser. If that distinction matters, read [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web) before opening a long editing session.
 
 ## Run a representative evaluation
 
@@ -107,10 +107,12 @@ Finally, test recovery expectations and document the steps that failed. Keep sou
 
 ## Review conclusion
 
+The observed result is specific: a 1200 × 800 PNG became a three-layer PSD, and the Levels midtone remained 1.10 after reopening in PhotoCraft. That makes the sample useful for checking a basic edit and save on the tested Windows build. It leaves Mac/Linux launch, Adobe handoff, complex effects and production reliability unresolved. The page was expanded on 18 October; the capture date remains 15 October.
+
 PhotoCraft offers a promising documented editing model with free source access, but its own early-alpha warning should shape adoption. Evaluate it first for experiments, learning and clearly bounded tasks. For production work, let successful tests of your actual files determine the scope. If a required task remains unsupported, consult [PhotoCraft alternatives](/photocraft-alternative) and report a reproducible issue through the [official GitHub workflow](/photocraft-github).
 
 ## Sources
 
-- [v0.8.2 features, corpus notes and status](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
-- [v0.8.2 browser-build documentation](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)
+- [v0.9.0 features, corpus notes and status](https://github.com/storytold/photocraft/blob/v0.9.0/README.md)
+- [v0.9.0 browser-build documentation](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/web/README.md)
 - [Official product description](https://getartcraft.com/apps/photocraft)

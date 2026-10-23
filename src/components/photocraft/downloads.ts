@@ -10,6 +10,8 @@ export const release = {
   year: verification.checkedAt.slice(0, 4),
   notes: `${repository}/releases/tag/v${manifest.version}`,
   latest: `${repository}/releases/latest`,
+  latestVersion: verification.latestVersion,
+  isLatest: verification.latestVersion === manifest.version,
   repository,
   product: 'https://getartcraft.com/apps/photocraft',
   docs: `${repository}/tree/v${manifest.version}/docs`,
@@ -29,8 +31,11 @@ export type Build = {
   file: string;
   architecture: string;
   size: string;
+  bytes: number;
+  sha256: string;
 };
 const sizes = verification.assetSizes as Record<string, number>;
+const hashes = verification.assetHashes as Record<string, string>;
 export const builds = Object.fromEntries(
   Object.entries(manifest.builds).map(([platform, items]) => [
     platform,
@@ -40,6 +45,8 @@ export const builds = Object.fromEntries(
         ...item,
         file,
         size: `${(sizes[file] / 1024 / 1024).toFixed(1)} MiB`,
+        bytes: sizes[file],
+        sha256: hashes[file],
       };
     }),
   ])

@@ -2,6 +2,8 @@ import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { assetChecksum, parseChecksums } from './release-assets.mjs';
+
 const repository = 'storytold/photocraft';
 const root = new URL('../', import.meta.url);
 const snapshot = new URL('src/generated/photocraft-release-check.json', root);
@@ -32,7 +34,7 @@ export function expectedFiles(manifest) {
 
 export async function checkRelease(
   manifest,
-  { fetchImpl = fetch, token, now = () => new Date() } = {}
+  { fetchImpl = fetch, token, now = () => new Date(), allowPinned = false } = {}
 ) {
   const files = expectedFiles(manifest);
   const tag = `v${manifest.version}`;
@@ -67,7 +69,7 @@ export async function checkRelease(
     throw new Error(
       `The configured release ${tag} is not a published stable release.`
     );
-  if (latest.tag_name !== tag)
+  if (latest.tag_name !== tag && !allowPinned)
     throw new Error(
       `New official release ${latest.tag_name}; site still lists ${tag}. Review the manifest and version-specific guides before updating.`
     );
@@ -84,6 +86,15 @@ export async function checkRelease(
       throw new Error(`Missing, empty or unexpected official asset: ${file}`);
     assetSizes[file] = asset.size;
   }
+  const checksumText = await (
+    await request(base + 'SHA256SUMS.txt', { redirect: 'follow' })
+  ).text();
+  const checksums = parseChecksums(checksumText);
+  const assetHashes = Object.fromEntries(
+    files
+      .filter((file) => file !== 'SHA256SUMS.txt')
+      .map((file) => [file, assetChecksum(assets.get(file), checksums)])
+  );
   // HEAD follows GitHub's download redirects without downloading installers.
   // No API credential is sent to asset URLs or their CDN redirects.
   for (let offset = 0; offset < files.length; offset += 3) {
@@ -111,41 +122,66 @@ export async function checkRelease(
     status: 'passed',
     version: manifest.version,
     latestVersion: latest.tag_name.slice(1),
+    isLatest: latest.tag_name === tag,
     checkedAt: now().toISOString(),
     checkedFiles: files.length,
     method:
-      'Official release metadata and HTTP HEAD for every listed asset, including SHA256SUMS.txt. This is not a malware scan.',
+      'Official release metadata, SHA256SUMS.txt (cross-checked with GitHub asset digests when available), and HTTP HEAD for every listed asset. Installer bytes were not downloaded or scanned for malware.',
     assetSizes,
+    assetHashes,
   };
 }
 
 async function main() {
   const write = process.argv.includes('--write');
   await rm(new URL('artifacts/release-check.json', root), { force: true });
-  if (write)
-    await Promise.all([
-      rm(snapshot, { force: true }),
-      rm(publicReport, { force: true }),
-    ]);
   const manifest = JSON.parse(
     await readFile(new URL('src/content/photocraft-release.json', root), 'utf8')
   );
   const report = await checkRelease(manifest, {
     token: process.env.GITHUB_TOKEN,
+    allowPinned: process.argv.includes('--allow-pinned'),
   });
   const data = JSON.stringify(report, null, 2) + '\n';
   await mkdir(new URL('artifacts/', root), { recursive: true });
   await writeFile(new URL('artifacts/release-check.json', root), data);
   if (write) {
+    const historyPath = new URL('public/release-check-history.json', root);
+    let previous = [];
+    try {
+      previous = JSON.parse(await readFile(historyPath, 'utf8'));
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+    if (!previous.length) {
+      try {
+        previous.push(JSON.parse(await readFile(publicReport, 'utf8')));
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+      }
+    }
+    previous.push(report);
     await mkdir(new URL('src/generated/', root), { recursive: true });
     await Promise.all([
       writeFile(snapshot, data),
       writeFile(publicReport, data),
+      writeFile(
+        historyPath,
+        JSON.stringify(previous.slice(-30), null, 2) + '\n'
+      ),
+      writeFile(
+        new URL('src/generated/photocraft-release-check-history.json', root),
+        JSON.stringify(previous.slice(-30), null, 2) + '\n'
+      ),
     ]);
   }
   console.log(
     `Release check passed: v${report.version}, ${report.checkedFiles} files, ${report.checkedAt}`
   );
+  if (!report.isLatest)
+    console.warn(
+      `Reviewed downloads remain v${report.version}; latest official release is v${report.latestVersion}.`
+    );
   if (process.env.GITHUB_STEP_SUMMARY) {
     await writeFile(
       process.env.GITHUB_STEP_SUMMARY,

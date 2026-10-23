@@ -9,6 +9,7 @@ on:
     paths:
       - 'src/content/photocraft-release.json'
       - 'scripts/check-release-links*'
+      - 'scripts/release-assets.mjs'
       - '.github/workflows/check-release-links.yml'
 
 permissions:
@@ -28,12 +29,24 @@ jobs:
       - name: Test failure handling
         run: node --test scripts/check-release-links.test.mjs
       - name: Verify latest release and every download
+        id: latest
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/check-release-links.mjs
+        run: node scripts/check-release-links.mjs --write
+      - name: Record pinned release availability when an update is due
+        if: steps.latest.outcome == 'failure'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/check-release-links.mjs --write --allow-pinned
       - name: Save successful check report
         uses: actions/upload-artifact@v4
         with:
           name: photocraft-release-check
-          path: artifacts/release-check.json
+          path: |
+            artifacts/release-check.json
+            public/release-check-history.json
           retention-days: 30
+      - name: Flag a newer release or failed latest check
+        if: steps.latest.outcome == 'failure'
+        run: exit 1

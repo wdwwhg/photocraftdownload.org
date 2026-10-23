@@ -1,0 +1,56 @@
+export const meta = {
+  title: 'PhotoCraft 安装失败：Windows、macOS 与 Linux 排查',
+  heading: 'PhotoCraft 安装失败排查',
+  description:
+    '按错误区分 MSI 安装失败、SmartScreen、macOS Gatekeeper 和 Linux FUSE，核对架构、哈希与日志。',
+  category: '安装排错',
+  published_at: '2026-10-23',
+  updated_at: '2026-10-23',
+  sections: [
+    '先记录错误',
+    'Windows 安装与 SmartScreen',
+    'macOS Gatekeeper',
+    'Linux FUSE',
+    '实测范围',
+  ],
+};
+
+## 先记录错误
+
+记录系统版本、CPU 架构、PhotoCraft 版本、完整文件名、SHA256 与失败步骤。先用[校验命令](/is-photocraft-safe)确认文件，再区分下载失败、安装失败和启动后崩溃。以下对应本站整理的 v0.9.0，新版应使用新版文件与说明。
+
+## Windows 安装与 SmartScreen
+
+设置 → 系统 → 系统信息中的“系统类型”决定选 x64、ARM64 还是 x86。Windows 11 应选 x64 或 ARM64。便携 ZIP 必须完整解压后启动，保留 exe、portable.txt 和其余文件。
+
+MSI 安装可在用户准备启动安装时记录日志：
+
+```powershell
+msiexec.exe /i ".\photocraft-0.9.0-windows-x64.msi" /L*V ".\photocraft-install.log"
+```
+
+此命令会启动安装程序并生成日志，需阅读安装提示。分享日志前删去个人路径等信息。缺失 DLL 时先确认具体名称和文件来源，不要从第三方站点单独下载 DLL。
+
+SmartScreen 的信誉提示、安全软件明确检出和组织策略限制是不同情况。核对官方来源、哈希与发布者信息；有明确检出时先联系开发者，组织管理的设备应联系管理员。本站没有复现 SmartScreen 提示的截图。
+
+## macOS Gatekeeper
+
+桌面版使用 Universal DMG，复制到 Applications 后启动；CLI ZIP 不是桌面安装包。普通首次打开确认、无法验证开发者、文件损坏、检测到恶意软件，不能用同一种处理方式。
+
+按 [Apple 官方说明](https://support.apple.com/en-us/102445)核对具体提示。仅在确认来源与文件完整性后考虑系统提供的单应用例外；文件损坏应先重新下载和校验，检测到恶意软件则停止运行。不要全局关闭 Gatekeeper。
+
+## Linux FUSE
+
+先用 uname -m 和 /etc/os-release 确认架构与发行版。Exec format error 应先查架构；libfuse.so.2 或 AppImages require FUSE 才进入 FUSE 路径。
+
+[AppImage 官方文档](https://docs.appimage.org/user-guide/troubleshooting/fuse.html)列出 Ubuntu 22.04 的 libfuse2 与 Ubuntu 24.04 的 libfuse2t64。保留系统原有 FUSE 3，不要为兼容性盲目替换它。对应 Type 2 AppImage 的解包运行方式为：
+
+```sh
+./photocraft-0.9.0-linux-x86_64.AppImage --appimage-extract-and-run
+```
+
+这需要额外空间，也不会修复所有图形或系统库问题。更多 Flatpak、DEB、RPM 说明见 [Linux 构建整理](/photocraft-linux)。
+
+## 实测范围
+
+现有实测仅为 2026 年 10 月 15 日 Windows 11 x64 便携版的启动、分层文档保存与重开。不包含 MSI 故障、SmartScreen、Gatekeeper 或 FUSE 的真机复现。完整错误分类和证据表见[英文排错页](/photocraft-installer-not-working)。

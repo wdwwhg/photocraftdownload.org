@@ -33,6 +33,7 @@ drizzle
 .vercel
 .wrangler
 wrangler.jsonc
+wrangler.toml
 wrangler.example.jsonc
 
 # docs & misc

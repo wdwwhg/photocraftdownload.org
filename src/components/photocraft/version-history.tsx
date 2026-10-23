@@ -1,3 +1,7 @@
+import downloadLabels from '@/content/download-labels.json';
+
+import { DownloadTable, type DownloadFile } from './download-table';
+
 type Locale = 'en' | 'zh';
 type ReleaseHistoryEntry = {
   version: string;
@@ -9,6 +13,7 @@ type ReleaseHistoryEntry = {
   audience: Record<Locale, string>;
   changes: { en: string; zh: string; source: string }[];
   downloads: { platform: string; url: string }[];
+  files: DownloadFile[];
 };
 
 export function VersionHistoryTable({
@@ -24,6 +29,16 @@ export function VersionHistoryTable({
 }) {
   return (
     <div className="pc-version-history">
+      <nav className="pc-version-jump" aria-label={labels.version}>
+        {entries.map((entry) => (
+          <a
+            key={entry.version}
+            href={`#v${entry.version.replaceAll('.', '-')}`}
+          >
+            v{entry.version}
+          </a>
+        ))}
+      </nav>
       <table role="table">
         <caption>{labels.caption}</caption>
         <thead role="rowgroup">
@@ -132,6 +147,11 @@ export function VersionHistoryDetails({
             <a href={entry.releaseUrl}>{labels.notes}</a>
             <a href={entry.compareUrl}>{labels.compare}</a>
           </div>
+          <DownloadTable
+            files={entry.files}
+            labels={downloadLabels[locale]}
+            caption={`${downloadLabels[locale].caption} · v${entry.version}`}
+          />
         </section>
       ))}
     </div>

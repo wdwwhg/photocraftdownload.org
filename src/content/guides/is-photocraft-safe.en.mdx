@@ -1,0 +1,148 @@
+import records from '@/generated/photocraft-release-check-history.json';
+
+import { release } from '@/components/photocraft/downloads';
+import { ReleaseCheckRecords } from '@/components/photocraft/release-check-records';
+import scan from '@/content/photocraft-security-scan.json';
+
+export const meta = {
+  title: 'Is PhotoCraft Safe? SHA256 Verification and Download Checks',
+  heading: 'Is PhotoCraft Safe?',
+  description:
+    'Check official PhotoCraft downloads with Windows, macOS and Linux SHA256 commands. Read the actual link-check records, scan status and limits of the evidence.',
+  category: 'Download verification',
+  published_at: '2026-10-23',
+  updated_at: '2026-10-23',
+  sections: [
+    'What we can verify',
+    'Windows SHA256 verification',
+    'macOS SHA256 verification',
+    'Linux SHA256 verification',
+    'Malware scan status',
+    'Daily link checks and saved records',
+    'If a hash or warning does not match',
+    'Sources',
+  ],
+};
+
+PhotoCraft has an open-source repository and official release downloads, but those facts alone do not prove every file is safe. Start with the exact release, verify its hash and review your operating system's security result before running it. **Our Microsoft Defender scan found no threats in one v0.9.0 Windows x64 MSI on 23 October 2026.** Other packages and later releases are outside that scan's scope.
+
+## What we can verify
+
+Our [download table](/#downloads) links to the **storytold/photocraft** GitHub release assets. It shows the file size in bytes and MiB, and the full SHA256 from that release's official checksum file. The current metadata check compares those values with GitHub asset digests where available and checks each download response. It does not download and scan installer contents.
+
+The site's reviewed downloads and [Windows document test](/photocraft-windows#our-portable-launch-and-document-check) cover **v0.9.0**. Later releases have their own files and hashes. Check the [official latest release](https://github.com/storytold/photocraft/releases/latest) for newer versions and the [version archive](/photocraft-version-history) for reviewed older files.
+
+| Evidence                                    | What it establishes                                | What it cannot establish                              |
+| ------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------- |
+| SHA256 matches the published value          | Your bytes match the published file fingerprint    | Whether the publisher's file is harmless              |
+| File size and download response             | The listed asset is present and responds as a file | Its behavior after installation                       |
+| GitHub digest agrees with the checksum list | Two upstream records identify the same hash        | An independent security review                        |
+| Recorded Windows portable exercise          | One editing workflow ran on our recorded machine   | Every installer, operating system or document is safe |
+
+## Windows SHA256 verification
+
+In PowerShell, from the folder containing the downloaded file:
+
+```powershell
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+```
+
+Compare **all 64 hexadecimal characters** in `Hash` with the same filename in the [Windows download table](/photocraft-windows#photocraft-windows-download-files) and [v0.9.0 SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Letter case does not matter. For Portable ZIP, x86 or ARM64, substitute that exact filename; its hash will differ.
+
+## macOS SHA256 verification
+
+In Terminal, from the download directory:
+
+```sh
+shasum -a 256 photocraft-0.9.0-macos-universal.dmg
+```
+
+Match the result to the DMG row on the [macOS download page](/photocraft-macos#one-dmg-for-intel-and-apple-silicon). A matching hash and Gatekeeper approval answer different questions. Apple documents signature, notarization and first-launch alerts in its [safe-opening guidance](https://support.apple.com/en-us/102445). We have no local macOS scan or Gatekeeper test result.
+
+## Linux SHA256 verification
+
+For an AppImage downloaded into the current directory:
+
+```sh
+sha256sum photocraft-0.9.0-linux-x86_64.AppImage
+```
+
+Use the [Linux file table](/photocraft-linux#official-files-and-checksums) to select the exact architecture and format. A Flatpak bundle, DEB, RPM and tar.gz each have a different hash. Verify before executing the AppImage or installing a package.
+
+To check a single file using the official checksum list, keep that exact list and the download in one directory:
+
+```sh
+sha256sum --ignore-missing --check SHA256SUMS.txt
+```
+
+Confirm that the output names **your intended file** and reports `OK`. This also checks any other files from that checksum list present in the same directory; it does not imply the missing downloads were checked. The checksum list must come from the same release as the file.
+
+## Malware scan status
+
+A custom Microsoft Defender file scan was run on the official **photocraft-0.9.0-windows-x64.msi**, after its downloaded bytes matched the published SHA256. Remediation was disabled and the installer was not executed. The original scanner output and exact scope are available in the [scan report](/photocraft-security-scan.json).
+
+<dl>
+  <dt>File and SHA256</dt>
+  <dd>
+    <code>{scan.file}</code>
+    <br />
+    <code>{scan.sha256}</code>
+  </dd>
+  <dt>Completed (UTC)</dt>
+  <dd>
+    <time dateTime={scan.completedAt}>{scan.completedAt}</time>
+  </dd>
+  <dt>Scanner and engine</dt>
+  <dd>
+    {scan.scanner} · {scan.productVersion} · engine {scan.engineVersion}
+  </dd>
+  <dt>Signature version</dt>
+  <dd>
+    {scan.signatureVersion} · updated {scan.signatureUpdatedAt}
+  </dd>
+  <dt>Exit code</dt>
+  <dd>{scan.exitCode}</dd>
+</dl>
+<pre>
+  <code>{scan.output}</code>
+</pre>
+
+This is one scanner, one Windows MSI and one point in time. macOS, Linux, Windows Portable ZIP, x86, ARM64 and later releases were not scanned. Our link reports remain **metadata and availability checks**, separate from this antivirus scan. A matching hash or a successful application launch does not replace scanning or a security review.
+
+On Windows, scan the exact downloaded file through **Show more options → Scan with Microsoft Defender** when available, or use your active antivirus. A reproducible scan record should include filename, SHA256, scan date, engine version, signature version and the original result. A scan covers that file at that time; it is not a permanent guarantee for every release. If a scanner flags the file, retain its exact detection name and seek the developer's guidance before running it.
+
+## Daily link checks and saved records
+
+The repository's [daily release-link workflow](https://github.com/wdwwhg/photocraftdownload.org/actions/workflows/check-release-links.yml) checks the configured release and flags a newer official release. Open an individual workflow run for its actual outcome and downloadable report. A schedule is not proof that every day's run succeeded.
+
+<ReleaseCheckRecords
+  records={records}
+  labels={{
+    caption: 'Saved successful release-link checks',
+    time: 'Checked (UTC)',
+    version: 'Reviewed version',
+    files: 'Files',
+    latest: 'Latest observed',
+    result: 'Link result',
+    passed: 'Passed',
+  }}
+/>
+
+These are retained successful snapshots available in this site's build. Gaps are not filled with invented daily results; the older record used metadata and HEAD checks before checksum comparison was added. The workflow can have later checks or failures than this snapshot. Download the [latest saved report](/release-check.json) or [retained records](/release-check-history.json) for the method used in each record.
+
+<p>
+  Last saved link check:{' '}
+  <time dateTime={release.checked}>{release.checkedDisplay}</time>.
+</p>
+
+## If a hash or warning does not match
+
+Stop before running the file. Check release, architecture and filename first; then obtain a fresh copy through the exact official release. If a mismatch persists, report the expected and actual SHA256 to the project. For SmartScreen, Gatekeeper, MSI errors or FUSE failures, follow [PhotoCraft installer not working](/photocraft-installer-not-working). Do not disable protection simply to make a warning disappear.
+
+## Sources
+
+- [Official PhotoCraft repository](https://github.com/storytold/photocraft)
+- [Reviewed v0.9.0 release and checksums](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
+- [Microsoft Get-FileHash reference](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash)
+- [Apple: safely open apps on your Mac](https://support.apple.com/en-us/102445)
+- [GNU checksum verification reference](https://www.gnu.org/software/coreutils/manual/html_node/cksum-common-options.html)

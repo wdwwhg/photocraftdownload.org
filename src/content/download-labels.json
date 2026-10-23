@@ -1,0 +1,38 @@
+{
+  "en": {
+    "caption": "Official PhotoCraft download files",
+    "platform": "Platform",
+    "architecture": "Architecture",
+    "format": "Delivery / format",
+    "file": "Direct download",
+    "size": "File size",
+    "bytes": "bytes",
+    "mode.MSI": "Installer",
+    "mode.Portable ZIP": "Portable",
+    "mode.DMG": "Installer",
+    "mode.CLI ZIP": "Command line",
+    "mode.AppImage": "Portable",
+    "mode.Flatpak": "Install bundle",
+    "mode.DEB": "Installer",
+    "mode.RPM": "Installer",
+    "mode.tar.gz": "Binary archive"
+  },
+  "zh": {
+    "caption": "PhotoCraft 官方下载文件",
+    "platform": "平台",
+    "architecture": "架构",
+    "format": "安装方式 / 格式",
+    "file": "文件直链",
+    "size": "文件大小",
+    "bytes": "字节",
+    "mode.MSI": "安装版",
+    "mode.Portable ZIP": "便携版",
+    "mode.DMG": "安装版",
+    "mode.CLI ZIP": "命令行",
+    "mode.AppImage": "便携版",
+    "mode.Flatpak": "安装包",
+    "mode.DEB": "安装版",
+    "mode.RPM": "安装版",
+    "mode.tar.gz": "二进制归档"
+  }
+}

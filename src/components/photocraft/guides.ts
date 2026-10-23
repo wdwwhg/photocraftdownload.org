@@ -1,4 +1,9 @@
+import { isPageIndexable } from '@/lib/search-policy';
+import policy from '@/content/search-policy.json';
+
 export const guideSlugs = [
+  'is-photocraft-safe',
+  'photocraft-installer-not-working',
   'photocraft-vs-vectorcraft',
   'photocraft-github',
   'photocraft-version-history',
@@ -24,49 +29,41 @@ export const guideSlugs = [
 
 export type GuideSlug = (typeof guideSlugs)[number];
 
+// Editorial priorities shared with the sitemap and rendered-page checks.
+export const priorityGuideSlugs = policy.priorityGuideSlugs as GuideSlug[];
+
 export const homepageGuideGroups = [
   {
     key: 'comparisons',
-    slugs: [
-      'photocraft-vs-vectorcraft',
-      'photocraft-review',
-      'photocraft-vs-photoshop',
-    ],
+    slugs: ['photocraft-review', 'photocraft-vs-photoshop'],
   },
   {
     key: 'tutorials',
-    slugs: [
-      'photocraft-github',
-      'photocraft-version-history',
-      'photocraft-tutorial',
-      'photocraft-artcraft',
-      'what-is-photocraft',
-      'photocraft-free',
-      'photocraft-rust',
-      'photocraft-app',
-      'photocraft-open-source',
-      'photocraft-reddit',
-    ],
+    slugs: ['photocraft-github', 'photocraft-tutorial', 'photocraft-free'],
   },
   {
     key: 'platforms',
-    slugs: [
-      'photocraft-windows',
-      'photocraft-macos',
-      'photocraft-linux',
-      'photocraft-web',
-    ],
+    slugs: ['photocraft-windows', 'photocraft-macos', 'photocraft-linux'],
   },
   { key: 'alternatives', slugs: ['photocraft-alternative'] },
 ] as const satisfies readonly { key: string; slugs: readonly GuideSlug[] }[];
 
-export const homepageRelatedGuides = [
-  'vectorcraft',
-  'filmcraft',
-  'lightcraft',
-] as const satisfies readonly GuideSlug[];
+export const homepageRelatedGuides = guideSlugs.filter(
+  (slug) => isPageIndexable(slug) && !priorityGuideSlugs.includes(slug)
+);
 
 export const relatedGuides: Record<GuideSlug, GuideSlug[]> = {
+  'is-photocraft-safe': [
+    'photocraft-version-history',
+    'photocraft-installer-not-working',
+    'photocraft-github',
+  ],
+  'photocraft-installer-not-working': [
+    'is-photocraft-safe',
+    'photocraft-windows',
+    'photocraft-macos',
+    'photocraft-linux',
+  ],
   'photocraft-vs-vectorcraft': [
     'vectorcraft',
     'photocraft-artcraft',
@@ -98,11 +95,15 @@ export const relatedGuides: Record<GuideSlug, GuideSlug[]> = {
     'photocraft-version-history',
   ],
   'photocraft-windows': [
+    'photocraft-installer-not-working',
+    'is-photocraft-safe',
     'photocraft-macos',
     'photocraft-tutorial',
     'photocraft-linux',
   ],
   'photocraft-macos': [
+    'photocraft-installer-not-working',
+    'is-photocraft-safe',
     'photocraft-windows',
     'photocraft-linux',
     'photocraft-github',
@@ -134,6 +135,8 @@ export const relatedGuides: Record<GuideSlug, GuideSlug[]> = {
     'photocraft-free',
   ],
   'photocraft-linux': [
+    'photocraft-installer-not-working',
+    'is-photocraft-safe',
     'photocraft-app',
     'photocraft-open-source',
     'lightcraft',

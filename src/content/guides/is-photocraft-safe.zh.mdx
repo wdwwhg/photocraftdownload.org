@@ -1,0 +1,57 @@
+export const meta = {
+  title: 'PhotoCraft 安全吗？三平台 SHA256 校验与检查记录',
+  heading: 'PhotoCraft 安全与下载校验',
+  description:
+    '核对 Windows、macOS、Linux 官方文件的 SHA256，了解链接检查、病毒扫描与实测的区别。',
+  category: '下载校验',
+  published_at: '2026-10-23',
+  updated_at: '2026-10-23',
+  sections: [
+    '先确认文件来源',
+    '三平台校验命令',
+    '检查记录与证据范围',
+    '遇到警告时',
+  ],
+};
+
+## 先确认文件来源
+
+PhotoCraft 的官方仓库为 storytold/photocraft。开源、链接可访问、程序能启动，都不能单独证明文件没有风险。本站整理的下载及已有 Windows 实测基于 v0.9.0；新版请查看[官方发布记录](https://github.com/storytold/photocraft/releases/latest)。
+
+[下载表](/#downloads)列出具体文件、大小与完整 SHA256。校验值来自对应版本的官方 SHA256SUMS.txt，并在 GitHub 提供文件摘要时交叉核对。下载到本机后还需自行计算哈希。
+
+## 三平台校验命令
+
+在文件所在目录执行，按实际文件替换名称。
+
+Windows PowerShell：
+
+```powershell
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+```
+
+macOS：
+
+```sh
+shasum -a 256 photocraft-0.9.0-macos-universal.dmg
+```
+
+Linux：
+
+```sh
+sha256sum photocraft-0.9.0-linux-x86_64.AppImage
+```
+
+将完整 64 位十六进制值与同版本、同架构、同格式文件比较。大小写不影响结果，但不能只比较前后几位。不同版本和安装格式通常有不同哈希。
+
+## 检查记录与证据范围
+
+2026 年 10 月 23 日已对官方 v0.9.0 Windows x64 MSI 下载副本核对 SHA256 并运行 Microsoft Defender 自定义文件扫描。原始输出为未发现威胁，退出码 0；引擎 1.1.26090.9，病毒库 1.461.161.0。扫描未运行安装程序，未覆盖其他架构、便携包、macOS、Linux 或后续版本。[原始扫描记录](/photocraft-security-scan.json)保留文件哈希、时间、引擎和输出；此结果不是永久安全保证。
+
+[完整英文校验页](/is-photocraft-safe)展示扫描证据状态与实际保留的检查时间。[链接检查报告](/release-check.json)、[历史快照](/release-check-history.json)和[每日检查任务](https://github.com/wdwwhg/photocraftdownload.org/actions/workflows/check-release-links.yml)可用于核对各次检查的方法与结果。定时任务存在，不代表每天都成功；本站不补写缺失日期的记录。
+
+元数据和 HTTP 检查不是病毒扫描。已有 Windows 截图只证明一次便携版启动和简单文档操作；macOS、Linux 安装与系统安全提示尚无本地实测记录。某次扫描即使没有检出，也只能对应当时的文件和病毒库。
+
+## 遇到警告时
+
+哈希不一致时先停止运行，重新核对版本和文件名，再通过官方链接取得副本。遇到安全软件明确检出时保留检测名称并联系开发者；不要直接关闭防护。具体安装故障见[安装失败排查](/photocraft-installer-not-working)。

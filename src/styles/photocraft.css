@@ -1203,6 +1203,21 @@
 .pc-first-edit > a {
   font-size: 10px;
 }
+.pc-first-edit-instructions {
+  flex: 1;
+  max-width: 520px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--pc-muted);
+}
+.pc-first-edit-instructions p {
+  margin: 0 0 8px;
+}
+.pc-first-edit-instructions ol {
+  margin: 0;
+  padding-left: 20px;
+  list-style: decimal;
+}
 .pc-comparison-section {
   background: #f3f3ee;
   border-block: 1px solid var(--pc-line);
@@ -1744,6 +1759,10 @@
   }
   .pc-first-edit {
     flex-wrap: wrap;
+  }
+  .pc-first-edit > .pc-first-edit-instructions {
+    flex-basis: 100%;
+    max-width: none;
   }
   .pc-first-edit > p {
     flex: 1;
@@ -2467,4 +2486,97 @@
   .pc-site button {
     transition: none !important;
   }
+}
+
+.pc-download-table {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 24px 0;
+  border: 1px solid var(--pc-line);
+  border-radius: 12px;
+  background: #fffef9;
+}
+.pc-download-table:focus-visible {
+  outline: 2px solid #a84325;
+  outline-offset: 3px;
+}
+.pc-download-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.pc-download-table caption {
+  text-align: left;
+  padding: 16px;
+  font-weight: 650;
+}
+.pc-download-table th,
+.pc-download-table td {
+  padding: 12px;
+  border-top: 1px solid var(--pc-line);
+  vertical-align: top;
+}
+.pc-download-table thead {
+  background: #f0f2ea;
+}
+.pc-download-table tbody th {
+  min-width: 190px;
+  max-width: 250px;
+  overflow-wrap: anywhere;
+  font-weight: 500;
+}
+.pc-download-table a {
+  color: #8c351d;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pc-download-table code {
+  display: block;
+  min-width: 140px;
+  max-width: 200px;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  font-size: 11px;
+  user-select: all;
+}
+.pc-download-table td small {
+  display: block;
+  white-space: nowrap;
+  color: var(--pc-muted);
+}
+.pc-platform-links {
+  margin-top: 24px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.pc-platform-links a {
+  color: #8c351d;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pc-chooser-enhancement {
+  margin: 20px 0 28px;
+}
+.pc-chooser-enhancement > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 14px 0;
+}
+.pc-release-notice {
+  padding: 16px;
+  background: #fff0da;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.pc-release-notice a {
+  text-decoration: underline;
+  font-weight: 600;
+}
+.pc-version-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 20px 0;
 }

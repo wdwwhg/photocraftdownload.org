@@ -1,25 +1,32 @@
+import { PlatformDownloads } from '@/components/photocraft/download-table';
+import downloadLabels from '@/content/download-labels.json';
+
 export const meta = {
-  title: 'PhotoCraft Linux Install: AppImage, Flatpak, DEB, RPM or tar.gz',
-  heading: 'PhotoCraft Linux Installation Guide',
+  title: 'PhotoCraft Linux Downloads: Flatpak, AppImage & Package Reference',
+  heading: 'PhotoCraft Linux Builds and Installation Reference',
   description:
-    'Choose among five Linux packages, install the correct architecture, fix FUSE and runtime problems, and understand dependencies, updates and removal.',
+    'Official PhotoCraft Linux builds with sizes and SHA256, Flatpak commands, a distribution package matrix and documented FUSE troubleshooting. No Linux execution test recorded.',
   category: 'Linux installation',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-23',
   sections: [
     'Which of the five packages should you choose?',
     'Identify your distribution and architecture',
+    'Distribution and package matrix',
     'Official files and checksums',
     'AppImage and FUSE errors',
     'Flatpak runtimes and file access',
     'DEB and RPM dependency handling',
     'Extract the tar.gz binary archive',
     'Match the error to the next check',
+    'Verify one document and record the display session',
     'Updates and removal without mixed installs',
     'Sources and verification scope',
   ],
 };
 
 You only need one package format. **Choose the installation style, then the processor architecture.** This guide covers the official **v0.9.0** files and the common gaps between downloading a file and getting a working application.
+
+**Test status:** this site has no recorded Linux installation or Linux application screenshot. The package steps use developer and distribution documentation. Our [recorded Windows test](/photocraft-review#hands-on) is a reference for the sample document only; it does not verify Linux graphics, FUSE, Flatpak or any distribution.
 
 ## Which of the five packages should you choose?
 
@@ -44,7 +51,22 @@ Use x86_64 for 64-bit Intel/AMD and aarch64 for ARM64. Renaming or converting a 
 
 The [download chooser](/#downloads) handles the common choices. If you specifically want a native DEB or RPM, use the corresponding links below.
 
+## Distribution and package matrix
+
+| Distribution family                  | Candidate package                  | Architecture in the reviewed release | Check before installation                                            | Local test   |
+| ------------------------------------ | ---------------------------------- | ------------------------------------ | -------------------------------------------------------------------- | ------------ |
+| Ubuntu 22.04 / Debian                | DEB, Flatpak or AppImage           | x86_64, aarch64                      | Native library dependencies; FUSE 2 compatibility for AppImage       | Not recorded |
+| Ubuntu 24.04 and later               | DEB, Flatpak or AppImage           | x86_64, aarch64                      | AppImage documentation names libfuse2t64 for Ubuntu 24.04            | Not recorded |
+| Fedora                               | RPM or Flatpak                     | x86_64, aarch64                      | Review DNF dependency resolution and the Flatpak runtime             | Not recorded |
+| openSUSE                             | RPM or Flatpak                     | x86_64, aarch64                      | Resolve dependencies using zypper; verify the target distribution    | Not recorded |
+| Arch and other desktop distributions | Flatpak, AppImage or binary tar.gz | Match uname -m                       | Host libraries and graphics; no official Arch package is listed here | Not recorded |
+| RISC-V Linux                         | Binary tar.gz                      | riscv64                              | The v0.9.0 README specifies glibc 2.39+                              | Not recorded |
+
+This matrix organizes published builds; it does not certify distribution compatibility. AppImage FUSE instructions come from the [AppImage project](https://docs.appimage.org/user-guide/troubleshooting/fuse.html). If a native package cannot resolve its dependencies, review a matching Flatpak runtime rather than replacing system libraries. See [installer troubleshooting](/photocraft-installer-not-working#linux-appimage-and-fuse) for the diagnostic path.
+
 ## Official files and checksums
+
+<PlatformDownloads platform="linux" labels={downloadLabels.en} />
 
 | Format   | Intel/AMD x86_64                                                                                                               | ARM64 / aarch64                                                                                                                |
 | -------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -88,10 +110,13 @@ Install Flatpak through your distribution first, then use the local bundle:
 ```sh
 flatpak --version
 flatpak install --user ./photocraft-0.9.0-linux-x86_64.flatpak
-flatpak run ai.storyteller.photocraft
+flatpak info --user ai.storyteller.photocraft
+flatpak run --user ai.storyteller.photocraft
 ```
 
 This does not assume PhotoCraft is listed on Flathub. The bundle script points runtime installation at Flathub; a first install can require a substantial runtime download. If a runtime is missing, inspect the user installation:
+
+These are documentation-based commands, not a captured terminal session. In your own output, check that `flatpak info` identifies **ai.storyteller.photocraft**, the expected architecture and a user installation. Preserve the runtime name and exact error if installation fails; this site has no PhotoCraft Flatpak terminal-output screenshot yet.
 
 ```sh
 flatpak remotes --user
@@ -163,6 +188,26 @@ Keep bin and share together. This does not register a system package, create you
 
 Test opening, saving, exporting and reopening an image copy. Include distribution, desktop session, architecture, release and exact errors in a [bug report](/photocraft-github).
 
+## Verify one document and record the display session
+
+Record the environment before diagnosing a file problem:
+
+```sh
+uname -m
+cat /etc/os-release
+printf '%s\n' "$XDG_SESSION_TYPE"
+```
+
+Keep this output with the package filename, installed version from **Help → About**, and graphics backend from **Help → System Info**. The display session matters: the [v0.9.0 README's Linux notes](https://github.com/storytold/photocraft/blob/v0.9.0/README.md#get-started) document a Wayland drag-and-drop limitation. Use **File → Open** for the first check so dropping a file is not a prerequisite.
+
+1. Open our [practice PNG](/imgs/photocraft/captures/coast-test.png) from a writable user folder. In Flatpak, select it through the application's file chooser.
+2. Duplicate its pixel layer and create a separate Levels adjustment with RGB midtone **1.10**.
+3. Save a new PSD into that folder, close it and reopen the saved file through the chooser.
+4. Inspect the layer stack and Levels value. The Windows reference retained two pixel layers and one adjustment at 1.1; a Linux result has not been recorded here.
+5. If this fails, keep the terminal error and identify whether failure occurred at launch, file access, canvas rendering, save or reopen.
+
+The [tutorial](/photocraft-tutorial) supplies the reference screenshot and saved PSD. Those are explicitly Windows captures. For a useful Linux issue, add distribution version, architecture, session type and package format to the failing step. A Flatpak access problem and a native graphics failure can need different fixes even with the same document.
+
 ## Updates and removal without mixed installs
 
 - **AppImage:** quit and replace the file, or use AppImageUpdate if configured. Removing the application file is separate from removing user settings.
@@ -180,4 +225,4 @@ Test opening, saving, exporting and reopening an image copy. Include distributio
 - [DNF command reference](https://dnf.readthedocs.io/en/latest/command_ref.html)
 - [openSUSE package management](https://doc.opensuse.org/documentation/leap/reference/html/book-reference/cha-sw-cl.html)
 
-Checked against official packages and documentation. Commands are not presented as hardware tests across every distribution, sandbox or GPU.
+Checked against official packages and documentation; editorial expansion dated 2026-10-18. No Linux execution test was performed for this page. Distribution-specific installation screenshots, display-session results and a saved-file test remain to be captured on Linux hardware.

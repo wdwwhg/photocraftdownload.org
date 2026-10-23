@@ -3,9 +3,11 @@ import { notFound, useLoaderData } from '@tanstack/react-router';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { envConfigs } from '@/config';
-import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { isPageIndexable, pageRobots } from '@/lib/search-policy';
+import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { PhotoCraftGuide } from '@/components/photocraft/guide';
 import { relatedGuides, type GuideSlug } from '@/components/photocraft/guides';
+import policy from '@/content/search-policy.json';
 
 type GuideMeta = {
   title: string;
@@ -31,6 +33,7 @@ const getPage = (slug: GuideSlug, locale: string) =>
 export function guidePageRouteOptions(slug: GuideSlug) {
   return {
     loader: (): GuideData => {
+      if (policy.retiredGuideSlugs.includes(slug)) throw notFound();
       const locale = getLocale();
       const page = getPage(slug, locale);
       if (!page) throw notFound();
@@ -47,21 +50,14 @@ export function guidePageRouteOptions(slug: GuideSlug) {
         meta: [
           { title: meta.title },
           { name: 'description', content: meta.description },
+          { name: 'robots', content: pageRobots(slug, locale) },
           { property: 'og:title', content: meta.title },
           { property: 'og:description', content: meta.description },
           { property: 'og:type', content: 'article' },
           { property: 'og:url', content: urlFor(locale) },
           { name: 'twitter:card', content: 'summary' },
         ],
-        links: [
-          { rel: 'canonical', href: urlFor(locale) },
-          ...locales.map((loc) => ({
-            rel: 'alternate',
-            hrefLang: loc,
-            href: urlFor(loc),
-          })),
-          { rel: 'alternate', hrefLang: 'x-default', href: urlFor('en') },
-        ],
+        links: [{ rel: 'canonical', href: urlFor(locale) }],
         scripts: [
           {
             type: 'application/ld+json',
@@ -133,11 +129,13 @@ function GuidePage() {
       downloadDescription={t('guides.downloadDescription')}
       allGuidesLabel={t('nav.guides')}
       sections={meta.sections}
-      related={relatedGuides[slug].map((item) => ({
-        href: `/${item}`,
-        title: t(`guides.${item}.title`),
-        description: t(`guides.${item}.description`),
-      }))}
+      related={relatedGuides[slug]
+        .filter((item) => isPageIndexable(item))
+        .map((item) => ({
+          href: `/${item}`,
+          title: t(`guides.${item}.title`),
+          description: t(`guides.${item}.description`),
+        }))}
     >
       <Content />
     </PhotoCraftGuide>

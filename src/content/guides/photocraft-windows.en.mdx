@@ -1,15 +1,21 @@
+import { CaptureGallery } from '@/components/photocraft/capture-gallery';
+import { PlatformDownloads } from '@/components/photocraft/download-table';
+import downloadLabels from '@/content/download-labels.json';
+
 export const meta = {
-  title: 'PhotoCraft Windows Install: MSI, Portable ZIP and DLL Fixes',
-  heading: 'PhotoCraft Windows Installation Guide',
+  title: 'PhotoCraft for Windows Download: MSI, Portable & SHA256',
+  heading: 'PhotoCraft for Windows Download',
   description:
     'Find your x64, x86 or ARM64 build, compare MSI and portable settings, and troubleshoot missing DLLs, runtime messages and first-launch problems.',
   category: 'Windows installation',
   published_at: '2026-10-13',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-23',
   sections: [
-    'Find your x64, x86 or ARM64 build',
+    'PhotoCraft Windows download files',
+    'PhotoCraft Windows 11: choose x64, x86 or ARM64',
     'MSI versus Portable ZIP',
     'Install the MSI or extract the ZIP',
+    'Our portable launch and document check',
     'Missing DLL or runtime messages',
     'SmartScreen and installer failures',
     'First launch and useful diagnostics',
@@ -19,7 +25,17 @@ export const meta = {
 
 Start with the [download chooser](/#downloads). This guide covers **PhotoCraft v0.9.0**: the right architecture, how each package behaves, and what to check when installation or launch fails. Running a packaged build does not require Rust or Visual Studio.
 
-## Find your x64, x86 or ARM64 build
+## PhotoCraft Windows download files
+
+These official **v0.9.0** downloads include all six Windows packages. File sizes and full SHA256 values come from the official release and checksum list. Each filename is a direct GitHub download; no chooser or JavaScript is required. For a newer version, use the [official latest release](https://github.com/storytold/photocraft/releases/latest).
+
+<PlatformDownloads platform="windows" labels={downloadLabels.en} />
+
+Use the [three-system verification guide](/is-photocraft-safe) to compare the hash before installation. If setup fails, follow [PhotoCraft installer not working](/photocraft-installer-not-working) using the exact error.
+
+## PhotoCraft Windows 11: choose x64, x86 or ARM64
+
+For **PhotoCraft Windows 11**, use x64 on an Intel/AMD PC or ARM64 on a Windows on Arm PC. Windows 11 itself is 64-bit; the x86 package is for a 32-bit Windows installation. Our recorded launch test below covers Windows 11 x64 Portable only.
 
 Press **Win + I → System → About → Device specifications → System type**. Read both the operating-system bitness and processor type.
 
@@ -57,6 +73,37 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
 ```
 
 Compare the complete value with the exact filename in the release's [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Substitute your ZIP or architecture when applicable.
+
+## Our portable launch and document check
+
+Our existing test on **15 October 2026** used the v0.9.0 **x64 Portable ZIP**, Windows 11 25H2 (26200.9711), an RTX 4060 Laptop GPU and Vulkan. It covers portable launch and a small document workflow; we have no recorded MSI, x86 or ARM64 installation test.
+
+<CaptureGallery
+  title="Version and graphics evidence from Windows"
+  description="Actual application dialogs captured on our test machine. The interface language is Chinese. These identify the build and environment behind the PSD test."
+  openLabel="View original PNG"
+  images={[
+    {
+      file: 'windows-0.9.0-about',
+      alt: 'About PhotoCraft dialog showing 0.9.0 and application commit c699e3cda',
+      caption: 'About: version 0.9.0, commit c699e3cda',
+    },
+    {
+      file: 'windows-0.9.0-system-info',
+      alt: 'PhotoCraft System Info showing Windows x86_64, NVIDIA RTX 4060 Laptop GPU and Vulkan',
+      caption: 'System Info: x64 and Vulkan on our machine',
+    },
+  ]}
+/>
+
+For a first-launch check you can compare with ours:
+
+1. Open **Help → About** and record the version; our dialog reports 0.9.0 and commit c699e3cda.
+2. Open **Help → System Info** and record the OS, GPU and backend. A different backend is not by itself a failure.
+3. Open the [practice PNG](/imgs/photocraft/captures/coast-test.png), duplicate its layer and add a Levels adjustment at RGB midtone 1.10.
+4. Save to a new PSD, close and reopen it. Our result retained two pixel layers and the Levels adjustment at 1.1.
+
+The [step-by-step tutorial](/photocraft-tutorial) and [saved reference PSD](/imgs/photocraft/captures/coast-layers.psd) make the check repeatable. The [capture record](/imgs/photocraft/captures/capture-record.json) identifies the exact portable ZIP and checksum. A successful portable run does not reproduce every installer or graphics error below.
 
 ## Missing DLL or runtime messages
 

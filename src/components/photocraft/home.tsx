@@ -25,9 +25,12 @@ import {
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
+import { getLocale } from '@/paraglide/runtime.js';
+import downloadLabels from '@/content/download-labels.json';
 
 import { CaptureGallery } from './capture-gallery';
 import { DownloadChooser } from './download-chooser';
+import { PlatformDownloads } from './download-table';
 import {
   builds,
   formatReleaseCopy,
@@ -37,9 +40,9 @@ import {
 } from './downloads';
 import { GuideCards } from './guide';
 import {
-  guideSlugs,
   homepageGuideGroups,
   homepageRelatedGuides,
+  priorityGuideSlugs,
 } from './guides';
 import { LanguageLink } from './language-link';
 
@@ -351,10 +354,22 @@ export function PhotoCraftHome() {
               <span>{t('downloads.alpha')}</span>
             </div>
           </div>
-          <DownloadChooser
-            text={(key) => t(`chooser.${key}`)}
-            onPlatformChange={setPlatform}
-          />
+          {!release.isLatest && (
+            <p className="pc-release-notice">
+              {t('downloads.pinnedNotice')}{' '}
+              <OutLink href={release.latest}>
+                v{release.latestVersion} — {t('downloads.releases')}
+              </OutLink>
+            </p>
+          )}
+          <PlatformDownloads labels={downloadLabels[getLocale()]} />
+          <details className="pc-chooser-enhancement">
+            <summary>{t('chooser.title')}</summary>
+            <DownloadChooser
+              text={(key) => t(`chooser.${key}`)}
+              onPlatformChange={setPlatform}
+            />
+          </details>
           <div className="pc-download-grid">
             {(['windows', 'macos', 'linux'] as const).map((os) => (
               <article
@@ -413,6 +428,24 @@ export function PhotoCraftHome() {
               </article>
             ))}
           </div>
+          <p className="pc-platform-links">
+            {t('downloads.platformIntro')}{' '}
+            <Link href="/photocraft-windows">
+              PhotoCraft download for Windows
+            </Link>
+            ,{' '}
+            <Link href="/photocraft-macos">PhotoCraft download for macOS</Link>
+            {' · '}
+            <Link href="/photocraft-linux">
+              PhotoCraft download for Linux
+            </Link>. {t('downloads.helpIntro')}{' '}
+            <Link href="/is-photocraft-safe">{t('downloads.safetyGuide')}</Link>
+            {' · '}
+            <Link href="/photocraft-installer-not-working">
+              {t('downloads.troubleshootingGuide')}
+            </Link>
+            .
+          </p>
           <div className="pc-download-footer">
             <span>
               <ShieldCheck size={15} />
@@ -640,11 +673,18 @@ export function PhotoCraftHome() {
               <span className="pc-eyebrow">{t('firstEdit.eyebrow')}</span>
               <h3>{t('firstEdit.title')}</h3>
             </div>
-            <p>{t('firstEdit.text')}</p>
-            <OutLink className="pc-text-link" href={release.docs}>
+            <div className="pc-first-edit-instructions">
+              <p>{t('firstEdit.text')}</p>
+              <ol>
+                {[1, 2, 3].map((step) => (
+                  <li key={step}>{t(`firstEdit.step${step}`)}</li>
+                ))}
+              </ol>
+            </div>
+            <Link className="pc-text-link" href="/photocraft-tutorial">
               {t('firstEdit.docs')}
               <ArrowUpRight size={16} />
-            </OutLink>
+            </Link>
           </div>
         </section>
 
@@ -658,7 +698,7 @@ export function PhotoCraftHome() {
               <p className="pc-heading-aside">{t('guides.description')}</p>
             </div>
             <GuideCards
-              links={guideSlugs.map((slug) => ({
+              links={priorityGuideSlugs.map((slug) => ({
                 href: `/${slug}`,
                 title: t(`guides.${slug}.title`),
                 description: t(`guides.${slug}.description`),

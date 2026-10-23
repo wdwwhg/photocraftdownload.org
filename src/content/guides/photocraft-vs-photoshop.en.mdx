@@ -1,12 +1,15 @@
+import { CaptureGallery } from '@/components/photocraft/capture-gallery';
+
 export const meta = {
   title: 'PhotoCraft vs Photoshop: Features and Workflow Compared',
   heading: 'PhotoCraft vs Photoshop',
   description:
     'Compare PhotoCraft vs Photoshop by PSD support, desktop platforms, editing workflow and licensing. Use a practical checklist before moving your projects.',
   category: 'Comparison',
-  updated_at: '2026-10-13',
+  updated_at: '2026-10-18',
   sections: [
     'The comparison at a glance',
+    'Our PSD result and the untested handoff',
     'Cost and ownership',
     'PSD support: inspect the result, not just the extension',
     'Layers, selections and everyday editing',
@@ -21,7 +24,7 @@ export const meta = {
 
 PhotoCraft and Photoshop address the same basic job: editing images with layers, masks, text and selections. Their overlap makes PhotoCraft worth evaluating, but a familiar interface does not establish compatibility with every Photoshop workflow. The useful question is whether the files, tools and delivery requirements you use will work in the version you install.
 
-This is a documentation-based comparison, checked on October 12, 2026. We link to the developers' descriptions and distinguish documented capabilities from our suggested evaluation steps. We have not run an independent benchmark or tested your production files. This site is an independent guide, with no affiliation to ArtCraft or Adobe.
+This comparison combines developer documentation with our recorded Windows v0.9.0 sample from 15 October 2026. We have not run a Photoshop comparison test, a performance benchmark or a test of your production files. This site is an independent guide, with no affiliation to ArtCraft or Adobe.
 
 ## The comparison at a glance
 
@@ -36,6 +39,32 @@ This is a documentation-based comparison, checked on October 12, 2026. We link t
 | Source access       | Public Rust source code                                         | Proprietary desktop application                               |
 
 The PhotoCraft columns describe the official project documentation; they are not a certification of feature parity. Adobe's [Photoshop overview](https://www.adobe.com/products/photoshop.html) and [desktop requirements](https://helpx.adobe.com/photoshop/desktop/get-started/technical-requirements-installation/adobe-photoshop-on-desktop-technical-requirements.html) are the sources for the Photoshop columns. For PhotoCraft, start with the [official repository](https://github.com/storytold/photocraft).
+
+## Our PSD result and the untested handoff
+
+Our Windows test started with a 1200 × 800 raster PNG. We duplicated its pixel layer, added a Levels adjustment at RGB midtone **1.10**, saved a PSD, closed it and reopened it in PhotoCraft. The three layers and adjustment value remained. This is narrower evidence than “Photoshop compatible”: we did not open the result in Adobe's application.
+
+<CaptureGallery
+  title="PhotoCraft side of the file test"
+  description="Our original Windows capture, 15 October 2026. The COAST lettering is part of the imported pixels; this is not an editable-type, smart-object or complex-effect test."
+  openLabel="View original PNG"
+  images={[
+    {
+      file: 'windows-0.9.0-levels',
+      alt: 'Reopened PhotoCraft PSD showing Layer 0, Layer 0 copy and Levels 1 with midtone 1.1',
+      caption: 'Verified in PhotoCraft only: three layers and Levels value',
+    },
+  ]}
+/>
+
+| Check                                  | Our recorded result                 | Still required for Adobe handoff                         |
+| -------------------------------------- | ----------------------------------- | -------------------------------------------------------- |
+| Layer count after reopen               | Three in PhotoCraft                 | Open the same PSD in Photoshop and inspect the stack     |
+| Adjustment settings                    | Midtone 1.10 retained in PhotoCraft | Confirm the setting and rendered appearance in Photoshop |
+| Editable type, masks and smart objects | Not included in this sample         | Use a document containing those features                 |
+| Color or performance parity            | Not measured                        | Define a reference render and measurement before testing |
+
+Download the [input PNG](/imgs/photocraft/captures/coast-test.png) and [saved PSD](/imgs/photocraft/captures/coast-layers.psd). Repeat the [tutorial steps](/photocraft-tutorial), then add the receiving application to your check. Keep both application versions with the result; the [review](/photocraft-review#hands-on) supplies our machine details and original capture hashes.
 
 ## Cost and ownership
 
@@ -101,9 +130,9 @@ When you are ready to try the application, the [PhotoCraft download page](/) lis
 
 ## PhotoCraft, Photoshop and Adobe: product identity
 
-Searches for “PhotoCraft Photoshop” and “PhotoCraft Adobe” often ask whether this is an Adobe product or an alternative workflow. PhotoCraft is independent: its v0.8.2 README explicitly states that it is not affiliated with, sponsored by or endorsed by Adobe. References to Photoshop explain editing concepts and intended compatibility, not ownership or complete feature parity.
+Searches for “PhotoCraft Photoshop” and “PhotoCraft Adobe” often ask whether this is an Adobe product or an alternative workflow. PhotoCraft is independent: its v0.9.0 README explicitly states that it is not affiliated with, sponsored by or endorsed by Adobe. References to Photoshop explain editing concepts and intended compatibility, not ownership or complete feature parity.
 
-For the relationship between the editor and its own product family, see [PhotoCraft and ArtCraft](/photocraft-artcraft). For an evidence-based adoption checklist, read the [PhotoCraft review](/photocraft-review). Keep these questions separate from whether your particular PSD survives an edit and handoff. The [versioned affiliation statement](https://github.com/storytold/photocraft/blob/v0.8.2/README.md) is the source for the product-identity clarification.
+For the relationship between the editor and its own product family, see [PhotoCraft and ArtCraft](/photocraft-artcraft). For an evidence-based adoption checklist, read the [PhotoCraft review](/photocraft-review). Keep these questions separate from whether your particular PSD survives an edit and handoff. The [versioned affiliation statement](https://github.com/storytold/photocraft/blob/v0.9.0/README.md) is the source for the product-identity clarification.
 
 ## Sources and scope
 
