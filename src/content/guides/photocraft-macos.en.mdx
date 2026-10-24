@@ -8,7 +8,7 @@ export const meta = {
     'Install the Universal DMG on Intel or Apple silicon, handle an unverified developer warning, and diagnose a damaged app without disabling Gatekeeper.',
   category: 'macOS installation',
   published_at: '2026-10-15',
-  updated_at: '2026-10-23',
+  updated_at: '2026-10-24',
   sections: [
     'One DMG for Intel and Apple silicon',
     'Install from the DMG',
@@ -21,7 +21,7 @@ export const meta = {
   ],
 };
 
-Two common traps are choosing the CLI ZIP instead of the desktop app and treating every macOS alert as the same error. This guide covers **PhotoCraft v0.9.0**.
+Two common traps are choosing the CLI ZIP instead of the desktop app and treating every macOS alert as the same error. This guide covers **PhotoCraft v%CURRENT_VERSION%**.
 
 **Verification scope:** we have not completed a Mac installation test or captured a macOS application window. The installation instructions below use official package information and Apple guidance. Our [Windows screenshots](/photocraft-review#hands-on) demonstrate one editing exercise on Windows; they do not verify DMG installation, Metal rendering, Intel Macs or Apple silicon.
 
@@ -31,9 +31,9 @@ The official README labels its DMG **signed and notarized**. Open source does no
 
 <PlatformDownloads platform="macos" labels={downloadLabels.en} />
 
-The table covers v0.9.0 and includes the CLI archive so you can distinguish it from the desktop DMG. Check the complete hash using [macOS SHA256 verification](/is-photocraft-safe#macos-sha256-verification); for launch alerts, use the [installer troubleshooting guide](/photocraft-installer-not-working#macos-gatekeeper-and-damaged-app-alerts).
+The table covers v%CURRENT_VERSION% and includes the CLI archive so you can distinguish it from the desktop DMG. Check the complete hash using [macOS SHA256 verification](/is-photocraft-safe#macos-sha256-verification); for launch alerts, use the [installer troubleshooting guide](/photocraft-installer-not-working#macos-gatekeeper-and-damaged-app-alerts).
 
-Open **Apple menu → About This Mac**. “Chip: Apple M…” identifies Apple silicon; “Processor: Intel…” identifies Intel. Both use the [Universal DMG](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-macos-universal.dmg): **photocraft-0.9.0-macos-universal.dmg**.
+Open **Apple menu → About This Mac**. “Chip: Apple M…” identifies Apple silicon; “Processor: Intel…” identifies Intel. Both use the [Universal DMG](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-macos-universal.dmg): **photocraft-%CURRENT_VERSION%-macos-universal.dmg**.
 
 A photocraft-cli ZIP is a command-line tool, not the desktop installer. The [download chooser](/#downloads) selects the desktop file.
 
@@ -93,10 +93,10 @@ A damaged-app alert is not simply another name for “unsigned.”
 2. Download the same official DMG again and calculate its checksum:
 
 ```sh
-shasum -a 256 "$HOME/Downloads/photocraft-0.9.0-macos-universal.dmg"
+shasum -a 256 "$HOME/Downloads/photocraft-%CURRENT_VERSION%-macos-universal.dmg"
 ```
 
-3. Compare the complete result with that filename in [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Re-download a mismatch; otherwise copy the app afresh from the DMG into Applications.
+3. Compare the complete result with that filename in [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt). Re-download a mismatch; otherwise copy the app afresh from the DMG into Applications.
 4. If the alert remains, report the macOS version, exact text and check results to the [maintainers](/photocraft-github).
 
 Removing quarantine metadata or re-signing does not repair corrupted contents. A malware or “will damage your computer” alert should not be handled as an ordinary unidentified-developer exception.
@@ -120,10 +120,10 @@ Quit before replacing the installed app with a new DMG copy. Keep your projects 
 
 ## Sources and verification scope
 
-- [v0.9.0 Mac files and signing notes](https://github.com/storytold/photocraft/blob/v0.9.0/README.md#macos)
+- [v0.15.1 Mac files and signing notes](https://github.com/storytold/photocraft/blob/v0.15.1/README.md#macos)
 - [Apple: safely open apps](https://support.apple.com/en-us/102445)
 - [Apple: unidentified developers](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac)
 - [Apple: code-signing verification](https://developer.apple.com/library/archive/technotes/tn2206/_index.html)
-- [PhotoCraft launch and logs](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [PhotoCraft launch and logs](https://github.com/storytold/photocraft/blob/v0.15.1/docs/development.md)
 
 Reviewed against official package information and Apple documentation. The page was expanded on 2026-10-18; no new Mac test was performed. A Mac-specific installation screenshot and recorded Intel/Apple silicon results are still missing.

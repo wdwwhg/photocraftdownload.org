@@ -5,6 +5,7 @@ import manifest from '@/content/photocraft-release.json';
 const repository = `https://github.com/${manifest.repository}`;
 export const release = {
   version: manifest.version,
+  maturity: manifest.maturity,
   checked: verification.checkedAt,
   checkedDisplay: `${verification.checkedAt.slice(0, 16).replace('T', ' ')} UTC`,
   year: verification.checkedAt.slice(0, 4),

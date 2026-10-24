@@ -7,7 +7,7 @@ export const meta = {
     'Find the official PhotoCraft GitHub repository, download release assets, distinguish installers from source archives and report reproducible issues.',
   category: 'Source and downloads',
   published_at: '2026-10-13',
-  updated_at: '2026-10-18',
+  updated_at: '2026-10-23',
   sections: [
     'Find the official repository',
     'Download an application from Releases',
@@ -27,7 +27,7 @@ For a ready-to-run package, open [Releases](https://github.com/storytold/photocr
 
 Follow the GitHub link from the [official PhotoCraft product page](https://getartcraft.com/apps/photocraft), then confirm that the address is github.com/storytold/photocraft. This cross-check connects the product identity to the repository. A logo, familiar name or high search position alone is weaker evidence.
 
-The default repository page usually shows the current development branch. Its README can describe work added after a packaged release. When following instructions for an installed version, change the branch selector to that release tag. This guide references [v0.9.0](https://github.com/storytold/photocraft/tree/v0.9.0), while the repository's latest release may advance independently.
+The default repository page usually shows the current development branch. Its README can describe work added after a packaged release. When following instructions for an installed version, change the branch selector to that release tag. This guide references [v0.14.0](https://github.com/storytold/photocraft/tree/v0.14.0), while the repository's latest release may advance independently.
 
 ## Download an application from Releases
 
@@ -42,7 +42,7 @@ Open the release entry and expand Assets if needed. Choose the filename for your
 | Web ZIP                   | Host the browser build           | Extract and serve its static files      |
 | Source code ZIP or tar.gz | Inspect or build source          | Follow the development guide            |
 
-GitHub's automatically generated “Source code” archives are not substitutes for the packaged assets. They contain a source tree, not a prebuilt desktop installer. For Windows package selection, see [PhotoCraft Windows](/photocraft-windows). For the browser ZIP, see [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web).
+GitHub's automatically generated “Source code” archives are not substitutes for the packaged assets. They contain a source tree, not a prebuilt desktop installer. For Windows package selection, see [PhotoCraft Windows](/photocraft-windows). For the browser ZIP, see [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web).
 
 ## Get a stable source snapshot
 
@@ -51,7 +51,7 @@ Use a tag when you want a reproducible starting point. A branch name moves as ch
 To obtain the version used by this guide with Git:
 
 ```sh
-git clone --branch v0.9.0 --depth 1 https://github.com/storytold/photocraft.git
+git clone --branch v0.14.0 --depth 1 https://github.com/storytold/photocraft.git
 cd photocraft
 ```
 
@@ -71,21 +71,22 @@ Our existing **15 October Windows test** links these records:
 
 | Record                             | Value in our test                                                |
 | ---------------------------------- | ---------------------------------------------------------------- |
-| Release tag                        | v0.9.0                                                           |
-| Release asset                      | photocraft-0.9.0-windows-x64-portable.zip                        |
+| Release tag                        | v0.14.0                                                          |
+| Release asset                      | photocraft-0.14.0-windows-x64-portable.zip                       |
 | Downloaded package SHA-256         | e87bbe26f84d3c359765b61d128b9cc59f016a995956fe7909b328a97650fc97 |
-| Running application's About dialog | 0.9.0, commit c699e3cda                                          |
+| Running application's About dialog | 0.14.0, commit ff4738810                                         |
 | Document check                     | Three-layer PSD saved and reopened in PhotoCraft                 |
 
 <CaptureGallery
   title="The version we actually launched"
   description="Our Windows About dialog capture. This is application-version evidence, not a screenshot of GitHub's website or proof of a reproducible source build."
-  openLabel="View original PNG"
+  openLabel="View original JPEG"
   images={[
     {
-      file: 'windows-0.9.0-about',
-      alt: 'Our running PhotoCraft About dialog with version 0.9.0 and commit c699e3cda',
-      caption: 'Running binary: PhotoCraft 0.9.0',
+      file: 'windows-0.14.0-about',
+      originalFormat: 'jpg',
+      alt: 'Our running PhotoCraft About dialog with version 0.14.0 and commit ff4738810',
+      caption: 'Running binary: PhotoCraft 0.14.0',
     },
   ]}
 />
@@ -104,4 +105,4 @@ Reproduce on a copy of the file. Remove personal or client information from any 
 
 - [Official repository](https://github.com/storytold/photocraft)
 - [Official release history](https://github.com/storytold/photocraft/releases)
-- [Versioned development guide](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [Versioned development guide](https://github.com/storytold/photocraft/blob/v0.14.0/docs/development.md)

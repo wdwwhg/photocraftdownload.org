@@ -1,6 +1,7 @@
 {
-  "version": "0.9.0",
+  "version": "0.15.1",
   "repository": "storytold/photocraft",
+  "maturity": "early-alpha",
   "builds": {
     "windows": [
       {
@@ -101,6 +102,30 @@
         "name": "tar.gz",
         "file": "photocraft-{version}-linux-riscv64.tar.gz",
         "architecture": "RISC-V 64"
+      },
+      {
+        "name": "Arch package",
+        "file": "photocraft-{version}-linux-x86_64.pkg.tar.zst",
+        "architecture": "x86_64",
+        "since": "0.14.0"
+      },
+      {
+        "name": "Arch package",
+        "file": "photocraft-{version}-linux-aarch64.pkg.tar.zst",
+        "architecture": "ARM64",
+        "since": "0.14.0"
+      },
+      {
+        "name": "DEB",
+        "file": "photocraft-{version}-linux-riscv64.deb",
+        "architecture": "RISC-V 64",
+        "since": "0.14.0"
+      },
+      {
+        "name": "RPM",
+        "file": "photocraft-{version}-linux-riscv64.rpm",
+        "architecture": "RISC-V 64",
+        "since": "0.14.0"
       }
     ]
   }

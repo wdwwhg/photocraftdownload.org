@@ -50,7 +50,11 @@ export async function checkRelease(
         if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
         return response;
       } catch (error) {
-        if (attempt === 2) throw error;
+        if (attempt === 2)
+          throw new Error(
+            `${url}: ${error.message}${error.cause?.message ? ` (${error.cause.message})` : ''}`,
+            { cause: error }
+          );
         await new Promise((done) => setTimeout(done, 500 * (attempt + 1)));
       }
     }
@@ -132,20 +136,14 @@ export async function checkRelease(
   };
 }
 
-async function main() {
-  const write = process.argv.includes('--write');
-  await rm(new URL('artifacts/release-check.json', root), { force: true });
-  const manifest = JSON.parse(
-    await readFile(new URL('src/content/photocraft-release.json', root), 'utf8')
-  );
-  const report = await checkRelease(manifest, {
-    token: process.env.GITHUB_TOKEN,
-    allowPinned: process.argv.includes('--allow-pinned'),
-  });
+export async function writeReleaseReport(
+  report,
+  { recordHistory = true } = {}
+) {
   const data = JSON.stringify(report, null, 2) + '\n';
   await mkdir(new URL('artifacts/', root), { recursive: true });
   await writeFile(new URL('artifacts/release-check.json', root), data);
-  if (write) {
+  {
     const historyPath = new URL('public/release-check-history.json', root);
     let previous = [];
     try {
@@ -160,20 +158,44 @@ async function main() {
         if (error.code !== 'ENOENT') throw error;
       }
     }
-    previous.push(report);
+    if (recordHistory) previous.push(report);
     await mkdir(new URL('src/generated/', root), { recursive: true });
     await Promise.all([
       writeFile(snapshot, data),
       writeFile(publicReport, data),
-      writeFile(
-        historyPath,
-        JSON.stringify(previous.slice(-30), null, 2) + '\n'
-      ),
+      ...(recordHistory
+        ? [
+            writeFile(
+              historyPath,
+              JSON.stringify(previous.slice(-30), null, 2) + '\n'
+            ),
+          ]
+        : []),
       writeFile(
         new URL('src/generated/photocraft-release-check-history.json', root),
         JSON.stringify(previous.slice(-30), null, 2) + '\n'
       ),
     ]);
+  }
+}
+
+async function main() {
+  const write = process.argv.includes('--write');
+  await rm(new URL('artifacts/release-check.json', root), { force: true });
+  const manifest = JSON.parse(
+    await readFile(new URL('src/content/photocraft-release.json', root), 'utf8')
+  );
+  const report = await checkRelease(manifest, {
+    token: process.env.GITHUB_TOKEN,
+    allowPinned: process.argv.includes('--allow-pinned'),
+  });
+  if (write) await writeReleaseReport(report);
+  else {
+    await mkdir(new URL('artifacts/', root), { recursive: true });
+    await writeFile(
+      new URL('artifacts/release-check.json', root),
+      JSON.stringify(report, null, 2) + '\n'
+    );
   }
   console.log(
     `Release check passed: v${report.version}, ${report.checkedFiles} files, ${report.checkedAt}`

@@ -90,6 +90,10 @@ export function PhotoCraftGuide({
   related: GuideLink[];
   children: ReactNode;
 }) {
+  const downloadHref =
+    slug === 'photocraft-windows' && sections.length
+      ? `#${headingId(sections[0])}`
+      : '/#downloads';
   return (
     <div className="pc-site pc-guide-site" id="top">
       <a className="pc-skip" href="#main">
@@ -109,7 +113,7 @@ export function PhotoCraftGuide({
           <Link href="/#guides">{allGuidesLabel}</Link>
           <Link
             className="pc-guide-download"
-            href="/#downloads"
+            href={downloadHref}
             aria-label={downloadLabel}
           >
             {downloadLabel}
@@ -142,7 +146,7 @@ export function PhotoCraftGuide({
             </nav>
             <div className="pc-guide-sidebar-cta">
               <p>{downloadDescription}</p>
-              <Link className="pc-button pc-button-orange" href="/#downloads">
+              <Link className="pc-button pc-button-orange" href={downloadHref}>
                 {downloadLabel}
                 <ArrowRight size={16} />
               </Link>
@@ -162,7 +166,7 @@ export function PhotoCraftGuide({
           <span>© 2026 {brand}</span>
           <Link href="/privacy-policy">{privacyLabel}</Link>
           <Link href="/terms-of-service">{termsLabel}</Link>
-          <Link href="/#downloads">
+          <Link href={downloadHref}>
             {downloadLabel}
             <ArrowUpRight size={14} />
           </Link>

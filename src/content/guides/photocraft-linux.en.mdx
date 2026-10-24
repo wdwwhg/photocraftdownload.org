@@ -7,9 +7,9 @@ export const meta = {
   description:
     'Official PhotoCraft Linux builds with sizes and SHA256, Flatpak commands, a distribution package matrix and documented FUSE troubleshooting. No Linux execution test recorded.',
   category: 'Linux installation',
-  updated_at: '2026-10-23',
+  updated_at: '2026-10-24',
   sections: [
-    'Which of the five packages should you choose?',
+    'Which package format should you choose?',
     'Identify your distribution and architecture',
     'Distribution and package matrix',
     'Official files and checksums',
@@ -24,19 +24,20 @@ export const meta = {
   ],
 };
 
-You only need one package format. **Choose the installation style, then the processor architecture.** This guide covers the official **v0.9.0** files and the common gaps between downloading a file and getting a working application.
+You only need one package format. **Choose the installation style, then the processor architecture.** This guide covers the official **v%CURRENT_VERSION%** files and the common gaps between downloading a file and getting a working application.
 
 **Test status:** this site has no recorded Linux installation or Linux application screenshot. The package steps use developer and distribution documentation. Our [recorded Windows test](/photocraft-review#hands-on) is a reference for the sample document only; it does not verify Linux graphics, FUSE, Flatpak or any distribution.
 
-## Which of the five packages should you choose?
+## Which package format should you choose?
 
-| Your situation                                                   | Start with | Trade-off                                                               |
-| ---------------------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| Try the app without a system installation                        | AppImage   | One file; FUSE, graphics or host-library requirements may remain        |
-| Already use Flatpak or want a cross-distribution app environment | Flatpak    | Install its runtime; sandboxed file access can differ                   |
-| Ubuntu / Debian with package-managed integration                 | DEB        | Dependencies must exist for your distribution release                   |
-| Fedora or another compatible RPM distribution                    | RPM        | Use its own package manager; RPM alone does not guarantee compatibility |
-| Control placement or keep versions side by side                  | tar.gz     | Manage dependencies, launch paths and shortcuts yourself                |
+| Your situation                                                   | Start with   | Trade-off                                                               |
+| ---------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------- |
+| Try the app without a system installation                        | AppImage     | One file; FUSE, graphics or host-library requirements may remain        |
+| Already use Flatpak or want a cross-distribution app environment | Flatpak      | Install its runtime; sandboxed file access can differ                   |
+| Ubuntu / Debian with package-managed integration                 | DEB          | Dependencies must exist for your distribution release                   |
+| Fedora or another compatible RPM distribution                    | RPM          | Use its own package manager; RPM alone does not guarantee compatibility |
+| Arch / Manjaro with native package management                    | .pkg.tar.zst | Match architecture and inspect local package dependencies               |
+| Control placement or keep versions side by side                  | tar.gz       | Manage dependencies, launch paths and shortcuts yourself                |
 
 This is a workflow choice, not a performance ranking. AppImage is not a complete virtual machine. The listed tar.gz is a compiled desktop archive; GitHub's separate Source code archives are for source builds.
 
@@ -47,20 +48,20 @@ uname -m
 cat /etc/os-release
 ```
 
-Use x86_64 for 64-bit Intel/AMD and aarch64 for ARM64. Renaming or converting a package does not change its CPU architecture. The v0.9.0 README specifies glibc 2.39+ for its RISC-V build.
+Use x86_64 for 64-bit Intel/AMD and aarch64 for ARM64. Renaming or converting a package does not change its CPU architecture. The v0.15.1 README specifies glibc 2.39+ for its RISC-V build.
 
 The [download chooser](/#downloads) handles the common choices. If you specifically want a native DEB or RPM, use the corresponding links below.
 
 ## Distribution and package matrix
 
-| Distribution family                  | Candidate package                  | Architecture in the reviewed release | Check before installation                                            | Local test   |
-| ------------------------------------ | ---------------------------------- | ------------------------------------ | -------------------------------------------------------------------- | ------------ |
-| Ubuntu 22.04 / Debian                | DEB, Flatpak or AppImage           | x86_64, aarch64                      | Native library dependencies; FUSE 2 compatibility for AppImage       | Not recorded |
-| Ubuntu 24.04 and later               | DEB, Flatpak or AppImage           | x86_64, aarch64                      | AppImage documentation names libfuse2t64 for Ubuntu 24.04            | Not recorded |
-| Fedora                               | RPM or Flatpak                     | x86_64, aarch64                      | Review DNF dependency resolution and the Flatpak runtime             | Not recorded |
-| openSUSE                             | RPM or Flatpak                     | x86_64, aarch64                      | Resolve dependencies using zypper; verify the target distribution    | Not recorded |
-| Arch and other desktop distributions | Flatpak, AppImage or binary tar.gz | Match uname -m                       | Host libraries and graphics; no official Arch package is listed here | Not recorded |
-| RISC-V Linux                         | Binary tar.gz                      | riscv64                              | The v0.9.0 README specifies glibc 2.39+                              | Not recorded |
+| Distribution family    | Candidate package            | Architecture in the reviewed release | Check before installation                                         | Local test   |
+| ---------------------- | ---------------------------- | ------------------------------------ | ----------------------------------------------------------------- | ------------ |
+| Ubuntu 22.04 / Debian  | DEB, Flatpak or AppImage     | x86_64, aarch64                      | Native library dependencies; FUSE 2 compatibility for AppImage    | Not recorded |
+| Ubuntu 24.04 and later | DEB, Flatpak or AppImage     | x86_64, aarch64                      | AppImage documentation names libfuse2t64 for Ubuntu 24.04         | Not recorded |
+| Fedora                 | RPM or Flatpak               | x86_64, aarch64                      | Review DNF dependency resolution and the Flatpak runtime          | Not recorded |
+| openSUSE               | RPM or Flatpak               | x86_64, aarch64                      | Resolve dependencies using zypper; verify the target distribution | Not recorded |
+| Arch Linux             | Arch .pkg.tar.zst or Flatpak | x86_64, aarch64                      | Review package dependencies and host graphics                     | Not recorded |
+| RISC-V Linux           | DEB, RPM or binary tar.gz    | riscv64                              | The v0.15.1 README specifies glibc 2.39+                          | Not recorded |
 
 This matrix organizes published builds; it does not certify distribution compatibility. AppImage FUSE instructions come from the [AppImage project](https://docs.appimage.org/user-guide/troubleshooting/fuse.html). If a native package cannot resolve its dependencies, review a matching Flatpak runtime rather than replacing system libraries. See [installer troubleshooting](/photocraft-installer-not-working#linux-appimage-and-fuse) for the diagnostic path.
 
@@ -68,27 +69,29 @@ This matrix organizes published builds; it does not certify distribution compati
 
 <PlatformDownloads platform="linux" labels={downloadLabels.en} />
 
-| Format   | Intel/AMD x86_64                                                                                                               | ARM64 / aarch64                                                                                                                |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| AppImage | [x86_64 AppImage](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.AppImage)     | [ARM64 AppImage](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.AppImage)     |
-| Flatpak  | [x86_64 Flatpak](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.flatpak)       | [ARM64 Flatpak](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.flatpak)       |
-| DEB      | [x86_64 DEB](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.deb)               | [ARM64 DEB](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.deb)               |
-| RPM      | [x86_64 RPM](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.rpm)               | [ARM64 RPM](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.rpm)               |
-| tar.gz   | [x86_64 binary archive](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.tar.gz) | [ARM64 binary archive](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.tar.gz) |
+The current release assets include native **Arch .pkg.tar.zst** packages for x86_64 and ARM64, plus **RISC-V DEB and RPM** alongside the tar.gz. The file table above is the checked release inventory; some README packaging examples still describe fewer formats. Arch users can install the matching local package with `sudo pacman -U ./photocraft-%CURRENT_VERSION%-linux-x86_64.pkg.tar.zst`. Package availability does not establish compatibility with every distribution.
 
-A [RISC-V tar.gz](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-riscv64.tar.gz) is also available. For an AppImage checksum:
+| Format   | Intel/AMD x86_64                                                                                                                                       | ARM64 / aarch64                                                                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| AppImage | [x86_64 AppImage](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage)     | [ARM64 AppImage](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.AppImage)     |
+| Flatpak  | [x86_64 Flatpak](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.flatpak)       | [ARM64 Flatpak](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.flatpak)       |
+| DEB      | [x86_64 DEB](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.deb)               | [ARM64 DEB](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.deb)               |
+| RPM      | [x86_64 RPM](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.rpm)               | [ARM64 RPM](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.rpm)               |
+| tar.gz   | [x86_64 binary archive](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.tar.gz) | [ARM64 binary archive](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.tar.gz) |
+
+A [RISC-V tar.gz](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-riscv64.tar.gz) is also available. For an AppImage checksum:
 
 ```sh
-sha256sum photocraft-0.9.0-linux-x86_64.AppImage
+sha256sum photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
 ```
 
-Compare the complete value with the exact filename in [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Commands below assume a terminal in the download directory. For ARM64, substitute aarch64 in filenames.
+Compare the complete value with the exact filename in [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt). Commands below assume a terminal in the download directory. For ARM64, substitute aarch64 in filenames.
 
 ## AppImage and FUSE errors
 
 ```sh
-chmod +x photocraft-0.9.0-linux-x86_64.AppImage
-./photocraft-0.9.0-linux-x86_64.AppImage
+chmod +x photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
+./photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
 ```
 
 Your file manager may offer an executable-permission checkbox. A new download may need that permission again.
@@ -98,7 +101,7 @@ For libfuse.so.2 or “AppImages require FUSE,” check the distribution's FUSE 
 The current package uses a Type 2 runtime supporting extraction without FUSE:
 
 ```sh
-./photocraft-0.9.0-linux-x86_64.AppImage --appimage-extract-and-run
+./photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 Allow extra extraction space. This does not resolve every host-library issue; Flatpak or a suitable native package is another option. Do not launch the editor as root to work around a normal permission error.
@@ -109,7 +112,7 @@ Install Flatpak through your distribution first, then use the local bundle:
 
 ```sh
 flatpak --version
-flatpak install --user ./photocraft-0.9.0-linux-x86_64.flatpak
+flatpak install --user ./photocraft-%CURRENT_VERSION%-linux-x86_64.flatpak
 flatpak info --user ai.storyteller.photocraft
 flatpak run --user ai.storyteller.photocraft
 ```
@@ -137,19 +140,19 @@ If files are missing from the app, try its File → Open chooser and check the r
 Ubuntu / Debian:
 
 ```sh
-sudo apt install ./photocraft-0.9.0-linux-x86_64.deb
+sudo apt install ./photocraft-%CURRENT_VERSION%-linux-x86_64.deb
 ```
 
 Fedora:
 
 ```sh
-sudo dnf install ./photocraft-0.9.0-linux-x86_64.rpm
+sudo dnf install ./photocraft-%CURRENT_VERSION%-linux-x86_64.rpm
 ```
 
 On openSUSE, use its own tool, for example:
 
 ```sh
-sudo zypper install ./photocraft-0.9.0-linux-x86_64.rpm
+sudo zypper install ./photocraft-%CURRENT_VERSION%-linux-x86_64.rpm
 ```
 
 The leading ./ selects a local file. Distribution package managers can resolve dependencies from configured repositories, unlike merely unpacking with low-level tools.
@@ -161,18 +164,18 @@ If a required dependency is unavailable or too old, record it and check the dist
 Inspect its layout first:
 
 ```sh
-tar -tzf photocraft-0.9.0-linux-x86_64.tar.gz
+tar -tzf photocraft-%CURRENT_VERSION%-linux-x86_64.tar.gz
 ```
 
 The packaging script creates a versioned top directory containing bin and share. Extract into a separate user directory and strip that first level:
 
 ```sh
-mkdir -p "$HOME/Applications/photocraft-0.9.0"
-tar -xzf photocraft-0.9.0-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/Applications/photocraft-0.9.0"
-"$HOME/Applications/photocraft-0.9.0/bin/photocraft"
+mkdir -p "$HOME/Applications/photocraft-%CURRENT_VERSION%"
+tar -xzf photocraft-%CURRENT_VERSION%-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/Applications/photocraft-%CURRENT_VERSION%"
+"$HOME/Applications/photocraft-%CURRENT_VERSION%/bin/photocraft"
 ```
 
-Keep bin and share together. This does not register a system package, create your application-menu entry or bundle every system library. The layout comes from the [official packaging script](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/package.sh).
+Keep bin and share together. This does not register a system package, create your application-menu entry or bundle every system library. The layout comes from the [official packaging script](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/linux/package.sh).
 
 ## Match the error to the next check
 
@@ -198,7 +201,7 @@ cat /etc/os-release
 printf '%s\n' "$XDG_SESSION_TYPE"
 ```
 
-Keep this output with the package filename, installed version from **Help → About**, and graphics backend from **Help → System Info**. The display session matters: the [v0.9.0 README's Linux notes](https://github.com/storytold/photocraft/blob/v0.9.0/README.md#get-started) document a Wayland drag-and-drop limitation. Use **File → Open** for the first check so dropping a file is not a prerequisite.
+Keep this output with the package filename, installed version from **Help → About**, and graphics backend from **Help → System Info**. The display session matters: the [v0.15.1 README's Linux notes](https://github.com/storytold/photocraft/blob/v0.15.1/README.md#get-started) document a Wayland drag-and-drop limitation. Use **File → Open** for the first check so dropping a file is not a prerequisite.
 
 1. Open our [practice PNG](/imgs/photocraft/captures/coast-test.png) from a writable user folder. In Flatpak, select it through the application's file chooser.
 2. Duplicate its pixel layer and create a separate Levels adjustment with RGB midtone **1.10**.
@@ -217,9 +220,9 @@ The [tutorial](/photocraft-tutorial) supplies the reference screenshot and saved
 
 ## Sources and verification scope
 
-- [Official v0.9.0 release](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
-- [Linux archive and AppImage packaging](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/package.sh)
-- [Flatpak bundle and runtime source](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/flatpak-bundle.sh)
+- [Official v%CURRENT_VERSION% release](https://github.com/storytold/photocraft/releases/tag/v%CURRENT_VERSION%)
+- [Linux archive and AppImage packaging](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/linux/package.sh)
+- [Flatpak bundle and runtime source](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/linux/flatpak-bundle.sh)
 - [Running AppImages](https://docs.appimage.org/user-guide/run-appimages.html)
 - [Ubuntu package management](https://documentation.ubuntu.com/server/how-to/software/package-management/)
 - [DNF command reference](https://dnf.readthedocs.io/en/latest/command_ref.html)

@@ -7,6 +7,7 @@ export const guideSlugs = [
   'photocraft-vs-vectorcraft',
   'photocraft-github',
   'photocraft-version-history',
+  'photocraft-download-files',
   'photocraft-tutorial',
   'photocraft-artcraft',
   'photocraft-review',
@@ -53,7 +54,15 @@ export const homepageRelatedGuides = guideSlugs.filter(
 );
 
 export const relatedGuides: Record<GuideSlug, GuideSlug[]> = {
+  'photocraft-download-files': [
+    'photocraft-windows',
+    'photocraft-macos',
+    'photocraft-linux',
+    'photocraft-version-history',
+    'is-photocraft-safe',
+  ],
   'is-photocraft-safe': [
+    'photocraft-download-files',
     'photocraft-version-history',
     'photocraft-installer-not-working',
     'photocraft-github',
@@ -70,11 +79,13 @@ export const relatedGuides: Record<GuideSlug, GuideSlug[]> = {
     'photocraft-vs-photoshop',
   ],
   'photocraft-github': [
+    'photocraft-download-files',
     'photocraft-windows',
     'photocraft-version-history',
     'photocraft-open-source',
   ],
   'photocraft-version-history': [
+    'photocraft-download-files',
     'photocraft-windows',
     'photocraft-macos',
     'photocraft-linux',
@@ -95,6 +106,7 @@ export const relatedGuides: Record<GuideSlug, GuideSlug[]> = {
     'photocraft-version-history',
   ],
   'photocraft-windows': [
+    'photocraft-download-files',
     'photocraft-installer-not-working',
     'is-photocraft-safe',
     'photocraft-macos',

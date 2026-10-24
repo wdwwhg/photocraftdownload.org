@@ -5,7 +5,7 @@ export const meta = {
     '确认 PhotoCraft 官方 GitHub 仓库，区分发布安装包和源码压缩包，获取固定版本代码，并提交可复现的问题。',
   category: '源码与下载',
   published_at: '2026-10-13',
-  updated_at: '2026-10-13',
+  updated_at: '2026-10-23',
   sections: [
     '确认官方仓库',
     '从 Releases 下载应用',
@@ -20,7 +20,7 @@ ArtCraft 图像编辑器的官方仓库是 [storytold/photocraft](https://github
 
 ## 确认官方仓库
 
-从[官方产品页](https://getartcraft.com/apps/photocraft)进入 GitHub，再检查完整地址。仅凭标志、名称或搜索排名不能确认来源。默认分支会持续变化；针对已安装版本阅读文档时，应切换到对应标签。本页使用 v0.8.2，不将开发分支视为已发布功能。
+从[官方产品页](https://getartcraft.com/apps/photocraft)进入 GitHub，再检查完整地址。仅凭标志、名称或搜索排名不能确认来源。默认分支会持续变化；针对已安装版本阅读文档时，应切换到对应标签。本页使用 v0.14.0，不将开发分支视为已发布功能。
 
 ## 从 Releases 下载应用
 
@@ -35,14 +35,14 @@ ArtCraft 图像编辑器的官方仓库是 [storytold/photocraft](https://github
 | Web ZIP                  | 提取静态文件并通过服务器提供       |
 | Source code ZIP / tar.gz | 阅读或编译源码                     |
 
-GitHub 自动生成的 Source code 压缩包不是预编译安装包。需要直接运行时，使用[下载页](/)整理的官方资产；Windows 与网页版分别参见[平台指南](/photocraft-windows)和[网页构建指南](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web)。
+GitHub 自动生成的 Source code 压缩包不是预编译安装包。需要直接运行时，使用[下载页](/)整理的官方资产；Windows 与网页版分别参见[平台指南](/photocraft-windows)和[网页构建指南](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web)。
 
 ## 获取固定版本源码
 
 为便于复现，应记录标签和提交。以下命令只获取源码，不安装编辑器或编译环境：
 
 ```sh
-git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+git clone --branch v0.14.0 --depth 1 https://github.com/storytold/photocraft.git
 cd photocraft
 ```
 
@@ -62,4 +62,4 @@ cd photocraft
 
 - [官方仓库](https://github.com/storytold/photocraft)
 - [官方发布记录](https://github.com/storytold/photocraft/releases)
-- [v0.8.2 开发指南](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
+- [v0.14.0 开发指南](https://github.com/storytold/photocraft/blob/v0.14.0/docs/development.md)

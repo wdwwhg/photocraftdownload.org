@@ -1,6 +1,6 @@
-import downloadLabels from '@/content/download-labels.json';
+import { Link } from '@/core/i18n/navigation';
 
-import { DownloadTable, type DownloadFile } from './download-table';
+import { type DownloadFile } from './download-table';
 
 type Locale = 'en' | 'zh';
 type ReleaseHistoryEntry = {
@@ -96,9 +96,12 @@ export function VersionHistoryTable({
                       </li>
                     ))}
                   </ul>
-                  <a className="pc-version-source" href={entry.releaseUrl}>
+                  <Link
+                    className="pc-version-source"
+                    href={`/photocraft-download-files#v${entry.version.replaceAll('.', '-')}`}
+                  >
                     {labels.allFiles}
-                  </a>
+                  </Link>
                   <a className="pc-version-source" href={entry.checksumUrl}>
                     {labels.checksums}
                   </a>
@@ -147,11 +150,13 @@ export function VersionHistoryDetails({
             <a href={entry.releaseUrl}>{labels.notes}</a>
             <a href={entry.compareUrl}>{labels.compare}</a>
           </div>
-          <DownloadTable
-            files={entry.files}
-            labels={downloadLabels[locale]}
-            caption={`${downloadLabels[locale].caption} · v${entry.version}`}
-          />
+          <p>
+            <Link
+              href={`/photocraft-download-files#v${entry.version.replaceAll('.', '-')}`}
+            >
+              {labels.allFiles} · v{entry.version} · SHA256
+            </Link>
+          </p>
         </section>
       ))}
     </div>

@@ -1,48 +1,61 @@
 {
-  "capturedAt": "2026-10-15T13:20:34.113Z",
-  "appVersion": "0.9.0",
-  "appCommit": "c699e3cda",
+  "capturedAt": "2026-10-23T14:16:03.550Z",
+  "appVersion": "0.14.0",
+  "appCommit": "ff4738810",
+  "appBuildDate": "2026-10-23",
   "os": "Windows 11 25H2 (26200.9711), x64",
   "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
-  "renderer": "Vulkan",
-  "package": "photocraft-0.9.0-windows-x64-portable.zip",
-  "packageSha256": "e87bbe26f84d3c359765b61d128b9cc59f016a995956fe7909b328a97650fc97",
-  "captureMethod": "Real application window via Windows Computer Use",
-  "processing": "Unmodified PNG originals; WebP compression only. No synthetic application chrome or overlays.",
+  "renderer": "DX12",
+  "driver": "31.0.15.3197",
+  "startupObservation": "The initial automatic-backend start did not finish. On retry the app selected DX12; System Info reports the fallback. Editing and PSD reopening below were checked on DX12.",
+  "package": "photocraft-0.14.0-windows-x64-portable.zip",
+  "packageSha256": "5b814c15034ddc68d35da837aef0cec18c90e9325f7682f516dfc331d64e9ab0",
+  "captureMethod": "Actual Windows application through Computer Use",
+  "processing": "Original tool-provided JPEG captures retained; WebP previews are compressed copies. No UI elements, version text or overlays were added or replaced.",
   "workflow": [
-    "Open original 1200×800 PNG test artwork",
-    "Duplicate pixel layer",
-    "Add Levels adjustment layer and set RGB midtone to 1.10",
-    "Save as coast-layers.psd",
-    "Close and reopen PSD",
-    "Verify three layers and midtone 1.10",
-    "Capture About and System Info from Help menu"
+    "Open original 1200 × 800 coast-test.png",
+    "Duplicate Layer 0 as Layer 0 copy",
+    "Add Levels 1 adjustment and set RGB midtone to 1.10",
+    "Save as coast-layers-0.14.0.psd",
+    "Close document and reopen that PSD with File → Open",
+    "Select adjustment thumbnail; verify all three layers and midtone 1.1",
+    "Capture About and System Info dialogs"
   ],
-  "limits": "Single Windows x64 portable build and this simple three-layer file. No macOS/Linux, MSI, complex PSD or Adobe round-trip test.",
+  "limits": "Single Windows x64 portable build and simple three-layer PSD. No MSI installation, x86/ARM64, macOS/Linux execution, complex PSD, export or Adobe round-trip test.",
+  "document": {
+    "file": "coast-layers-0.14.0.psd",
+    "layerCount": 3,
+    "levelsMidtone": 1.1,
+    "bytes": 449006,
+    "sha256": "abb20dc96a1ba330ed35f92225193a5aa7cf54039e5a93efad746027867a33c6"
+  },
   "screenshots": [
     {
-      "file": "windows-0.9.0-levels",
-      "originalSha256": "785b9a3092c4939be7f29bd299dcb946c059f899bdf6352200d4ac24d37fac2d",
-      "pngBytes": 103751,
-      "webpBytes": 70798,
+      "file": "windows-0.14.0-levels",
+      "originalFormat": "jpg",
       "width": 1440,
-      "height": 900
+      "height": 900,
+      "originalSha256": "98fcb072c4252257d0ad8704bdf7342b87856b472588ee26a07a5d0f1c930c26",
+      "originalBytes": 101302,
+      "webpBytes": 55690
     },
     {
-      "file": "windows-0.9.0-about",
-      "originalSha256": "8de954134f497fde9b29d5fe5327d5d6657e89692e07c0ed77ff361d2f023620",
-      "pngBytes": 108605,
-      "webpBytes": 75240,
+      "file": "windows-0.14.0-about",
+      "originalFormat": "jpg",
       "width": 1440,
-      "height": 900
+      "height": 900,
+      "originalSha256": "9c274870d27839ced9d2a2e4c32f87170ea3724ce8b12b045bc7a1d4b1477f90",
+      "originalBytes": 106264,
+      "webpBytes": 59942
     },
     {
-      "file": "windows-0.9.0-system-info",
-      "originalSha256": "261658aa856929699733883ebab0eb835fdf1a9a4c66fd7bbc92d53f31f7ca0c",
-      "pngBytes": 120965,
-      "webpBytes": 86780,
+      "file": "windows-0.14.0-system-info",
+      "originalFormat": "jpg",
       "width": 1440,
-      "height": 900
+      "height": 900,
+      "originalSha256": "8c6c76ffe084f0895c33ed53347fc2345055b4c97c555a061face5910ab54076",
+      "originalBytes": 121578,
+      "webpBytes": 73104
     }
   ]
 }

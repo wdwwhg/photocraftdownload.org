@@ -1,0 +1,60 @@
+import { DownloadFilesCatalog } from '@/components/photocraft/download-files-catalog';
+import { release } from '@/components/photocraft/downloads';
+import catalogLabels from '@/content/download-catalog-labels.json';
+import tableLabels from '@/content/download-labels.json';
+import catalog from '@/content/photocraft-download-files.json';
+
+export const meta = {
+  title: 'PhotoCraft Download Files — Filenames, Sizes & SHA256',
+  heading: 'PhotoCraft Download Files',
+  description:
+    'Find official PhotoCraft files for every published version: Windows MSI and portable ZIP, macOS, Linux, FreeBSD and Web. Compare exact filenames, byte sizes and SHA256 checksums.',
+  category: 'Download reference',
+  schemaType: 'CollectionPage',
+  published_at: '2026-10-24',
+  updated_at: '2026-10-24',
+  sections: [
+    'Find an official download file',
+    'Verify a downloaded file',
+    'Sources and coverage',
+  ],
+};
+
+## Find an official download file
+
+Look up an exact PhotoCraft filename, confirm its size and checksum, then download it directly from the official **storytold/photocraft** GitHub repository. The current download is **v%CURRENT_VERSION%**. Older releases and release candidates are labeled below. Use your browser’s **Find** command (Ctrl+F or Command+F) to search for a filename such as `photocraft-%CURRENT_VERSION%-windows-x64.msi`; the **#** beside each filename links directly to that row.
+
+Choose an installer with the [Windows](/photocraft-windows), [macOS](/photocraft-macos) or [Linux guide](/photocraft-linux). Read the [version history](/photocraft-version-history) for changes between releases. The tables include auxiliary files such as update metadata and debugging symbols, with their purpose identified in the final column.
+
+<DownloadFilesCatalog
+  entries={catalog.releases}
+  currentVersion={release.version}
+  labels={catalogLabels.en}
+  tableLabels={tableLabels.en}
+/>
+
+## Verify a downloaded file
+
+Match the **whole filename and version**, including CPU architecture and extension. File sizes use **MiB = 1,048,576 bytes**; the exact byte count is shown below each rounded size. GitHub may display a different rounded size in decimal MB.
+
+On Windows, replace the example filename below with the file you downloaded:
+
+```powershell
+Get-FileHash .\photocraft-%CURRENT_VERSION%-windows-x64.msi -Algorithm SHA256
+```
+
+On macOS use `shasum -a 256 <filename>`; on Linux or FreeBSD use `sha256sum <filename>` where available. Compare all 64 characters with the corresponding row. See the [download safety and verification guide](/is-photocraft-safe) for the full procedure and the scope of our recorded checks.
+
+## Sources and coverage
+
+<p>
+  Catalog metadata checked:{' '}
+  <time dateTime={catalog.checkedAt}>{catalog.checkedAt}</time>.{' '}
+  {catalog.releases.length} public releases,{' '}
+  {catalog.releases.reduce((total, entry) => total + entry.files.length, 0)}{' '}
+  attached files.
+</p>
+
+This snapshot covers all public release entries returned by the [official GitHub releases API](https://api.github.com/repos/storytold/photocraft/releases?per_page=100), including early release candidates. Each version links to its official release and its own `SHA256SUMS.txt`. File sizes come from GitHub asset metadata and are checked against download response sizes. SHA256 values are generated from each release’s checksum list and compared with GitHub’s asset digest where provided. The checksum list cannot contain its own hash: its row is computed from the downloaded text file and checked against GitHub’s digest where provided.
+
+GitHub’s automatically generated **source code ZIP/tar.gz** links are excluded because they are not attached binary release assets and have no entry in the published checksum list. Web ZIPs, FreeBSD archives, AppImage update data and installer debugging symbols that are attached to a release are included. A file’s presence here does not establish compatibility with every system. This metadata verification does not scan every binary for malware. Downloads stay on GitHub; this site does not repackage them.

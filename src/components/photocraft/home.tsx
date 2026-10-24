@@ -102,7 +102,7 @@ function OutLink({
 
 export function PhotoCraftHome() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [platform, setPlatform] = useState<Platform>('windows');
+  const [platform, setPlatform] = useState<Platform>('macos');
   const [detected, setDetected] = useState<Platform | null>(null);
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
@@ -116,7 +116,7 @@ export function PhotoCraftHome() {
           ? 'windows'
           : null;
     setDetected(current);
-    if (current) setPlatform(current);
+    if (current && current !== 'windows') setPlatform(current);
   }, []);
   useEffect(() => {
     if (!copied) return;
@@ -156,9 +156,9 @@ export function PhotoCraftHome() {
     free: 'photocraft-open-source',
     psd: 'photocraft-vs-photoshop',
     replacement: 'photocraft-vs-photoshop',
-    installer: `photocraft-${platform}`,
+    installer: 'photocraft-installer-not-working',
     account: 'photocraft-app',
-    failed: `photocraft-${platform}`,
+    failed: 'photocraft-installer-not-working',
   };
 
   return (
@@ -242,12 +242,19 @@ export function PhotoCraftHome() {
                 <time dateTime={release.checked}>{release.checkedDisplay}</time>
               </span>
             </div>
+            <p className="pc-windows-summary">
+              {t('downloads.windows.summary')}{' '}
+              <Link className="pc-text-link" href="/photocraft-windows">
+                {t('downloads.windows.guideLink')}
+                <ArrowRight size={14} />
+              </Link>
+            </p>
             <div
               className="pc-quick-downloads"
               role="group"
               aria-label={t('hero.directDownloads')}
             >
-              {(['windows', 'macos', 'linux'] as const).map((os) => (
+              {(['macos', 'linux'] as const).map((os) => (
                 <a
                   href={release.base + builds[os][0].file}
                   key={os}
@@ -297,13 +304,13 @@ export function PhotoCraftHome() {
             <div className="pc-visual-grid" />
             <div className="pc-editor-frame">
               <a
-                href="/imgs/photocraft/captures/windows-0.9.0-about.png"
+                href="/imgs/photocraft/captures/windows-0.14.0-about.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t('captures.open')}
               >
                 <img
-                  src="/imgs/photocraft/captures/windows-0.9.0-about.webp"
+                  src="/imgs/photocraft/captures/windows-0.14.0-about.webp"
                   alt={t('images.interface')}
                   width="1440"
                   height="900"
@@ -351,7 +358,13 @@ export function PhotoCraftHome() {
             </div>
             <div className="pc-version-chip">
               <span className="pc-status-dot" />v{release.version}
-              <span>{t('downloads.alpha')}</span>
+              <span>
+                <OutLink
+                  href={`${release.repository}/blob/v${release.version}/README.md`}
+                >
+                  {t(`downloads.status.${release.maturity}`)}
+                </OutLink>
+              </span>
             </div>
           </div>
           {!release.isLatest && (
@@ -362,16 +375,20 @@ export function PhotoCraftHome() {
               </OutLink>
             </p>
           )}
-          <PlatformDownloads labels={downloadLabels[getLocale()]} />
+          <PlatformDownloads
+            platforms={['macos', 'linux']}
+            labels={downloadLabels[getLocale()]}
+          />
           <details className="pc-chooser-enhancement">
             <summary>{t('chooser.title')}</summary>
             <DownloadChooser
               text={(key) => t(`chooser.${key}`)}
               onPlatformChange={setPlatform}
+              platforms={['macos', 'linux']}
             />
           </details>
           <div className="pc-download-grid">
-            {(['windows', 'macos', 'linux'] as const).map((os) => (
+            {(['macos', 'linux'] as const).map((os, index) => (
               <article
                 className={`pc-download-card ${detected === os ? 'pc-recommended' : ''}`}
                 key={os}
@@ -385,9 +402,7 @@ export function PhotoCraftHome() {
                       {t('downloads.detected')}
                     </span>
                   ) : (
-                    <span className="pc-card-number">
-                      {os === 'windows' ? '01' : os === 'macos' ? '02' : '03'}
-                    </span>
+                    <span className="pc-card-number">0{index + 1}</span>
                   )}
                 </div>
                 <h3>{platformNames[os]}</h3>
@@ -430,10 +445,6 @@ export function PhotoCraftHome() {
           </div>
           <p className="pc-platform-links">
             {t('downloads.platformIntro')}{' '}
-            <Link href="/photocraft-windows">
-              PhotoCraft download for Windows
-            </Link>
-            ,{' '}
             <Link href="/photocraft-macos">PhotoCraft download for macOS</Link>
             {' · '}
             <Link href="/photocraft-linux">
@@ -462,6 +473,10 @@ export function PhotoCraftHome() {
               </OutLink>
               <Link href="/photocraft-version-history">
                 {t('downloads.history')}
+                <ArrowRight size={12} />
+              </Link>
+              <Link href="/photocraft-download-files">
+                {t('downloads.files')}
                 <ArrowRight size={12} />
               </Link>
             </div>
@@ -493,13 +508,13 @@ export function PhotoCraftHome() {
             <div className="pc-feature-showcase">
               <figure className="pc-feature-image">
                 <a
-                  href="/imgs/photocraft/captures/windows-0.9.0-levels.png"
+                  href="/imgs/photocraft/captures/windows-0.14.0-levels.jpg"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={t('captures.open')}
                 >
                   <img
-                    src="/imgs/photocraft/captures/windows-0.9.0-levels.webp"
+                    src="/imgs/photocraft/captures/windows-0.14.0-levels.webp"
                     alt={t('images.adjustments')}
                     width="1440"
                     height="900"
@@ -535,7 +550,8 @@ export function PhotoCraftHome() {
               openLabel={t('captures.open')}
               images={[
                 {
-                  file: 'windows-0.9.0-system-info',
+                  file: 'windows-0.14.0-system-info',
+                  originalFormat: 'jpg',
                   alt: t('captures.systemAlt'),
                   caption: t('captures.systemCaption'),
                 },
@@ -545,7 +561,7 @@ export function PhotoCraftHome() {
               <Link href="/photocraft-review#hands-on">
                 {t('captures.record')}
               </Link>
-              <OutLink href="/imgs/photocraft/captures/coast-layers.psd">
+              <OutLink href="/imgs/photocraft/captures/coast-layers-0.14.0.psd">
                 {t('captures.file')}
               </OutLink>
             </p>
@@ -582,7 +598,7 @@ export function PhotoCraftHome() {
               role="tablist"
               aria-label={t('install.tabs')}
             >
-              {(['windows', 'macos', 'linux'] as const).map((os) => (
+              {(['macos', 'linux'] as const).map((os) => (
                 <button
                   id={`tab-${os}`}
                   aria-selected={platform === os}
@@ -593,17 +609,19 @@ export function PhotoCraftHome() {
                   key={os}
                   onClick={() => setPlatform(os)}
                   onKeyDown={(event) => {
-                    const options: Platform[] = ['windows', 'macos', 'linux'];
+                    const options: Platform[] = ['macos', 'linux'];
                     const index = options.indexOf(os);
                     const next =
                       event.key === 'ArrowRight'
-                        ? options[(index + 1) % 3]
+                        ? options[(index + 1) % options.length]
                         : event.key === 'ArrowLeft'
-                          ? options[(index + 2) % 3]
+                          ? options[
+                              (index + options.length - 1) % options.length
+                            ]
                           : event.key === 'Home'
                             ? options[0]
                             : event.key === 'End'
-                              ? options[2]
+                              ? options[options.length - 1]
                               : null;
                     if (next) {
                       event.preventDefault();
@@ -698,11 +716,13 @@ export function PhotoCraftHome() {
               <p className="pc-heading-aside">{t('guides.description')}</p>
             </div>
             <GuideCards
-              links={priorityGuideSlugs.map((slug) => ({
-                href: `/${slug}`,
-                title: t(`guides.${slug}.title`),
-                description: t(`guides.${slug}.description`),
-              }))}
+              links={priorityGuideSlugs
+                .filter((slug) => slug !== 'photocraft-windows')
+                .map((slug) => ({
+                  href: `/${slug}`,
+                  title: t(`guides.${slug}.title`),
+                  description: t(`guides.${slug}.description`),
+                }))}
             />
           </div>
         </section>

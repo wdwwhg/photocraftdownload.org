@@ -17,9 +17,11 @@ const platformNames = { windows: 'Windows', macos: 'macOS', linux: 'Linux' };
 export function DownloadChooser({
   text,
   onPlatformChange,
+  platforms = ['windows', 'macos', 'linux'],
 }: {
   text: (key: string) => string;
   onPlatformChange: (platform: Platform) => void;
+  platforms?: readonly Platform[];
 }) {
   const [platform, setPlatform] = useState<Platform | ''>('');
   const [chip, setChip] = useState<Chip | 'unknown' | ''>('');
@@ -84,7 +86,7 @@ export function DownloadChooser({
             {text('system')}
           </legend>
           <div className="pc-chooser-options">
-            {(['windows', 'macos', 'linux'] as const).map((os) => (
+            {platforms.map((os) => (
               <label className="pc-chooser-option" key={os}>
                 <input
                   type="radio"

@@ -4,10 +4,10 @@ export const meta = {
   title: 'PhotoCraft Review: Windows Screenshots & PSD Reopen Test',
   heading: 'PhotoCraft Review',
   description:
-    'Our PhotoCraft 0.9.0 Windows screenshots, version and system evidence, a three-layer PSD save and reopen test, original test files and limitations.',
+    'Our PhotoCraft 0.14.0 Windows screenshots, version and system evidence, a three-layer PSD save and reopen test, original test files and limitations.',
   category: 'Evaluation',
   published_at: '2026-10-13',
-  updated_at: '2026-10-18',
+  updated_at: '2026-10-23',
   sections: [
     'Our Windows captures and test steps',
     'What the documentation supports',
@@ -26,42 +26,45 @@ PhotoCraft is worth evaluating if you want a free, open-source image editor with
 
 ## Our Windows captures and test steps
 
-**Captured on 15 October 2026 (UTC+8).** We used the official `photocraft-0.9.0-windows-x64-portable.zip`. About PhotoCraft reports **0.9.0 (c699e3cda, 2026-10-14)**. The machine runs Windows 11 25H2 (26200.9711), x64, with an NVIDIA GeForce RTX 4060 Laptop GPU. System Info reports the Vulkan backend. The app UI is in Chinese; the captures retain its actual window, menus, document name and dialogs.
+**Captured on 23 October 2026 (UTC+8).** We used the official `photocraft-0.14.0-windows-x64-portable.zip`. About PhotoCraft reports **0.14.0 (ff4738810, 2026-10-23)**. The machine runs Windows 11 25H2 (26200.9711), x64, with an NVIDIA GeForce RTX 4060 Laptop GPU. System Info reports the DX12 backend. The initial automatic-backend start did not finish; on retry the app selected DX12 automatically. This successful document test therefore covers that fallback backend. The app UI is in Chinese; the captures retain its actual window, menus, document name and dialogs.
 
-The downloaded [official v0.9.0 portable package](https://github.com/storytold/photocraft/releases/tag/v0.9.0) matched the [official SHA-256 list](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). The package checksum and original screenshot hashes are in our [capture record](/imgs/photocraft/captures/capture-record.json).
+The downloaded [official v0.14.0 portable package](https://github.com/storytold/photocraft/releases/tag/v0.14.0) matched the [official SHA-256 list](https://github.com/storytold/photocraft/releases/download/v0.14.0/SHA256SUMS.txt). The package checksum and original screenshot hashes are in our [capture record](/imgs/photocraft/captures/capture-record.json).
 
 What we actually did:
 
 1. Open our original 1200 × 800 PNG test artwork. Its COAST lettering and shapes were rasterized before import; this was not an editable-type test.
 2. Duplicate the pixel layer, add a Levels adjustment layer and set the RGB midtone to **1.10**.
-3. Save as `coast-layers.psd`, close the document, then reopen it from Recent Files.
+3. Save as `coast-layers-0.14.0.psd`, close the document, then reopen it with File → Open.
 4. Confirm that `Layer 0`, `Layer 0 copy` and `Levels 1` remain. Select the adjustment thumbnail and confirm the midtone still reads **1.1**.
 5. Open About PhotoCraft and System Info from Help and capture the actual windows.
 
 <CaptureGallery
   title="Three captures of the actual workflow and version"
-  description="Captured by this independent site on the same Windows machine. Click for the full PNG. Web previews use WebP compression only; the app UI, version text and window controls have not been redrawn or replaced."
-  openLabel="View original PNG"
+  description="Captured by this independent site on the same Windows machine. Click for the full JPEG. Web previews use WebP compression only; the app UI, version text and window controls have not been redrawn or replaced."
+  openLabel="View original JPEG"
   images={[
     {
-      file: 'windows-0.9.0-levels',
-      alt: 'Our capture of reopened coast-layers.psd with three layers and the Levels midtone at 1.1',
+      file: 'windows-0.14.0-levels',
+      originalFormat: 'jpg',
+      alt: 'Our capture of reopened coast-layers-0.14.0.psd with three layers and the Levels midtone at 1.1',
       caption: 'After reopening: three layers and Levels 1.10 retained',
     },
     {
-      file: 'windows-0.9.0-about',
-      alt: 'Actual About PhotoCraft dialog displaying version 0.9.0 and commit c699e3cda',
-      caption: 'About PhotoCraft: version 0.9.0',
+      file: 'windows-0.14.0-about',
+      originalFormat: 'jpg',
+      alt: 'Actual About PhotoCraft dialog displaying version 0.14.0 and commit ff4738810',
+      caption: 'About PhotoCraft: version 0.14.0',
     },
     {
-      file: 'windows-0.9.0-system-info',
-      alt: 'Actual System Info dialog displaying windows x86_64, RTX 4060 Laptop GPU and Vulkan',
-      caption: 'System Info: Windows x64 and Vulkan',
+      file: 'windows-0.14.0-system-info',
+      originalFormat: 'jpg',
+      alt: 'Actual System Info dialog displaying windows x86_64, RTX 4060 Laptop GPU and DX12',
+      caption: 'System Info: Windows x64 and DX12',
     },
   ]}
 />
 
-Download the [original SVG artwork](/imgs/photocraft/captures/coast-test.svg), [imported PNG](/imgs/photocraft/captures/coast-test.png) and [saved PSD (439 KB)](/imgs/photocraft/captures/coast-layers.psd) to repeat the steps. Our COAST test artwork is provided under CC0. The application interface belongs to ArtCraft and its contributors; these screenshots are our independent record.
+Download the [original SVG artwork](/imgs/photocraft/captures/coast-test.svg), [imported PNG](/imgs/photocraft/captures/coast-test.png) and [saved PSD (439 KB)](/imgs/photocraft/captures/coast-layers-0.14.0.psd) to repeat the steps. Our COAST test artwork is provided under CC0. The application interface belongs to ArtCraft and its contributors; these screenshots are our independent record.
 
 This result is limited to this Windows machine, this portable build and these steps on this simple file. We did not test macOS, Linux, MSI installation, complex PSD documents or a Photoshop round trip. We have not run comparative performance benchmarks or a long-term reliability study. Broader features below are assessed from documentation.
 
@@ -93,9 +96,9 @@ The project publishes corpus results in its README. Those are the project's own 
 
 ## Important limitations
 
-The v0.9.0 status note calls out gaps in AI and generative features, typography depth, professional workflows and plugin compatibility. That makes it inappropriate to promise a full Adobe replacement from a familiar interface alone. The [Photoshop comparison](/photocraft-vs-photoshop) covers the handoff questions in more detail.
+The v0.14.0 release includes fixes for image parsing and native recovery files. Those changes are not evidence that every professional workflow or plugin is supported. That makes it inappropriate to promise a full Adobe replacement from a familiar interface alone. The [Photoshop comparison](/photocraft-vs-photoshop) covers the handoff questions in more detail.
 
-The browser build has additional documented constraints: saving downloads a file, and web autosave or crash recovery is not provided. Desktop behavior should not be assumed to apply automatically to the browser. If that distinction matters, read [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web) before opening a long editing session.
+The browser build has additional documented constraints: saving downloads a file, and web autosave or crash recovery is not provided. Desktop behavior should not be assumed to apply automatically to the browser. If that distinction matters, read [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web) before opening a long editing session.
 
 ## Run a representative evaluation
 
@@ -107,12 +110,12 @@ Finally, test recovery expectations and document the steps that failed. Keep sou
 
 ## Review conclusion
 
-The observed result is specific: a 1200 × 800 PNG became a three-layer PSD, and the Levels midtone remained 1.10 after reopening in PhotoCraft. That makes the sample useful for checking a basic edit and save on the tested Windows build. It leaves Mac/Linux launch, Adobe handoff, complex effects and production reliability unresolved. The page was expanded on 18 October; the capture date remains 15 October.
+The observed result is specific: a 1200 × 800 PNG became a three-layer PSD, and the Levels midtone remained 1.10 after reopening in PhotoCraft. That makes the sample useful for checking a basic edit and save on the tested Windows build. It leaves Mac/Linux launch, Adobe handoff, complex effects and production reliability unresolved. This exercise was repeated and captured on 23 October for v0.14.0.
 
 PhotoCraft offers a promising documented editing model with free source access, but its own early-alpha warning should shape adoption. Evaluate it first for experiments, learning and clearly bounded tasks. For production work, let successful tests of your actual files determine the scope. If a required task remains unsupported, consult [PhotoCraft alternatives](/photocraft-alternative) and report a reproducible issue through the [official GitHub workflow](/photocraft-github).
 
 ## Sources
 
-- [v0.9.0 features, corpus notes and status](https://github.com/storytold/photocraft/blob/v0.9.0/README.md)
-- [v0.9.0 browser-build documentation](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/web/README.md)
+- [v0.14.0 features, corpus notes and status](https://github.com/storytold/photocraft/blob/v0.14.0/README.md)
+- [v0.14.0 browser-build documentation](https://github.com/storytold/photocraft/blob/v0.14.0/packaging/web/README.md)
 - [Official product description](https://getartcraft.com/apps/photocraft)

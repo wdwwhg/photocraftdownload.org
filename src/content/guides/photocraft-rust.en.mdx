@@ -5,7 +5,7 @@ export const meta = {
     'Explore PhotoCraft’s Rust, egui and wgpu architecture, follow versioned source-build prerequisites and distinguish desktop, browser and test workflows.',
   category: 'Development',
   published_at: '2026-10-13',
-  updated_at: '2026-10-13',
+  updated_at: '2026-10-23',
   sections: [
     'What Rust explains, and what it does not',
     'Obtain a versioned source tree',
@@ -19,7 +19,7 @@ export const meta = {
 
 PhotoCraft is implemented in Rust. Its documented desktop stack uses egui for the interface and wgpu for rendering, while the browser application runs through WebAssembly. This page is for developers who want to inspect or build the source. If you only want to edit images, choose an official package from [PhotoCraft Download](/); no Rust toolchain is required for that route.
 
-The commands and prerequisites below refer to the v0.8.2 tag. Development-branch requirements can change independently of packaged releases. Keep the source tag, compiler version and operating system in your build notes so a later result can be reproduced.
+The commands and prerequisites below refer to the v0.14.0 tag. Development-branch requirements can change independently of packaged releases. Keep the source tag, compiler version and operating system in your build notes so a later result can be reproduced.
 
 ## What Rust explains, and what it does not
 
@@ -32,11 +32,11 @@ Those details help you find implementation layers and understand why both native
 Start with the [official GitHub repository](/photocraft-github), then select the version you intend to build. For the tag used by this guide:
 
 ```sh
-git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+git clone --branch v0.14.0 --depth 1 https://github.com/storytold/photocraft.git
 cd photocraft
 ```
 
-Read README.md, Cargo.toml and docs/development.md in that checkout before installing dependencies. The v0.8.2 workspace declares rust-version = 1.95, and its development guide asks for Rust stable 1.95 or newer. Treat that as a version-specific requirement rather than a permanent minimum for every future release.
+Read README.md, Cargo.toml and docs/development.md in that checkout before installing dependencies. The v0.14.0 workspace declares rust-version = 1.95, and its development guide asks for Rust stable 1.95 or newer. Treat that as a version-specific requirement rather than a permanent minimum for every future release.
 
 ## Install the platform prerequisites
 
@@ -79,7 +79,7 @@ cd apps/photocraft-web
 trunk build --release
 ```
 
-The tagged guide says the output is written to dist/web at the repository root. For release reproduction, check the Trunk version pinned by that tag's workflow; an arbitrary newer tool can produce different artifacts. The resulting static files still need correct hosting headers and a working browser graphics backend. See [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web) for serving and saving behavior.
+The tagged guide says the output is written to dist/web at the repository root. For release reproduction, check the Trunk version pinned by that tag's workflow; an arbitrary newer tool can produce different artifacts. The resulting static files still need correct hosting headers and a working browser graphics backend. See [PhotoCraft Web](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web) for serving and saving behavior.
 
 ## Test and contribute deliberately
 
@@ -91,6 +91,6 @@ For the distinction between licenses and implementation, see [PhotoCraft Open So
 
 ## Sources
 
-- [v0.8.2 Cargo workspace](https://github.com/storytold/photocraft/blob/v0.8.2/Cargo.toml)
-- [v0.8.2 development guide](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
-- [v0.8.2 architecture overview](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [v0.14.0 Cargo workspace](https://github.com/storytold/photocraft/blob/v0.14.0/Cargo.toml)
+- [v0.14.0 development guide](https://github.com/storytold/photocraft/blob/v0.14.0/docs/development.md)
+- [v0.14.0 architecture overview](https://github.com/storytold/photocraft/blob/v0.14.0/README.md)

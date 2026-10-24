@@ -6,7 +6,7 @@ export const meta = {
   description:
     'Compare PhotoCraft vs Photoshop by PSD support, desktop platforms, editing workflow and licensing. Use a practical checklist before moving your projects.',
   category: 'Comparison',
-  updated_at: '2026-10-18',
+  updated_at: '2026-10-23',
   sections: [
     'The comparison at a glance',
     'Our PSD result and the untested handoff',
@@ -24,7 +24,7 @@ export const meta = {
 
 PhotoCraft and Photoshop address the same basic job: editing images with layers, masks, text and selections. Their overlap makes PhotoCraft worth evaluating, but a familiar interface does not establish compatibility with every Photoshop workflow. The useful question is whether the files, tools and delivery requirements you use will work in the version you install.
 
-This comparison combines developer documentation with our recorded Windows v0.9.0 sample from 15 October 2026. We have not run a Photoshop comparison test, a performance benchmark or a test of your production files. This site is an independent guide, with no affiliation to ArtCraft or Adobe.
+This comparison combines developer documentation with our recorded Windows v0.14.0 sample from 23 October 2026. We have not run a Photoshop comparison test, a performance benchmark or a test of your production files. This site is an independent guide, with no affiliation to ArtCraft or Adobe.
 
 ## The comparison at a glance
 
@@ -46,11 +46,12 @@ Our Windows test started with a 1200 × 800 raster PNG. We duplicated its pixel 
 
 <CaptureGallery
   title="PhotoCraft side of the file test"
-  description="Our original Windows capture, 15 October 2026. The COAST lettering is part of the imported pixels; this is not an editable-type, smart-object or complex-effect test."
-  openLabel="View original PNG"
+  description="Our original Windows capture, 23 October 2026. The COAST lettering is part of the imported pixels; this is not an editable-type, smart-object or complex-effect test."
+  openLabel="View original JPEG"
   images={[
     {
-      file: 'windows-0.9.0-levels',
+      file: 'windows-0.14.0-levels',
+      originalFormat: 'jpg',
       alt: 'Reopened PhotoCraft PSD showing Layer 0, Layer 0 copy and Levels 1 with midtone 1.1',
       caption: 'Verified in PhotoCraft only: three layers and Levels value',
     },
@@ -64,7 +65,7 @@ Our Windows test started with a 1200 × 800 raster PNG. We duplicated its pixel 
 | Editable type, masks and smart objects | Not included in this sample         | Use a document containing those features                 |
 | Color or performance parity            | Not measured                        | Define a reference render and measurement before testing |
 
-Download the [input PNG](/imgs/photocraft/captures/coast-test.png) and [saved PSD](/imgs/photocraft/captures/coast-layers.psd). Repeat the [tutorial steps](/photocraft-tutorial), then add the receiving application to your check. Keep both application versions with the result; the [review](/photocraft-review#hands-on) supplies our machine details and original capture hashes.
+Download the [input PNG](/imgs/photocraft/captures/coast-test.png) and [saved PSD](/imgs/photocraft/captures/coast-layers-0.14.0.psd). Repeat the [tutorial steps](/photocraft-tutorial), then add the receiving application to your check. Keep both application versions with the result; the [review](/photocraft-review#hands-on) supplies our machine details and original capture hashes.
 
 ## Cost and ownership
 
@@ -130,9 +131,9 @@ When you are ready to try the application, the [PhotoCraft download page](/) lis
 
 ## PhotoCraft, Photoshop and Adobe: product identity
 
-Searches for “PhotoCraft Photoshop” and “PhotoCraft Adobe” often ask whether this is an Adobe product or an alternative workflow. PhotoCraft is independent: its v0.9.0 README explicitly states that it is not affiliated with, sponsored by or endorsed by Adobe. References to Photoshop explain editing concepts and intended compatibility, not ownership or complete feature parity.
+Searches for “PhotoCraft Photoshop” and “PhotoCraft Adobe” often ask whether this is an Adobe product or an alternative workflow. PhotoCraft is independent: its v0.14.0 README explicitly states that it is not affiliated with, sponsored by or endorsed by Adobe. References to Photoshop explain editing concepts and intended compatibility, not ownership or complete feature parity.
 
-For the relationship between the editor and its own product family, see [PhotoCraft and ArtCraft](/photocraft-artcraft). For an evidence-based adoption checklist, read the [PhotoCraft review](/photocraft-review). Keep these questions separate from whether your particular PSD survives an edit and handoff. The [versioned affiliation statement](https://github.com/storytold/photocraft/blob/v0.9.0/README.md) is the source for the product-identity clarification.
+For the relationship between the editor and its own product family, see [PhotoCraft and ArtCraft](/photocraft-artcraft). For an evidence-based adoption checklist, read the [PhotoCraft review](/photocraft-review). Keep these questions separate from whether your particular PSD survives an edit and handoff. The [versioned affiliation statement](https://github.com/storytold/photocraft/blob/v0.14.0/README.md) is the source for the product-identity clarification.
 
 ## Sources and scope
 

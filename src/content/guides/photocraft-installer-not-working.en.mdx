@@ -18,7 +18,7 @@ export const meta = {
   ],
 };
 
-First record the complete error, your operating system, the package filename and where installation stops. A blocked download, installer error and crash after launch need different checks. These steps reference the reviewed **PhotoCraft v0.9.0** packages. For newer versions, use their own filenames and release notes.
+First record the complete error, your operating system, the package filename and where installation stops. A blocked download, installer error and crash after launch need different checks. These steps reference the reviewed **PhotoCraft v0.14.0** packages. For newer versions, use their own filenames and release notes.
 
 ## Choose the failure you actually see
 
@@ -38,18 +38,18 @@ Read **Settings → System → About → System type**. Use x64 for 64-bit Intel
 For a verified MSI, Windows Installer can write a diagnostic log during an installation you choose to start:
 
 ```powershell
-msiexec.exe /i ".\photocraft-0.9.0-windows-x64.msi" /L*V ".\photocraft-install.log"
+msiexec.exe /i ".\photocraft-0.14.0-windows-x64.msi" /L*V ".\photocraft-install.log"
 ```
 
 This command launches setup and writes a log in the current folder. Review the install prompts. Keep the first relevant error and the surrounding log lines; a final generic failure alone may hide the cause. Remove usernames, private paths and other sensitive information before sharing logs.
 
 For **Portable ZIP**, use Extract All and keep the entire extracted folder together. Launch `photocraft.exe` from that folder, with `portable.txt` beside it. Running inside a compressed-folder preview or copying only the executable can leave dependencies unavailable. Choose a writable user folder for portable settings.
 
-The v0.9.0 [Windows packaging script](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1) describes a statically linked C runtime. If an error names `VCRUNTIME140.dll` or `MSVCP140.dll`, confirm the release and identify the component that requested it before installing anything. Do not download isolated DLLs from third-party sites. See the [Windows guide](/photocraft-windows#missing-dll-or-runtime-messages) for the distinction between bundled files, optional runtimes and graphics failures.
+The v0.14.0 [Windows packaging script](https://github.com/storytold/photocraft/blob/v0.14.0/packaging/windows/package.ps1) describes a statically linked C runtime. If an error names `VCRUNTIME140.dll` or `MSVCP140.dll`, confirm the release and identify the component that requested it before installing anything. Do not download isolated DLLs from third-party sites. See the [Windows guide](/photocraft-windows#missing-dll-or-runtime-messages) for the distinction between bundled files, optional runtimes and graphics failures.
 
 ## Windows SmartScreen warnings
 
-A reputation warning is different from a named malware detection or an administrator policy block. Compare the exact downloaded filename and hash, check the publisher details available in the warning and consult the [official release](https://github.com/storytold/photocraft/releases/tag/v0.9.0). Do not assume open source means a signed installer or that a matching hash overrides a security alert.
+A reputation warning is different from a named malware detection or an administrator policy block. Compare the exact downloaded filename and hash, check the publisher details available in the warning and consult the [official release](https://github.com/storytold/photocraft/releases/tag/v0.14.0). Do not assume open source means a signed installer or that a matching hash overrides a security alert.
 
 If a scanner reports malware, retain its detection name and seek a corrected developer release. For a managed work or school device, ask its administrator about a policy block. An MSI and Portable ZIP can both be subject to device policy.
 
@@ -77,8 +77,8 @@ Start by recording the distribution and CPU architecture:
 ```sh
 uname -m
 cat /etc/os-release
-chmod +x photocraft-0.9.0-linux-x86_64.AppImage
-./photocraft-0.9.0-linux-x86_64.AppImage
+chmod +x photocraft-0.14.0-linux-x86_64.AppImage
+./photocraft-0.14.0-linux-x86_64.AppImage
 ```
 
 Use the aarch64 filename on ARM64. `Exec format error` indicates an architecture or executable-format problem; it is not fixed by installing FUSE. A permissions error can come from an executable bit or a mount restriction.
@@ -88,7 +88,7 @@ For `libfuse.so.2` or “AppImages require FUSE,” the [AppImage documentation]
 For the reviewed Type 2 AppImage, the documented extraction path avoids mounting through FUSE:
 
 ```sh
-./photocraft-0.9.0-linux-x86_64.AppImage --appimage-extract-and-run
+./photocraft-0.14.0-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 Allow extraction space and retain terminal output. This does not solve a missing graphics driver or an incompatible host library. Do not run the editor as root to work around a normal desktop permission problem. The [Linux package reference](/photocraft-linux) covers native packages and Flatpak runtime checks as alternative installation paths.
@@ -99,7 +99,7 @@ These are source-based diagnostics. We have not reproduced a PhotoCraft FUSE err
 
 | Area                             | Evidence available here                                                                                                               |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Windows x64 Portable, v0.9.0     | [15 October launch and document exercise](/photocraft-windows#our-portable-launch-and-document-check), About and System Info captures |
+| Windows x64 Portable, v0.14.0    | [23 October launch and document exercise](/photocraft-windows#our-portable-launch-and-document-check), About and System Info captures |
 | Windows MSI installation failure | No recorded reproduction or installer-error screenshot                                                                                |
 | Windows SmartScreen              | No recorded warning or remediation screenshot                                                                                         |
 | macOS Gatekeeper                 | No local Mac test or alert screenshot                                                                                                 |
@@ -113,7 +113,7 @@ Include the release tag, complete filename, SHA256, OS version, architecture, ex
 
 ## Sources
 
-- [Official v0.9.0 files](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
+- [Official v0.14.0 files](https://github.com/storytold/photocraft/releases/tag/v0.14.0)
 - [Microsoft: Windows Installer logging and options](https://learn.microsoft.com/en-us/windows/win32/msi/command-line-options)
 - [Microsoft: SmartScreen overview](https://learn.microsoft.com/en-us/windows/security/operating-system-security/virus-and-threat-protection/microsoft-defender-smartscreen/)
 - [Apple: safely open apps](https://support.apple.com/en-us/102445)

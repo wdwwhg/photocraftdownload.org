@@ -1,3 +1,6 @@
+import { PlatformDownloads } from '@/components/photocraft/download-table';
+import downloadLabels from '@/content/download-labels.json';
+
 export const meta = {
   title: 'PhotoCraft macOS 安装：Gatekeeper 与「已损坏」排查',
   heading: 'PhotoCraft macOS 安装指南',
@@ -5,7 +8,7 @@ export const meta = {
     '下载 Intel 与 Apple 芯片通用 DMG，完成安装；区分 Gatekeeper 未验证开发者、App 已损坏和恶意软件提示，按步骤核对并处理。',
   category: 'macOS 安装',
   published_at: '2026-10-15',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-24',
   sections: [
     'Intel 与 Apple 芯片下载同一个 DMG',
     '从 DMG 安装到应用程序',
@@ -17,15 +20,17 @@ export const meta = {
   ],
 };
 
-Mac 安装最容易卡在两个地方：把 CLI ZIP 当成桌面应用，以及把所有安全提示当成同一种错误。本文说明 **PhotoCraft v0.9.0** 的安装与 Gatekeeper 排查。
+Mac 安装最容易卡在两个地方：把 CLI ZIP 当成桌面应用，以及把所有安全提示当成同一种错误。本文说明 **PhotoCraft v%CURRENT_VERSION%** 的安装与 Gatekeeper 排查。
 
 **当前官方 README 把 DMG 标注为已签名并公证。** 先使用官方 DMG 正常安装。若你使用旧版或自行编译的未签名版本，遇到拦截时按下面对应分支处理。
 
+<PlatformDownloads platform="macos" labels={downloadLabels.zh} />
+
 ## Intel 与 Apple 芯片下载同一个 DMG
 
-打开 **苹果菜单 → 关于本机**：“芯片 Apple M…”表示 Apple 芯片，“处理器 Intel…”表示 Intel。两者都使用[官方 Universal DMG](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-macos-universal.dmg)。
+打开 **苹果菜单 → 关于本机**：“芯片 Apple M…”表示 Apple 芯片，“处理器 Intel…”表示 Intel。两者都使用[官方 Universal DMG](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-macos-universal.dmg)。
 
-文件名是 **photocraft-0.9.0-macos-universal.dmg**。photocraft-cli 开头的 ZIP 是命令行工具，不能代替桌面版安装。也可以回到[三步下载选择器](/#downloads)确认。
+文件名是 **photocraft-%CURRENT_VERSION%-macos-universal.dmg**。photocraft-cli 开头的 ZIP 是命令行工具，不能代替桌面版安装。也可以回到[三步下载选择器](/#downloads)确认。
 
 ## 从 DMG 安装到应用程序
 
@@ -62,10 +67,10 @@ Mac 安装最容易卡在两个地方：把 CLI ZIP 当成桌面应用，以及�
 2. 从同一官方版本重新下载 DMG，比较 SHA-256。以下命令以文件在“下载”目录为例：
 
 ```sh
-shasum -a 256 "$HOME/Downloads/photocraft-0.9.0-macos-universal.dmg"
+shasum -a 256 "$HOME/Downloads/photocraft-%CURRENT_VERSION%-macos-universal.dmg"
 ```
 
-3. 与[同版本 SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt) 中该 DMG 的完整值比较。不一致时重新下载；一致后重新挂载 DMG，完整复制到“应用程序”再试。
+3. 与[同版本 SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt) 中该 DMG 的完整值比较。不一致时重新下载；一致后重新挂载 DMG，完整复制到“应用程序”再试。
 4. 若仍然失败，记录 macOS 版本、弹窗原文和下节检查结果，提交给[官方维护者](/photocraft-github)。
 
 移除隔离标记或临时重签名都不会修复一个已经损坏的文件，也会丢失诊断线索；这里的处理顺序是先验证和重装。出现“恶意软件”或“将损坏电脑”时，不把它套进“仍要打开”的步骤。
@@ -89,10 +94,10 @@ spctl --assess --type execute --verbose=4 "/Applications/PhotoCraft.app"
 
 ## 来源与验证范围
 
-- [v0.9.0 Mac 文件与签名、公证说明](https://github.com/storytold/photocraft/blob/v0.9.0/README.md#macos)
+- [v0.15.1 Mac 文件与签名、公证说明](https://github.com/storytold/photocraft/blob/v0.15.1/README.md#macos)
 - [Apple：安全打开 Mac 应用](https://support.apple.com/en-us/102445)
 - [Apple：打开身份不明开发者的应用](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unknown-developer-mh40616/mac)
 - [Apple：签名验证命令与含义](https://developer.apple.com/library/archive/technotes/tn2206/_index.html)
-- [PhotoCraft 启动与日志](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [PhotoCraft 启动与日志](https://github.com/storytold/photocraft/blob/v0.15.1/docs/development.md)
 
 核对日期为 2026-10-15。步骤依据官方文件与 Apple 操作说明整理，尚未覆盖所有 Mac 机型与 macOS 版本的独立实测。

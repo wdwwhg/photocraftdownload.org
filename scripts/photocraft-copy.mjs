@@ -2,13 +2,46 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 // Editable bilingual site copy. Run once to merge into the template's Paraglide catalogs.
 const copy = {
+  'downloads.files': ['All download files', '全版本下载文件清单'],
+  'guides.photocraft-download-files.title': [
+    'PhotoCraft Download Files',
+    'PhotoCraft 下载文件清单',
+  ],
+  'guides.photocraft-download-files.description': [
+    'Every official release file, exact byte size, SHA256 and download link.',
+    '查找每版官方文件、准确大小、SHA256 与下载直链。',
+  ],
+  'topicNav.photocraft-download-files': [
+    'PhotoCraft Download Files',
+    'PhotoCraft 下载文件清单',
+  ],
+  'downloads.windows.guideLink': [
+    'PhotoCraft for Windows Download',
+    'PhotoCraft Windows 下载与安装',
+  ],
+  'downloads.windows.summary': [
+    'PhotoCraft is available for Windows, with downloads and installation help on its dedicated page.',
+    'Windows 用户可在专页下载 PhotoCraft，并查看安装与启动帮助。',
+  ],
+  'downloads.checkMethod': [
+    'Every six hours, the updater compares the official latest tag, verifies all listed files and SHA256 values, and publishes passing updates automatically.',
+    '每 6 小时比对官方最新版本，核验所列文件与 SHA256，通过后自动发布更新。',
+  ],
+  'downloads.status.unknown': ['See official status', '查看官方状态'],
+  'downloads.status.stable': ['Stable · official status', '稳定版 · 官方状态'],
+  'downloads.status.beta': ['Beta · official status', 'Beta · 官方状态'],
+  'downloads.status.alpha': ['Alpha · official status', 'Alpha · 官方状态'],
+  'downloads.status.early-alpha': [
+    'Early alpha · official status',
+    '早期 Alpha · 官方状态',
+  ],
   'guides.photocraft-version-history.title': [
     'PhotoCraft Version History',
     'PhotoCraft 版本历史',
   ],
   'guides.photocraft-version-history.description': [
-    'Release dates, everyday changes and official downloads from v0.7.0 through v0.9.0.',
-    '查看 v0.7.0 至 v0.9.0 的发布日期、日常使用变化与各版官方下载。',
+    'Release dates, changes and official downloads for current and historical PhotoCraft versions.',
+    '查看 PhotoCraft 当前及历史版本的发布日期、变更与官方下载。',
   ],
   'topicNav.photocraft-version-history': [
     'PhotoCraft Version History',
@@ -211,8 +244,8 @@ const copy = {
   ],
   'topicNav.photocraft-rust': ['PhotoCraft Rust', 'PhotoCraft Rust'],
   'meta.title': [
-    'PhotoCraft Download v%VERSION% — Free Photo Editor (%YEAR%)',
-    'PhotoCraft 下载 v%VERSION% — 免费照片编辑器（%YEAR%）',
+    'PhotoCraft Download — Free Photo Editor for Windows, macOS & Linux',
+    'PhotoCraft 下载 — 适用于 Windows、macOS 和 Linux 的免费照片编辑器',
   ],
   'meta.description': [
     'Download PhotoCraft for Windows, macOS and Linux. Find official installers, verified release links, PSD support details and clear steps to get started.',
@@ -309,7 +342,7 @@ const copy = {
   ],
   'nav.open': ['Open navigation', '展开导航'],
   'nav.close': ['Close navigation', '关闭导航'],
-  'downloads.alpha': ['Early alpha', '早期 Alpha'],
+  'downloads.alpha': ['Early alpha · official status', '早期 Alpha · 官方状态'],
   'footer.privacy': ['Privacy Policy', '隐私政策'],
   'footer.terms': ['Terms of Use', '使用条款'],
   'hero.eyebrow': ['Your next creative starting point', '从这里，开始你的创作'],
@@ -331,16 +364,16 @@ const copy = {
     '打开、编辑、保存分层 PSD',
   ],
   'hero.caption': [
-    'Captured by this site · Windows 11 · v0.9.0 · 15 Oct 2026',
-    '本站实拍 · Windows 11 · v0.9.0 · 2026-10-15',
+    'Captured by this site · Windows 11 · v0.14.0 · 23 Oct 2026',
+    '本站实拍 · Windows 11 · v0.14.0 · 2026-10-23',
   ],
   'images.interface': [
-    'Our Windows 11 capture of PhotoCraft with the About dialog showing version 0.9.0 and commit c699e3cda over our original COAST test document.',
-    '本站 Windows 11 真机截图：PhotoCraft「关于」对话框显示版本 0.9.0、提交 c699e3cda，背景为本站原创 COAST 测试文档。',
+    'Our Windows 11 capture of PhotoCraft with the About dialog showing version 0.14.0 and commit ff4738810 over our original COAST test document.',
+    '本站 Windows 11 真机截图：PhotoCraft「关于」对话框显示版本 0.14.0、提交 ff4738810，背景为本站原创 COAST 测试文档。',
   ],
   'images.adjustments': [
-    'Our PhotoCraft 0.9.0 Windows capture after reopening coast-layers.psd, showing three layers and a Levels midtone value of 1.1.',
-    '本站 PhotoCraft 0.9.0 Windows 实拍：重开 coast-layers.psd 后，三个图层与色阶中间调 1.1 仍保留。',
+    'Our PhotoCraft 0.14.0 Windows capture after reopening coast-layers-0.14.0.psd, showing three layers and a Levels midtone value of 1.1.',
+    '本站 PhotoCraft 0.14.0 Windows 实拍：重开 coast-layers-0.14.0.psd 后，三个图层与色阶中间调 1.1 仍保留。',
   ],
   'proof.open': ['Free & open source', '免费且开源'],
   'proof.psd': ['Native PSD & PSB support', '原生支持 PSD 与 PSB'],
@@ -389,12 +422,7 @@ const copy = {
   ],
   'hero.directDownload': ['Download', '下载'],
   'hero.allBuilds': ['View all builds', '查看全部版本格式'],
-  'downloads.monitor': ['View the daily check', '查看每日自动检查'],
-  'downloads.report': ['View this check report', '查看本次检查报告'],
-  'downloads.checkMethod': [
-    'Links are verified automatically before publication. A daily monitor also checks for missing files and newer official releases.',
-    '每次发布前自动验证下载链接，每日巡检还会检查文件缺失与官方新版本。',
-  ],
+  'downloads.monitor': ['View automatic updates', '查看自动更新记录'],
   'downloads.updateNote': [
     'These PhotoCraft download links are pinned to version %VERSION%. File sizes come from the official release and are shown in MiB.',
     '这些 PhotoCraft 下载链接固定为 %VERSION% 版本。文件大小取自官方发布数据，按 MiB 显示。',
@@ -418,13 +446,13 @@ const copy = {
     '这些截图，在哪台电脑上拍的？',
   ],
   'captures.description': [
-    'Captured on 15 Oct 2026: PhotoCraft 0.9.0 x64 Portable on Windows 11 25H2, with an RTX 4060 Laptop GPU and Vulkan. We opened our original artwork, duplicated a layer, added Levels at 1.10, then saved and reopened this simple PSD. This check covers this file and this Windows build.',
-    '2026-10-15，Windows 11 25H2、RTX 4060 Laptop GPU、Vulkan，运行 PhotoCraft 0.9.0 x64 便携版。打开本站原创画布，复制图层，添加色阶并设为 1.10，再保存、关闭并重开 PSD。本次验证范围为这个简单文件与这款 Windows 构建。',
+    'Captured on 23 Oct 2026: PhotoCraft 0.14.0 x64 Portable on Windows 11 25H2, with an RTX 4060 Laptop GPU and DX12. We opened our original artwork, duplicated a layer, added Levels at 1.10, then saved and reopened this simple PSD. This check covers this file and this Windows build.',
+    '2026-10-23，Windows 11 25H2、RTX 4060 Laptop GPU、DX12，运行 PhotoCraft 0.14.0 x64 便携版。打开本站原创画布，复制图层，添加色阶并设为 1.10，再保存、关闭并重开 PSD。本次验证范围为这个简单文件与这款 Windows 构建。',
   ],
-  'captures.open': ['View original PNG', '查看原始 PNG'],
+  'captures.open': ['View original JPEG', '查看原始 JPEG'],
   'captures.systemAlt': [
-    'Our real PhotoCraft System Info screenshot showing version 0.9.0, windows x86_64, NVIDIA RTX 4060 Laptop GPU and Vulkan, with the reopened PSD behind it.',
-    '本站 PhotoCraft 系统信息实拍：显示 0.9.0、windows x86_64、NVIDIA RTX 4060 Laptop GPU、Vulkan，背景为重开后的 PSD。',
+    'Our real PhotoCraft System Info screenshot showing version 0.14.0, windows x86_64, NVIDIA RTX 4060 Laptop GPU and DX12, with the reopened PSD behind it.',
+    '本站 PhotoCraft 系统信息实拍：显示 0.14.0、windows x86_64、NVIDIA RTX 4060 Laptop GPU、DX12，背景为重开后的 PSD。',
   ],
   'captures.systemCaption': [
     'System Info · actual app dialog',
@@ -665,8 +693,8 @@ const copy = {
     '应该选择哪个 PhotoCraft 安装包？',
   ],
   'faq.installer.a': [
-    'Match both your operating system and processor. Most Intel or AMD Windows PCs use x64, while Windows on ARM needs ARM64; the portable ZIP is an alternative to the MSI installer. The macOS Universal DMG covers the architectures listed by the project. On Linux, choose a matching AppImage or a package supported by your distribution. A CLI archive is intended for command-line use, so it is not the usual starting point for someone who wants the graphical editor. Check the architecture in your system settings if you are unsure.',
-    '安装包需要同时匹配系统与处理器。大多数 Intel 或 AMD Windows 电脑使用 x64，Windows on ARM 使用 ARM64；便携 ZIP 是 MSI 安装包之外的选择。macOS Universal DMG 对应项目列出的 Mac 架构。Linux 应选择匹配架构的 AppImage 或发行版支持的软件包。CLI 压缩包用于命令行，想使用图形界面时通常不选它。不确定架构时，先查看系统设置。',
+    'Choose the download page for your operating system, then check the processor architecture and package format there. Each platform guide provides its official files, complete SHA256 values and installation steps. The macOS Universal DMG is the desktop installer; Linux offers several package formats. A CLI archive is intended for command-line use.',
+    '先进入对应系统的下载页，再在专页确认处理器架构与包格式。各平台指南提供官方文件、完整 SHA256 和安装步骤。macOS 桌面应用使用 Universal DMG；Linux 提供多种包格式。CLI 压缩包用于命令行操作。',
   ],
   'faq.account.q': [
     'Do I need an account or internet connection?',
@@ -689,8 +717,8 @@ const copy = {
     '在哪里下载更新版本的 PhotoCraft？',
   ],
   'faq.updates.a': [
-    'Use “Latest official release” above to see the current upstream release. This page lists version %VERSION%, with an automatic check timestamp beside the links. Our daily monitor checks for newer versions and missing files; a version change requires a review of the listed packages and installation instructions. Before installing an update, read its release notes and keep copies of ongoing projects. ArtCraft also offers a launcher for managing installations and updates from its official product page.',
-    '点击上方“最新官方版本”查看当前上游发布。本页列出 %VERSION% 版本，并在链接旁显示自动核对时间。每日巡检会检查新版本与文件缺失；升级版本前还需复核安装包及安装说明。安装更新前请阅读发布说明，并保留正在编辑的项目副本。ArtCraft 官方产品页还提供用于管理安装和更新的启动器。',
+    'Every six hours, this site compares GitHub’s latest official release with the download catalog. New filenames, sizes and SHA256 values are verified before the site builds and publishes an update automatically. A failed check keeps the last successful production deployment and opens a tracked issue for retry. The editing tests and malware scans identify their actual tested versions; an automatic download update does not repeat those tests. Before updating your installation, read the official release notes and keep copies of your projects.',
+    '本站每 6 小时比对 GitHub 官方最新版本与下载目录。新版文件名、大小和 SHA256 核验通过后，自动构建并发布。检查失败时保留最近一次成功的线上部署，并创建可跟踪的 issue，后续任务会重试。编辑实测和病毒扫描始终标明实际测试版本；自动更新下载数据不代表重新完成这些测试。更新本机应用前，请阅读官方发布说明并备份项目。',
   ],
   'faq.failed.q': [
     'What if a download or first launch fails?',

@@ -19,7 +19,7 @@ export const Route = createFileRoute('/')({
       localizeUrl(`${envConfigs.app_url.replace(/\/$/, '')}/`, {
         locale: loc as 'en' | 'zh',
       }).href;
-    const title = formatReleaseCopy(m['photocraft.meta.title']({}, { locale }));
+    const title = m['photocraft.meta.title']({}, { locale });
     const description = formatReleaseCopy(
       m['photocraft.meta.description']({}, { locale })
     );
@@ -34,7 +34,7 @@ export const Route = createFileRoute('/')({
         { property: 'og:url', content: urlFor(locale) },
         {
           property: 'og:image',
-          content: `${envConfigs.app_url.replace(/\/$/, '')}/imgs/photocraft/captures/windows-0.9.0-levels.png`,
+          content: `${envConfigs.app_url.replace(/\/$/, '')}/imgs/photocraft/captures/windows-0.14.0-levels.jpg`,
         },
         { name: 'twitter:card', content: 'summary_large_image' },
       ],

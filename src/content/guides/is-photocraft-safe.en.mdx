@@ -11,7 +11,7 @@ export const meta = {
     'Check official PhotoCraft downloads with Windows, macOS and Linux SHA256 commands. Read the actual link-check records, scan status and limits of the evidence.',
   category: 'Download verification',
   published_at: '2026-10-23',
-  updated_at: '2026-10-23',
+  updated_at: '2026-10-24',
   sections: [
     'What we can verify',
     'Windows SHA256 verification',
@@ -24,13 +24,13 @@ export const meta = {
   ],
 };
 
-PhotoCraft has an open-source repository and official release downloads, but those facts alone do not prove every file is safe. Start with the exact release, verify its hash and review your operating system's security result before running it. **Our Microsoft Defender scan found no threats in one v0.9.0 Windows x64 MSI on 23 October 2026.** Other packages and later releases are outside that scan's scope.
+PhotoCraft has an open-source repository and official release downloads, but those facts alone do not prove every file is safe. Start with the exact release, verify its hash and review your operating system's security result before running it. **Our Microsoft Defender scan found no threats in one v0.14.0 Windows x64 MSI on 23 October 2026.** Other packages and later releases are outside that scan's scope.
 
 ## What we can verify
 
 Our [download table](/#downloads) links to the **storytold/photocraft** GitHub release assets. It shows the file size in bytes and MiB, and the full SHA256 from that release's official checksum file. The current metadata check compares those values with GitHub asset digests where available and checks each download response. It does not download and scan installer contents.
 
-The site's reviewed downloads and [Windows document test](/photocraft-windows#our-portable-launch-and-document-check) cover **v0.9.0**. Later releases have their own files and hashes. Check the [official latest release](https://github.com/storytold/photocraft/releases/latest) for newer versions and the [version archive](/photocraft-version-history) for reviewed older files.
+The site's current downloads cover **v%CURRENT_VERSION%**. The recorded v0.14.0 malware scan and Windows exercise below are historical evidence; no v%CURRENT_VERSION% malware scan or launch test is recorded. The [Windows document test](/photocraft-windows#our-portable-launch-and-document-check) records the specific portable build and machine. Future releases have their own files and hashes. Check the [official latest release](https://github.com/storytold/photocraft/releases/latest) for newer versions and the [version archive](/photocraft-version-history) for reviewed older files.
 
 | Evidence                                    | What it establishes                                | What it cannot establish                              |
 | ------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------- |
@@ -44,17 +44,17 @@ The site's reviewed downloads and [Windows document test](/photocraft-windows#ou
 In PowerShell, from the folder containing the downloaded file:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-%CURRENT_VERSION%-windows-x64.msi'
 ```
 
-Compare **all 64 hexadecimal characters** in `Hash` with the same filename in the [Windows download table](/photocraft-windows#photocraft-windows-download-files) and [v0.9.0 SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Letter case does not matter. For Portable ZIP, x86 or ARM64, substitute that exact filename; its hash will differ.
+Compare **all 64 hexadecimal characters** in `Hash` with the same filename in the [Windows download table](/photocraft-windows#photocraft-windows-download-files) and [v%CURRENT_VERSION% SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt). Letter case does not matter. For Portable ZIP, x86 or ARM64, substitute that exact filename; its hash will differ.
 
 ## macOS SHA256 verification
 
 In Terminal, from the download directory:
 
 ```sh
-shasum -a 256 photocraft-0.9.0-macos-universal.dmg
+shasum -a 256 photocraft-%CURRENT_VERSION%-macos-universal.dmg
 ```
 
 Match the result to the DMG row on the [macOS download page](/photocraft-macos#one-dmg-for-intel-and-apple-silicon). A matching hash and Gatekeeper approval answer different questions. Apple documents signature, notarization and first-launch alerts in its [safe-opening guidance](https://support.apple.com/en-us/102445). We have no local macOS scan or Gatekeeper test result.
@@ -64,7 +64,7 @@ Match the result to the DMG row on the [macOS download page](/photocraft-macos#o
 For an AppImage downloaded into the current directory:
 
 ```sh
-sha256sum photocraft-0.9.0-linux-x86_64.AppImage
+sha256sum photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
 ```
 
 Use the [Linux file table](/photocraft-linux#official-files-and-checksums) to select the exact architecture and format. A Flatpak bundle, DEB, RPM and tar.gz each have a different hash. Verify before executing the AppImage or installing a package.
@@ -79,7 +79,7 @@ Confirm that the output names **your intended file** and reports `OK`. This also
 
 ## Malware scan status
 
-A custom Microsoft Defender file scan was run on the official **photocraft-0.9.0-windows-x64.msi**, after its downloaded bytes matched the published SHA256. Remediation was disabled and the installer was not executed. The original scanner output and exact scope are available in the [scan report](/photocraft-security-scan.json).
+A custom Microsoft Defender file scan was run on the official **photocraft-0.14.0-windows-x64.msi**, after its downloaded bytes matched the published SHA256. Remediation was disabled and the installer was not executed. The original scanner output and exact scope are available in the [scan report](/photocraft-security-scan.json).
 
 <dl>
   <dt>File and SHA256</dt>
@@ -142,7 +142,7 @@ Stop before running the file. Check release, architecture and filename first; th
 ## Sources
 
 - [Official PhotoCraft repository](https://github.com/storytold/photocraft)
-- [Reviewed v0.9.0 release and checksums](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
+- [Current v%CURRENT_VERSION% release and checksums](https://github.com/storytold/photocraft/releases/tag/v%CURRENT_VERSION%)
 - [Microsoft Get-FileHash reference](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash)
 - [Apple: safely open apps on your Mac](https://support.apple.com/en-us/102445)
 - [GNU checksum verification reference](https://www.gnu.org/software/coreutils/manual/html_node/cksum-common-options.html)

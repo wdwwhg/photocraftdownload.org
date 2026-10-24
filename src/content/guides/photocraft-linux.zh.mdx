@@ -1,10 +1,13 @@
+import { PlatformDownloads } from '@/components/photocraft/download-table';
+import downloadLabels from '@/content/download-labels.json';
+
 export const meta = {
   title: 'PhotoCraft Linux 安装：五种包怎么选与报错处理',
   heading: 'PhotoCraft Linux 安装指南',
   description:
     '比较 AppImage、Flatpak、DEB、RPM 和 tar.gz，按发行版选择安装方式，处理 FUSE、运行时、依赖和权限问题，说明更新与卸载。',
   category: 'Linux 安装',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-24',
   sections: [
     '五种 Linux 包先选哪一种',
     '确认发行版与处理器',
@@ -19,7 +22,7 @@ export const meta = {
   ],
 };
 
-不必五种包都装一遍。**先按使用方式选格式，再按处理器选文件。** 本文以官方 **v0.9.0** 发布包为例，补充 FUSE、Flatpak 运行时、本地包依赖及 tar.gz 目录这些容易卡住的步骤。
+不必把每种包都装一遍。**先按使用方式选格式，再按处理器选文件。** 本文以官方 **v%CURRENT_VERSION%** 发布包为例，补充 FUSE、Flatpak 运行时、本地包依赖及 tar.gz 目录这些容易卡住的步骤。
 
 ## 五种 Linux 包先选哪一种
 
@@ -42,33 +45,37 @@ uname -m
 cat /etc/os-release
 ```
 
-x86_64 对应 Intel/AMD 64 位文件；aarch64 对应 ARM64。不要用改文件名或包格式转换来解决 CPU 不匹配。RISC-V 用户见官方 tar.gz 说明，v0.9.0 README 为该构建标注 **glibc 2.39+**。
+x86_64 对应 Intel/AMD 64 位文件；aarch64 对应 ARM64。不要用改文件名或包格式转换来解决 CPU 不匹配。RISC-V 用户见官方 tar.gz 说明，v0.15.1 README 为该构建标注 **glibc 2.39+**。
 
 不知道从哪开始，可以返回[下载选择器](/#downloads)；若已知发行版并希望使用 DEB/RPM，直接选择下表对应文件。
 
 ## 官方文件与校验
 
-| 格式     | Intel/AMD x86_64                                                                                                             | ARM64 / aarch64                                                                                                              |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| AppImage | [x86_64 AppImage](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.AppImage)   | [ARM64 AppImage](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.AppImage)   |
-| Flatpak  | [x86_64 Flatpak](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.flatpak)     | [ARM64 Flatpak](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.flatpak)     |
-| DEB      | [x86_64 DEB](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.deb)             | [ARM64 DEB](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.deb)             |
-| RPM      | [x86_64 RPM](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.rpm)             | [ARM64 RPM](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.rpm)             |
-| tar.gz   | [x86_64 二进制压缩包](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-x86_64.tar.gz) | [ARM64 二进制压缩包](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-aarch64.tar.gz) |
+<PlatformDownloads platform="linux" labels={downloadLabels.zh} />
 
-[RISC-V tar.gz](https://github.com/storytold/photocraft/releases/download/v0.9.0/photocraft-0.9.0-linux-riscv64.tar.gz) 也在固定发布中。下载后以 AppImage 为例计算：
+当前发布还提供 x86_64 与 ARM64 的 **Arch .pkg.tar.zst** 包，以及 **RISC-V DEB、RPM** 和 tar.gz。以本页核验的发布文件表为准，README 中的部分示例尚未列全格式。Arch 可用 `sudo pacman -U ./photocraft-%CURRENT_VERSION%-linux-x86_64.pkg.tar.zst` 安装匹配包；文件存在不代表适配所有发行版。
+
+| 格式     | Intel/AMD x86_64                                                                                                                                     | ARM64 / aarch64                                                                                                                                      |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AppImage | [x86_64 AppImage](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage)   | [ARM64 AppImage](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.AppImage)   |
+| Flatpak  | [x86_64 Flatpak](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.flatpak)     | [ARM64 Flatpak](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.flatpak)     |
+| DEB      | [x86_64 DEB](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.deb)             | [ARM64 DEB](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.deb)             |
+| RPM      | [x86_64 RPM](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.rpm)             | [ARM64 RPM](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.rpm)             |
+| tar.gz   | [x86_64 二进制压缩包](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-x86_64.tar.gz) | [ARM64 二进制压缩包](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-aarch64.tar.gz) |
+
+[RISC-V tar.gz](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/photocraft-%CURRENT_VERSION%-linux-riscv64.tar.gz) 也在固定发布中。下载后以 AppImage 为例计算：
 
 ```sh
-sha256sum photocraft-0.9.0-linux-x86_64.AppImage
+sha256sum photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
 ```
 
-与同一版本 [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt) 中相同文件名的完整值比较。下面所有命令都假定你已在下载文件所在目录；换架构时，把文件名中的 x86_64 改为 aarch64。
+与同一版本 [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt) 中相同文件名的完整值比较。下面所有命令都假定你已在下载文件所在目录；换架构时，把文件名中的 x86_64 改为 aarch64。
 
 ## AppImage：直接运行与 FUSE 问题
 
 ```sh
-chmod +x photocraft-0.9.0-linux-x86_64.AppImage
-./photocraft-0.9.0-linux-x86_64.AppImage
+chmod +x photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
+./photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage
 ```
 
 有的文件管理器也能在“属性 → 权限”勾选“允许作为程序执行”。新下载的文件可能要重新设置权限。
@@ -78,7 +85,7 @@ chmod +x photocraft-0.9.0-linux-x86_64.AppImage
 无法使用 FUSE 时，当前打包采用支持提取运行的 Type 2 runtime，可尝试：
 
 ```sh
-./photocraft-0.9.0-linux-x86_64.AppImage --appimage-extract-and-run
+./photocraft-%CURRENT_VERSION%-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 它需要额外解压空间，不能替你解决所有系统库问题；也可改选 Flatpak 或发行版原生包。不要用 sudo 启动编辑器来“修复”普通权限报错。
@@ -89,7 +96,7 @@ chmod +x photocraft-0.9.0-linux-x86_64.AppImage
 
 ```sh
 flatpak --version
-flatpak install --user ./photocraft-0.9.0-linux-x86_64.flatpak
+flatpak install --user ./photocraft-%CURRENT_VERSION%-linux-x86_64.flatpak
 flatpak run ai.storyteller.photocraft
 ```
 
@@ -114,19 +121,19 @@ flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/fl
 Ubuntu / Debian：
 
 ```sh
-sudo apt install ./photocraft-0.9.0-linux-x86_64.deb
+sudo apt install ./photocraft-%CURRENT_VERSION%-linux-x86_64.deb
 ```
 
 Fedora：
 
 ```sh
-sudo dnf install ./photocraft-0.9.0-linux-x86_64.rpm
+sudo dnf install ./photocraft-%CURRENT_VERSION%-linux-x86_64.rpm
 ```
 
 openSUSE 使用自己的工具，例如：
 
 ```sh
-sudo zypper install ./photocraft-0.9.0-linux-x86_64.rpm
+sudo zypper install ./photocraft-%CURRENT_VERSION%-linux-x86_64.rpm
 ```
 
 开头的 ./ 表示“当前目录里的本地文件”。相比只用 dpkg 或 rpm 解包，发行版包管理器会尝试从配置的软件源解析依赖。
@@ -138,18 +145,18 @@ sudo zypper install ./photocraft-0.9.0-linux-x86_64.rpm
 适合需要控制位置、保留多个版本的用户。先查看目录结构：
 
 ```sh
-tar -tzf photocraft-0.9.0-linux-x86_64.tar.gz
+tar -tzf photocraft-%CURRENT_VERSION%-linux-x86_64.tar.gz
 ```
 
 当前官方打包树包含版本顶层目录和 bin、share。解压到自己的独立版本目录，去掉归档的第一层目录：
 
 ```sh
-mkdir -p "$HOME/Applications/photocraft-0.9.0"
-tar -xzf photocraft-0.9.0-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/Applications/photocraft-0.9.0"
-"$HOME/Applications/photocraft-0.9.0/bin/photocraft"
+mkdir -p "$HOME/Applications/photocraft-%CURRENT_VERSION%"
+tar -xzf photocraft-%CURRENT_VERSION%-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/Applications/photocraft-%CURRENT_VERSION%"
+"$HOME/Applications/photocraft-%CURRENT_VERSION%/bin/photocraft"
 ```
 
-保留 bin 与 share 的相对位置，不要只拷贝一个二进制文件。它不自动注册系统包或开始菜单入口，也不自带全部系统库；缺少依赖时按发行版处理。结构依据[官方 Linux 打包脚本](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/package.sh)。
+保留 bin 与 share 的相对位置，不要只拷贝一个二进制文件。它不自动注册系统包或开始菜单入口，也不自带全部系统库；缺少依赖时按发行版处理。结构依据[官方 Linux 打包脚本](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/linux/package.sh)。
 
 ## 按错误定位问题
 
@@ -174,9 +181,9 @@ tar -xzf photocraft-0.9.0-linux-x86_64.tar.gz --strip-components=1 -C "$HOME/App
 
 ## 来源与验证范围
 
-- [v0.9.0 官方文件与架构](https://github.com/storytold/photocraft/releases/tag/v0.9.0)
-- [Linux 归档与 AppImage 打包实现](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/package.sh)
-- [Flatpak bundle 与运行时来源](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/linux/flatpak-bundle.sh)
+- [v%CURRENT_VERSION% 官方文件与架构](https://github.com/storytold/photocraft/releases/tag/v%CURRENT_VERSION%)
+- [Linux 归档与 AppImage 打包实现](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/linux/package.sh)
+- [Flatpak bundle 与运行时来源](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/linux/flatpak-bundle.sh)
 - [AppImage 运行说明](https://docs.appimage.org/user-guide/run-appimages.html)
 - [Ubuntu 包管理](https://documentation.ubuntu.com/server/how-to/software/package-management/)
 - [DNF 官方命令参考](https://dnf.readthedocs.io/en/latest/command_ref.html)

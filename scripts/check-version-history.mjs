@@ -57,7 +57,10 @@ try {
       metadata.html_url !== entry.releaseUrl
     )
       throw new Error(`Release/date mismatch: ${entry.version}`);
-    if (!metadata.body?.includes(entry.compareUrl))
+    if (
+      entry.compareUrl !== entry.releaseUrl &&
+      !metadata.body?.includes(entry.compareUrl)
+    )
       throw new Error(`Changelog comparison mismatch: ${entry.version}`);
     for (const change of entry.changes) {
       if (!change.en || !change.zh || !metadata.body.includes(change.source))
@@ -77,24 +80,32 @@ try {
     const checksums = parseChecksums(checksumText);
     entry.files = Object.entries(manifest.builds).flatMap(
       ([platform, builds]) =>
-        builds.map((build) => {
-          const file = build.file.replaceAll('{version}', entry.version);
-          const asset = metadata.assets.find((asset) => asset.name === file);
-          if (!asset || asset.state !== 'uploaded' || !(asset.size > 0))
-            throw new Error(`Missing historical file: ${file}`);
-          const url = `https://github.com/${manifest.repository}/releases/download/v${entry.version}/${file}`;
-          if (asset.browser_download_url !== url)
-            throw new Error(`Unexpected historical URL: ${file}`);
-          return {
-            platform,
-            architecture: build.architecture,
-            name: build.name,
-            file,
-            url,
-            bytes: asset.size,
-            sha256: assetChecksum(asset, checksums),
-          };
-        })
+        builds
+          .filter(
+            (build) =>
+              !build.since ||
+              entry.version.localeCompare(build.since, 'en', {
+                numeric: true,
+              }) >= 0
+          )
+          .map((build) => {
+            const file = build.file.replaceAll('{version}', entry.version);
+            const asset = metadata.assets.find((asset) => asset.name === file);
+            if (!asset || asset.state !== 'uploaded' || !(asset.size > 0))
+              throw new Error(`Missing historical file: ${file}`);
+            const url = `https://github.com/${manifest.repository}/releases/download/v${entry.version}/${file}`;
+            if (asset.browser_download_url !== url)
+              throw new Error(`Unexpected historical URL: ${file}`);
+            return {
+              platform,
+              architecture: build.architecture,
+              name: build.name,
+              file,
+              url,
+              bytes: asset.size,
+              sha256: assetChecksum(asset, checksums),
+            };
+          })
     );
     const links = [...entry.files.map((file) => file.url), entry.checksumUrl];
     for (let offset = 0; offset < links.length; offset += 4) {

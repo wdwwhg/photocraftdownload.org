@@ -48,6 +48,7 @@ wrangler.toml
 /output/playwright/
 /.playwright-cli/
 /artifacts/
+/outputs/
 src/generated/photocraft-release-check-history.json
 /.seo-cache/
 .official-assets-check.txt

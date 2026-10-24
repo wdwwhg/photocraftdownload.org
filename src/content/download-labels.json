@@ -15,7 +15,8 @@
     "mode.Flatpak": "Install bundle",
     "mode.DEB": "Installer",
     "mode.RPM": "Installer",
-    "mode.tar.gz": "Binary archive"
+    "mode.tar.gz": "Binary archive",
+    "mode.Arch package": "Installer"
   },
   "zh": {
     "caption": "PhotoCraft 官方下载文件",
@@ -33,6 +34,7 @@
     "mode.Flatpak": "安装包",
     "mode.DEB": "安装版",
     "mode.RPM": "安装版",
-    "mode.tar.gz": "二进制归档"
+    "mode.tar.gz": "二进制归档",
+    "mode.Arch package": "安装版"
   }
 }

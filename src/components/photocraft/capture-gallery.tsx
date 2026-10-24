@@ -2,6 +2,7 @@ type CaptureImage = {
   file: string;
   alt: string;
   caption: string;
+  originalFormat?: 'png' | 'jpg';
 };
 
 export function CaptureGallery({
@@ -25,7 +26,7 @@ export function CaptureGallery({
         {images.map((image) => (
           <figure key={image.file}>
             <a
-              href={`/imgs/photocraft/captures/${image.file}.png`}
+              href={`/imgs/photocraft/captures/${image.file}.${image.originalFormat ?? 'png'}`}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${openLabel}: ${image.caption}`}

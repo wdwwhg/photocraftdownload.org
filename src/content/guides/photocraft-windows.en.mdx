@@ -9,7 +9,7 @@ export const meta = {
     'Find your x64, x86 or ARM64 build, compare MSI and portable settings, and troubleshoot missing DLLs, runtime messages and first-launch problems.',
   category: 'Windows installation',
   published_at: '2026-10-13',
-  updated_at: '2026-10-23',
+  updated_at: '2026-10-24',
   sections: [
     'PhotoCraft Windows download files',
     'PhotoCraft Windows 11: choose x64, x86 or ARM64',
@@ -23,11 +23,11 @@ export const meta = {
   ],
 };
 
-Start with the [download chooser](/#downloads). This guide covers **PhotoCraft v0.9.0**: the right architecture, how each package behaves, and what to check when installation or launch fails. Running a packaged build does not require Rust or Visual Studio.
+Download **PhotoCraft for Windows v%CURRENT_VERSION%** from the file table below. Choose your processor architecture, compare MSI with Portable ZIP, then follow the installation or missing-DLL steps on this page. Running a packaged build does not require Rust or Visual Studio.
 
 ## PhotoCraft Windows download files
 
-These official **v0.9.0** downloads include all six Windows packages. File sizes and full SHA256 values come from the official release and checksum list. Each filename is a direct GitHub download; no chooser or JavaScript is required. For a newer version, use the [official latest release](https://github.com/storytold/photocraft/releases/latest).
+These official **v%CURRENT_VERSION%** downloads include all six Windows packages. File sizes and full SHA256 values come from the official release and checksum list. Each filename is a direct GitHub download; no chooser or JavaScript is required. Check future updates on the [official latest release](https://github.com/storytold/photocraft/releases/latest).
 
 <PlatformDownloads platform="windows" labels={downloadLabels.en} />
 
@@ -35,7 +35,7 @@ Use the [three-system verification guide](/is-photocraft-safe) to compare the ha
 
 ## PhotoCraft Windows 11: choose x64, x86 or ARM64
 
-For **PhotoCraft Windows 11**, use x64 on an Intel/AMD PC or ARM64 on a Windows on Arm PC. Windows 11 itself is 64-bit; the x86 package is for a 32-bit Windows installation. Our recorded launch test below covers Windows 11 x64 Portable only.
+For **PhotoCraft Windows 11**, use x64 on an Intel/AMD PC or ARM64 on a Windows on Arm PC. Windows 11 requires a [compatible 64-bit processor](https://www.microsoft.com/en-us/windows/windows-11-specifications); the x86 package is for a 32-bit Windows installation. Our recorded launch test below covers Windows 11 x64 Portable only.
 
 Press **Win + I → System → About → Device specifications → System type**. Read both the operating-system bitness and processor type.
 
@@ -61,7 +61,7 @@ Choose MSI for a conventional installed application; choose ZIP for an applicati
 
 ## Install the MSI or extract the ZIP
 
-1. Download the matching file through this site or the [official v0.9.0 release](https://github.com/storytold/photocraft/releases/tag/v0.9.0).
+1. Download the matching file through this site or the [official v%CURRENT_VERSION% release](https://github.com/storytold/photocraft/releases/tag/v%CURRENT_VERSION%).
 2. For MSI, open the installer, review its publisher details and finish setup. For ZIP, use **Extract All**, open the extracted inner folder and launch photocraft.exe.
 3. Do not launch inside the compressed-folder preview or move only the executable. Keep portable.txt next to the executable for portable settings.
 4. A read-only portable folder cannot hold settings: the project documents a warning and fallback to %APPDATA%\Photocraft.
@@ -69,45 +69,47 @@ Choose MSI for a conventional installed application; choose ZIP for an applicati
 In PowerShell, from the download folder:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-%CURRENT_VERSION%-windows-x64.msi'
 ```
 
-Compare the complete value with the exact filename in the release's [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt). Substitute your ZIP or architecture when applicable.
+Compare the complete value with the exact filename in the release's [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt). Substitute your ZIP or architecture when applicable.
 
 ## Our portable launch and document check
 
-Our existing test on **15 October 2026** used the v0.9.0 **x64 Portable ZIP**, Windows 11 25H2 (26200.9711), an RTX 4060 Laptop GPU and Vulkan. It covers portable launch and a small document workflow; we have no recorded MSI, x86 or ARM64 installation test.
+Our existing test on **23 October 2026** used the v0.14.0 **x64 Portable ZIP**, Windows 11 25H2 (26200.9711), an RTX 4060 Laptop GPU and DX12. The initial automatic-backend start did not finish. On retry the app selected DX12 automatically, as recorded in System Info. It covers that portable launch and a small document workflow; we have no recorded MSI, x86 or ARM64 installation test.
 
 <CaptureGallery
   title="Version and graphics evidence from Windows"
   description="Actual application dialogs captured on our test machine. The interface language is Chinese. These identify the build and environment behind the PSD test."
-  openLabel="View original PNG"
+  openLabel="View original JPEG"
   images={[
     {
-      file: 'windows-0.9.0-about',
-      alt: 'About PhotoCraft dialog showing 0.9.0 and application commit c699e3cda',
-      caption: 'About: version 0.9.0, commit c699e3cda',
+      file: 'windows-0.14.0-about',
+      originalFormat: 'jpg',
+      alt: 'About PhotoCraft dialog showing 0.14.0 and application commit ff4738810',
+      caption: 'About: version 0.14.0, commit ff4738810',
     },
     {
-      file: 'windows-0.9.0-system-info',
-      alt: 'PhotoCraft System Info showing Windows x86_64, NVIDIA RTX 4060 Laptop GPU and Vulkan',
-      caption: 'System Info: x64 and Vulkan on our machine',
+      file: 'windows-0.14.0-system-info',
+      originalFormat: 'jpg',
+      alt: 'PhotoCraft System Info showing Windows x86_64, NVIDIA RTX 4060 Laptop GPU and DX12',
+      caption: 'System Info: x64 and DX12 on our machine',
     },
   ]}
 />
 
 For a first-launch check you can compare with ours:
 
-1. Open **Help → About** and record the version; our dialog reports 0.9.0 and commit c699e3cda.
+1. Open **Help → About** and record the version; our dialog reports 0.14.0 and commit ff4738810.
 2. Open **Help → System Info** and record the OS, GPU and backend. A different backend is not by itself a failure.
 3. Open the [practice PNG](/imgs/photocraft/captures/coast-test.png), duplicate its layer and add a Levels adjustment at RGB midtone 1.10.
 4. Save to a new PSD, close and reopen it. Our result retained two pixel layers and the Levels adjustment at 1.1.
 
-The [step-by-step tutorial](/photocraft-tutorial) and [saved reference PSD](/imgs/photocraft/captures/coast-layers.psd) make the check repeatable. The [capture record](/imgs/photocraft/captures/capture-record.json) identifies the exact portable ZIP and checksum. A successful portable run does not reproduce every installer or graphics error below.
+The [step-by-step tutorial](/photocraft-tutorial) and [saved reference PSD](/imgs/photocraft/captures/coast-layers-0.14.0.psd) make the check repeatable. The [capture record](/imgs/photocraft/captures/capture-record.json) identifies the exact portable ZIP and checksum. A successful portable run does not reproduce every installer or graphics error below.
 
 ## Missing DLL or runtime messages
 
-**Record the exact missing file first.** The v0.9.0 [Windows packaging script](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1) statically links the C runtime and explicitly says the MSI and ZIP do not require a separate VC++ Redistributable.
+**Record the exact missing file first.** The v0.15.1 [Windows packaging script](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/package.ps1) statically links the C runtime and explicitly says the MSI and ZIP do not require a separate VC++ Redistributable.
 
 | Symptom                                                  | Check first                                              | Next action                                                                                    |
 | -------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -132,12 +134,12 @@ For a blank canvas, inspect **Help → System Info** for the GPU and backend. Th
 
 ## Sources and verification scope
 
-- [v0.9.0 packaging and static runtime](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1)
-- [Portable settings behavior](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/portable.txt)
-- [MSI configuration](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/photocraft.wxs)
-- [Graphics and logging documentation](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [v0.15.1 packaging and static runtime](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/package.ps1)
+- [Portable settings behavior](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/portable.txt)
+- [MSI configuration](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/photocraft.wxs)
+- [Graphics and logging documentation](https://github.com/storytold/photocraft/blob/v0.15.1/docs/development.md)
 - [Microsoft VC++ runtime guidance](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
 Package details were checked against these sources. This troubleshooting path does not claim reproduction of every Windows configuration or error.
 
-On 15 October 2026, we ran the v0.9.0 x64 portable build on Windows 11 25H2 x64, opened our original PNG, added a Levels layer, and saved and reopened a three-layer PSD. [See our actual captures, machine details and test files](/photocraft-review#hands-on). That check does not cover MSI installation, ARM64 or reproduction of the errors above.
+On 23 October 2026, we ran the v0.14.0 x64 portable build on Windows 11 25H2 x64, opened our original PNG, added a Levels layer, and saved and reopened a three-layer PSD. [See our actual captures, machine details and test files](/photocraft-review#hands-on). That check does not cover MSI installation, ARM64 or reproduction of the errors above.

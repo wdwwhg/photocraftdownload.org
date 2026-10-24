@@ -4,10 +4,10 @@ export const meta = {
   title: 'PhotoCraft 评测：Windows 实拍、PSD 重开与局限',
   heading: 'PhotoCraft 评测',
   description:
-    '查看 PhotoCraft 0.9.0 Windows 真机截图、版本与系统信息，以及三图层 PSD 保存重开记录、原创测试文件和使用局限。',
+    '查看 PhotoCraft 0.14.0 Windows 真机截图、版本与系统信息，以及三图层 PSD 保存重开记录、原创测试文件和使用局限。',
   category: '使用评估',
   published_at: '2026-10-13',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-23',
   sections: [
     '本站 Windows 实拍与操作记录',
     '文档支持哪些结论',
@@ -26,42 +26,45 @@ PhotoCraft 值得希望使用免费开源、分层图像编辑器的用户评估
 
 ## 本站 Windows 实拍与操作记录
 
-**拍摄日期：2026-10-15（UTC+8）。** 应用为官方 `photocraft-0.9.0-windows-x64-portable.zip`，应用内版本显示 **0.9.0（c699e3cda，2026-10-14）**。系统为 Windows 11 25H2（26200.9711）、x64，显卡 NVIDIA GeForce RTX 4060 Laptop GPU，应用内显示 Vulkan 后端。界面语言为中文；下方保留应用窗口、菜单、文件名和实际对话框。
+**拍摄日期：2026-10-23（UTC+8）。** 应用为官方 `photocraft-0.14.0-windows-x64-portable.zip`，应用内版本显示 **0.14.0（ff4738810，2026-10-23）**。系统为 Windows 11 25H2（26200.9711）、x64，显卡 NVIDIA GeForce RTX 4060 Laptop GPU，应用内显示 DX12 后端。首次自动后端启动未完成，重试后程序自动选择 DX12；本次成功的文档测试基于该回退后端。界面语言为中文；下方保留应用窗口、菜单、文件名和实际对话框。
 
-我们下载了[官方 v0.9.0 便携包](https://github.com/storytold/photocraft/releases/tag/v0.9.0)，本地 SHA-256 与[官方校验清单](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt)一致。完整文件名、校验值与截图原图摘要保存在[本次拍摄记录](/imgs/photocraft/captures/capture-record.json)。
+我们下载了[官方 v0.14.0 便携包](https://github.com/storytold/photocraft/releases/tag/v0.14.0)，本地 SHA-256 与[官方校验清单](https://github.com/storytold/photocraft/releases/download/v0.14.0/SHA256SUMS.txt)一致。完整文件名、校验值与截图原图摘要保存在[本次拍摄记录](/imgs/photocraft/captures/capture-record.json)。
 
 这次实际执行的步骤：
 
 1. 打开本站原创的 1200 × 800 PNG 测试画布。画布上的 COAST 文字与图形在导入前已栅格化，未作为可编辑文字测试。
 2. 复制像素图层，添加一个色阶调整图层，把 RGB 中间调设为 **1.10**。
-3. 另存为 `coast-layers.psd`，关闭文档，再从最近文件重新打开。
+3. 另存为 `coast-layers-0.14.0.psd`，关闭文档，再通过“文件 → 打开”重新打开。
 4. 检查 `Layer 0`、`Layer 0 copy`、`Levels 1` 三个图层仍在，选择色阶图层后，参数仍显示 **1.1**。
 5. 从“帮助”打开“关于 PhotoCraft”和“系统信息”，拍摄原始窗口。
 
 <CaptureGallery
   title="三个画面，对应实际操作和版本证据"
-  description="以下均由本站在同一台 Windows 机器上拍摄。点击图片查看完整 PNG；网页缩略图只做 WebP 压缩，没有重绘界面、替换版本号或添加窗口装饰。"
-  openLabel="查看原始 PNG"
+  description="以下均由本站在同一台 Windows 机器上拍摄。点击图片查看完整 JPEG；网页缩略图只做 WebP 压缩，没有重绘界面、替换版本号或添加窗口装饰。"
+  openLabel="查看原始 JPEG"
   images={[
     {
-      file: 'windows-0.9.0-levels',
-      alt: '本站实拍：重开的 coast-layers.psd、三个图层与色阶中间调 1.1',
+      file: 'windows-0.14.0-levels',
+      originalFormat: 'jpg',
+      alt: '本站实拍：重开的 coast-layers-0.14.0.psd、三个图层与色阶中间调 1.1',
       caption: '保存重开后：三个图层与色阶 1.10 保留',
     },
     {
-      file: 'windows-0.9.0-about',
-      alt: '关于 PhotoCraft 真实对话框显示 0.9.0 和 c699e3cda',
-      caption: '关于 PhotoCraft：版本 0.9.0',
+      file: 'windows-0.14.0-about',
+      originalFormat: 'jpg',
+      alt: '关于 PhotoCraft 真实对话框显示 0.14.0 和 ff4738810',
+      caption: '关于 PhotoCraft：版本 0.14.0',
     },
     {
-      file: 'windows-0.9.0-system-info',
-      alt: '系统信息真实对话框显示 windows x86_64、RTX 4060 Laptop GPU 和 Vulkan',
-      caption: '系统信息：Windows x64 与 Vulkan',
+      file: 'windows-0.14.0-system-info',
+      originalFormat: 'jpg',
+      alt: '系统信息真实对话框显示 windows x86_64、RTX 4060 Laptop GPU 和 DX12',
+      caption: '系统信息：Windows x64 与 DX12',
     },
   ]}
 />
 
-可以下载[原始 SVG 画布](/imgs/photocraft/captures/coast-test.svg)、[导入的 PNG](/imgs/photocraft/captures/coast-test.png)和[本次保存的 PSD（439 KB）](/imgs/photocraft/captures/coast-layers.psd)复查。COAST 测试画布由本站制作，按 CC0 提供；软件界面归 ArtCraft 与贡献者所有。截图是本站的独立记录。
+可以下载[原始 SVG 画布](/imgs/photocraft/captures/coast-test.svg)、[导入的 PNG](/imgs/photocraft/captures/coast-test.png)和[本次保存的 PSD（439 KB）](/imgs/photocraft/captures/coast-layers-0.14.0.psd)复查。COAST 测试画布由本站制作，按 CC0 提供；软件界面归 ArtCraft 与贡献者所有。截图是本站的独立记录。
 
 这个结果只说明这台 Windows 机器、这个便携构建和这个简单文件的上述步骤通过。没有执行 macOS、Linux、MSI、复杂 PSD 或 Photoshop 双向交接测试，也没有做性能基准与长期稳定性测试。后文列出的更广功能以文档为依据。
 
@@ -91,9 +94,9 @@ README 的测试语料结果属于项目方报告，本网站未复现。语料�
 
 ## 重要限制
 
-v0.8.2 状态说明指出 AI 与生成式功能、文字排版深度、专业流程和插件兼容方面的缺口。熟悉的界面不足以保证全面替代 Adobe，参见[Photoshop 对比](/photocraft-vs-photoshop)。
+v0.14.0 状态说明指出 AI 与生成式功能、文字排版深度、专业流程和插件兼容方面的缺口。熟悉的界面不足以保证全面替代 Adobe，参见[Photoshop 对比](/photocraft-vs-photoshop)。
 
-浏览器版另有保存下载文件、缺少网页自动保存与崩溃恢复等限制，参见[网页版说明](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web)。
+浏览器版另有保存下载文件、缺少网页自动保存与崩溃恢复等限制，参见[网页版说明](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web)。
 
 ## 按实际文件评估
 
@@ -109,6 +112,6 @@ v0.8.2 状态说明指出 AI 与生成式功能、文字排版深度、专业流
 
 ## 来源
 
-- [v0.8.2 功能、语料与状态](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
-- [v0.8.2 网页版说明](https://github.com/storytold/photocraft/blob/v0.8.2/packaging/web/README.md)
+- [v0.14.0 功能、语料与状态](https://github.com/storytold/photocraft/blob/v0.14.0/README.md)
+- [v0.14.0 网页版说明](https://github.com/storytold/photocraft/blob/v0.14.0/packaging/web/README.md)
 - [官方产品页](https://getartcraft.com/apps/photocraft)

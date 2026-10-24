@@ -8,6 +8,8 @@ import { nitro } from 'nitro/vite';
 import remarkGfm from 'remark-gfm';
 import { defineConfig } from 'vite';
 
+import { remarkCurrentRelease } from './scripts/remark-current-release.mjs';
+import releaseManifest from './src/content/photocraft-release.json';
 import { loadEnvFiles } from './src/lib/env';
 
 // Populate process.env from .env.local / .env.{NODE_ENV} / .env for the
@@ -70,7 +72,10 @@ export default defineConfig({
       enforce: 'pre',
       ...mdx({
         providerImportSource: '@mdx-js/react',
-        remarkPlugins: [remarkGfm],
+        remarkPlugins: [
+          remarkGfm,
+          [remarkCurrentRelease, { version: releaseManifest.version }],
+        ],
       }),
     },
     tailwindcss(),

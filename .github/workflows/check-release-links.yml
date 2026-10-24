@@ -1,52 +1,111 @@
-name: Check PhotoCraft release links
+name: Update PhotoCraft releases
 
 on:
   schedule:
-    - cron: '23 2 * * *'
+    - cron: '17 */6 * * *'
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'src/content/photocraft-release.json'
-      - 'scripts/check-release-links*'
-      - 'scripts/release-assets.mjs'
+      - 'src/content/photocraft-download-files.json'
+      - 'scripts/download-catalog*'
+      - 'scripts/*release*'
       - '.github/workflows/check-release-links.yml'
 
 permissions:
   contents: read
 
+concurrency:
+  group: photocraft-production-release
+  cancel-in-progress: false
+
 jobs:
-  verify:
+  update:
+    if: github.repository == 'wdwwhg/photocraftdownload.org' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 40
+    permissions:
+      contents: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Test failure handling
-        run: node --test scripts/check-release-links.test.mjs
-      - name: Verify latest release and every download
-        id: latest
-        continue-on-error: true
+      - name: Test release validation, updates and deployment recovery
+        run: node --test scripts/check-release-links.test.mjs scripts/update-photocraft-release.test.mjs scripts/release-automation.test.mjs scripts/download-catalog.test.mjs
+      - name: Compare latest tag and generate verified release data
+        id: sync
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/check-release-links.mjs --write
-      - name: Record pinned release availability when an update is due
-        if: steps.latest.outcome == 'failure'
+        run: node scripts/update-photocraft-release.mjs --write
+      - uses: pnpm/action-setup@v4
+        if: steps.sync.outputs.changed == 'true'
+        with:
+          version: 10.34.7
+          run_install: false
+      - name: Install dependencies
+        if: steps.sync.outputs.changed == 'true'
+        run: pnpm install --frozen-lockfile
+      - name: Build and check the generated site
+        if: steps.sync.outputs.changed == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/check-release-links.mjs --write --allow-pinned
-      - name: Save successful check report
+        run: |
+          pnpm build
+          HOST=127.0.0.1 PORT=4173 node .output/server/index.mjs &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/ >/dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/check-download-pages.mjs http://127.0.0.1:4173
+          node scripts/check-search-policy.mjs http://127.0.0.1:4173
+      - name: Commit only verified generated release data
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ steps.sync.outputs.version }}
+        run: |
+          git add src/content/photocraft-release.json src/content/photocraft-version-history.json src/content/photocraft-download-files.json public/release-check-history.json
+          python3 .claude/skills/security-scan/scripts/scan_staged.py
+          git diff --cached --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Update official PhotoCraft downloads to v${RELEASE_VERSION}"
+          gh auth setup-git
+          git push origin HEAD:main
+      - name: Check the actual production version
+        id: production
+        run: node scripts/release-automation.mjs probe
+      - name: Trigger Pages deployment when production is behind
+        if: steps.production.outputs.needs_deploy == 'true'
+        env:
+          CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: node scripts/release-automation.mjs deploy
+      - name: Verify the published report and homepage download versions
+        run: node scripts/release-automation.mjs verify
+      - name: Resolve a previous automation failure after production succeeds
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/release-automation.mjs report success
+      - name: Open or update one actionable failure issue
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/release-automation.mjs report failure
+      - name: Save verification reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: photocraft-release-check
           path: |
             artifacts/release-check.json
             public/release-check-history.json
+          if-no-files-found: ignore
           retention-days: 30
-      - name: Flag a newer release or failed latest check
-        if: steps.latest.outcome == 'failure'
-        run: exit 1

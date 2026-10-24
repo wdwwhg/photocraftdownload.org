@@ -17,6 +17,7 @@ type GuideMeta = {
   published_at?: string;
   updated_at: string;
   sections: string[];
+  schemaType?: 'Article' | 'CollectionPage';
 };
 type GuideModule = { default: ComponentType; meta: GuideMeta };
 type GuideData = {
@@ -53,7 +54,11 @@ export function guidePageRouteOptions(slug: GuideSlug) {
           { name: 'robots', content: pageRobots(slug, locale) },
           { property: 'og:title', content: meta.title },
           { property: 'og:description', content: meta.description },
-          { property: 'og:type', content: 'article' },
+          {
+            property: 'og:type',
+            content:
+              meta.schemaType === 'CollectionPage' ? 'website' : 'article',
+          },
           { property: 'og:url', content: urlFor(locale) },
           { name: 'twitter:card', content: 'summary' },
         ],
@@ -65,7 +70,9 @@ export function guidePageRouteOptions(slug: GuideSlug) {
               '@context': 'https://schema.org',
               '@graph': [
                 {
-                  '@type': 'Article',
+                  '@type': meta.schemaType ?? 'Article',
+                  name: meta.heading,
+                  url: urlFor(locale),
                   headline: meta.heading,
                   description: meta.description,
                   inLanguage: locale,

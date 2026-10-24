@@ -6,7 +6,7 @@ export const meta = {
   description:
     'Compare PhotoCraft alternatives including GIMP, Krita, Photopea and Photoshop. Choose by editing task, source access, browser use and file handoff.',
   category: 'Alternatives',
-  updated_at: '2026-10-18',
+  updated_at: '2026-10-23',
   sections: [
     'Compare the starting points',
     'Choose a free PSD editor by the handoff you need',
@@ -60,11 +60,11 @@ PhotoCraft, VectorCraft and LightCraft solve different parts of a visual workflo
 
 These are documented product roles, not a local test of VectorCraft or LightCraft. A flattened image may preserve appearance while losing editable paths or layers. Keep each native original and test one representative round trip before combining applications.
 
-For a browser-based PhotoCraft build, the official [web packaging documentation](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web) is the source for the release ZIP and hosting steps. A ZIP of static web files is not a hosted editing session. The [GitHub guide](/photocraft-github) explains the distinction between packaged downloads and source code.
+For a browser-based PhotoCraft build, the official [web packaging documentation](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web) is the source for the release ZIP and hosting steps. A ZIP of static web files is not a hosted editing session. The [GitHub guide](/photocraft-github) explains the distinction between packaged downloads and source code.
 
 ## PhotoCraft and Photoshop by editing requirement
 
-| Requirement                          | PhotoCraft v0.9.0                                                      | Photoshop                                              | Decision check                                                      |
+| Requirement                          | PhotoCraft v0.14.0                                                     | Photoshop                                              | Decision check                                                      |
 | ------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- |
 | Pixel layers and a Levels adjustment | Our Windows sample retained three layers and midtone 1.10 after reopen | Layered editing is part of Adobe's documented workflow | Repeat with your document                                           |
 | PSD exchange                         | Our simple PSD reopened in PhotoCraft                                  | Adobe's own document workflow                          | Reopen in the receiving application; our test did not include Adobe |
@@ -73,22 +73,23 @@ For a browser-based PhotoCraft build, the official [web packaging documentation]
 | Linux desktop                        | Official Linux packages                                                | Adobe's desktop requirements cover Windows and macOS   | Check OS support before comparing tools                             |
 | Application payment                  | Our recorded editing steps required no purchase                        | Adobe lists subscription plans                         | Include migration time as well as plan cost                         |
 
-The Photoshop column comes from [Adobe's product overview](https://www.adobe.com/products/photoshop.html) and [desktop requirements](https://helpx.adobe.com/photoshop/desktop/get-started/technical-requirements-installation/adobe-photoshop-on-desktop-technical-requirements.html). PhotoCraft package information comes from the [versioned download list](https://github.com/storytold/photocraft/blob/v0.9.0/README.md#downloads). Only the Windows sample result is our own test.
+The Photoshop column comes from [Adobe's product overview](https://www.adobe.com/products/photoshop.html) and [desktop requirements](https://helpx.adobe.com/photoshop/desktop/get-started/technical-requirements-installation/adobe-photoshop-on-desktop-technical-requirements.html). PhotoCraft package information comes from the [versioned download list](https://github.com/storytold/photocraft/blob/v0.14.0/README.md#downloads). Only the Windows sample result is our own test.
 
 <CaptureGallery
   title="Our PhotoCraft reference for your comparison"
-  description="This Windows v0.9.0 capture is the reference result for one simple file. We have not completed the same test in GIMP, Krita, Photopea or Photoshop, so it establishes no ranking between them."
-  openLabel="View original PNG"
+  description="This Windows v0.14.0 capture is the reference result for one simple file. We have not completed the same test in GIMP, Krita, Photopea or Photoshop, so it establishes no ranking between them."
+  openLabel="View original JPEG"
   images={[
     {
-      file: 'windows-0.9.0-levels',
+      file: 'windows-0.14.0-levels',
+      originalFormat: 'jpg',
       alt: 'Windows PhotoCraft sample with two pixel layers and one Levels adjustment after reopening a PSD',
       caption: 'PhotoCraft reference: Levels 1.10 and three layers',
     },
   ]}
 />
 
-Use our [practice PNG](/imgs/photocraft/captures/coast-test.png) and [PSD result](/imgs/photocraft/captures/coast-layers.psd) for a repeatable starting point. The [tutorial](/photocraft-tutorial) lists the actual steps. Add a real handoff file if editable type, effects or smart objects matter; this sample does not contain them.
+Use our [practice PNG](/imgs/photocraft/captures/coast-test.png) and [PSD result](/imgs/photocraft/captures/coast-layers-0.14.0.psd) for a repeatable starting point. The [tutorial](/photocraft-tutorial) lists the actual steps. Add a real handoff file if editable type, effects or smart objects matter; this sample does not contain them.
 
 ## GIMP for open-source image manipulation
 

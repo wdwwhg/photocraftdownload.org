@@ -8,16 +8,20 @@ export type DownloadFile = {
   bytes: number;
   sha256: string;
   url: string;
+  usage?: string;
+  id?: string;
 };
 
 export function DownloadTable({
   files,
   labels,
   caption,
+  showUsage = false,
 }: {
   files: DownloadFile[];
   labels: Record<string, string>;
   caption: string;
+  showUsage?: boolean;
 }) {
   return (
     <div
@@ -36,24 +40,43 @@ export function DownloadTable({
             <th scope="col">{labels.file}</th>
             <th scope="col">{labels.size}</th>
             <th scope="col">SHA256</th>
+            {showUsage && <th scope="col">{labels.usage}</th>}
           </tr>
         </thead>
         <tbody>
           {files.map((file) => (
-            <tr key={file.file}>
+            <tr key={file.file} id={file.id}>
               <td>
                 {file.platform === 'macos'
                   ? 'macOS'
                   : file.platform === 'windows'
                     ? 'Windows'
-                    : 'Linux'}
+                    : file.platform === 'linux'
+                      ? 'Linux'
+                      : file.platform === 'freebsd'
+                        ? 'FreeBSD'
+                        : file.platform === 'web'
+                          ? 'Web'
+                          : labels.allPlatforms}
               </td>
               <td>{file.architecture}</td>
               <td>
-                {labels[`mode.${file.name}`] ?? file.name} · {file.name}
+                {labels[`mode.${file.name}`]
+                  ? `${labels[`mode.${file.name}`]} · ${file.name}`
+                  : file.name}
               </td>
               <th scope="row">
                 <a href={file.url}>{file.file}</a>
+                {file.id && (
+                  <small>
+                    <a
+                      href={`#${file.id}`}
+                      aria-label={`${labels.permalink}: ${file.file}`}
+                    >
+                      #
+                    </a>
+                  </small>
+                )}
               </th>
               <td>
                 <span>{(file.bytes / 1024 / 1024).toFixed(1)} MiB</span>
@@ -64,6 +87,7 @@ export function DownloadTable({
               <td>
                 <code>{file.sha256}</code>
               </td>
+              {showUsage && <td className="pc-file-usage">{file.usage}</td>}
             </tr>
           ))}
         </tbody>
@@ -74,14 +98,16 @@ export function DownloadTable({
 
 export function PlatformDownloads({
   platform,
+  platforms: requestedPlatforms,
   labels,
 }: {
   platform?: Platform;
+  platforms?: readonly Platform[];
   labels: Record<string, string>;
 }) {
-  const platforms: Platform[] = platform
-    ? [platform]
-    : ['windows', 'macos', 'linux'];
+  const platforms: readonly Platform[] =
+    requestedPlatforms ??
+    (platform ? [platform] : ['windows', 'macos', 'linux']);
   return (
     <DownloadTable
       labels={labels}

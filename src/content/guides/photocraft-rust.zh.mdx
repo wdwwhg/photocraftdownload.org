@@ -5,7 +5,7 @@ export const meta = {
     '了解 PhotoCraft 的 Rust、egui 和 wgpu 架构，按固定版本核对桌面与 Wasm 构建要求，并区分开发命令和实际验证。',
   category: '开发指南',
   published_at: '2026-10-13',
-  updated_at: '2026-10-13',
+  updated_at: '2026-10-23',
   sections: [
     '架构能说明什么',
     '获取版本源码',
@@ -17,7 +17,7 @@ export const meta = {
   ],
 };
 
-PhotoCraft 使用 Rust，文档介绍 egui 界面和 wgpu 渲染，网页版通过 WebAssembly 运行。本页面向源码阅读与构建；只需编辑图片时，从[下载页](/)取得现成包，无需 Rust 环境。以下要求固定到 v0.8.2。
+PhotoCraft 使用 Rust，文档介绍 egui 界面和 wgpu 渲染，网页版通过 WebAssembly 运行。本页面向源码阅读与构建；只需编辑图片时，从[下载页](/)取得现成包，无需 Rust 环境。以下要求固定到 v0.14.0。
 
 ## 架构能说明什么
 
@@ -26,11 +26,11 @@ README 描述无 Electron 外壳的原生应用、GPU 合成器和文档处理�
 ## 获取版本源码
 
 ```sh
-git clone --branch v0.8.2 --depth 1 https://github.com/storytold/photocraft.git
+git clone --branch v0.14.0 --depth 1 https://github.com/storytold/photocraft.git
 cd photocraft
 ```
 
-先阅读当前检出的 README、Cargo.toml 和开发文档。v0.8.2 声明 rust-version 为 1.95，要求 Rust stable 1.95 或更新。记录标签、编译器和系统，不将此要求扩大到所有未来版本。
+先阅读当前检出的 README、Cargo.toml 和开发文档。v0.14.0 声明 rust-version 为 1.95，要求 Rust stable 1.95 或更新。记录标签、编译器和系统，不将此要求扩大到所有未来版本。
 
 ## 平台前置条件
 
@@ -66,7 +66,7 @@ cd apps/photocraft-web
 trunk build --release
 ```
 
-文档说明输出到仓库根目录 dist/web。复现发布时需核对标签工作流固定的 Trunk 版本。静态资产仍需正确响应头和浏览器图形环境，参见[网页指南](https://github.com/storytold/photocraft/tree/v0.9.0/packaging/web)。
+文档说明输出到仓库根目录 dist/web。复现发布时需核对标签工作流固定的 Trunk 版本。静态资产仍需正确响应头和浏览器图形环境，参见[网页指南](https://github.com/storytold/photocraft/tree/v0.14.0/packaging/web)。
 
 ## 测试与贡献
 
@@ -76,6 +76,6 @@ trunk build --release
 
 ## 来源
 
-- [v0.8.2 Cargo workspace](https://github.com/storytold/photocraft/blob/v0.8.2/Cargo.toml)
-- [版本化开发指南](https://github.com/storytold/photocraft/blob/v0.8.2/docs/development.md)
-- [架构概要](https://github.com/storytold/photocraft/blob/v0.8.2/README.md)
+- [v0.14.0 Cargo workspace](https://github.com/storytold/photocraft/blob/v0.14.0/Cargo.toml)
+- [版本化开发指南](https://github.com/storytold/photocraft/blob/v0.14.0/docs/development.md)
+- [架构概要](https://github.com/storytold/photocraft/blob/v0.14.0/README.md)

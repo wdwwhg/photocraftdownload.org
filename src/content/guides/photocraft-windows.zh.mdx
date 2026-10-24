@@ -1,13 +1,17 @@
+import { PlatformDownloads } from '@/components/photocraft/download-table';
+import downloadLabels from '@/content/download-labels.json';
+
 export const meta = {
   title: 'PhotoCraft Windows 安装：MSI、便携版与缺少 DLL 排查',
-  heading: 'PhotoCraft Windows 安装指南',
+  heading: 'PhotoCraft Windows 下载与安装',
   description:
     '查清 x64、x86 与 ARM64，比较 MSI 和便携 ZIP 的安装与设置位置，按报错排查缺少 DLL、运行库和首次启动问题。',
   category: 'Windows 安装',
   published_at: '2026-10-13',
-  updated_at: '2026-10-15',
+  updated_at: '2026-10-24',
   sections: [
-    '先查自己的 x64、x86 或 ARM64',
+    'PhotoCraft Windows 下载文件',
+    'PhotoCraft Windows 11：选择 x64、x86 或 ARM64',
     'MSI 与 Portable ZIP 到底差什么',
     '安装 MSI 或解压便携版',
     '提示缺少 DLL 或运行库怎么办',
@@ -17,9 +21,15 @@ export const meta = {
   ],
 };
 
-先打开[下载选择器](/#downloads)，确认系统、芯片和安装方式。本文以 **PhotoCraft v0.9.0** 为范围，把选包、实际安装与报错后的下一步放在一起。无需先安装 Rust 或 Visual Studio。
+从下方文件表下载 **PhotoCraft Windows v%CURRENT_VERSION%**，在本页确认芯片、比较 MSI 与便携 ZIP，并查看安装与缺少 DLL 时的排查步骤。无需先安装 Rust 或 Visual Studio。
 
-## 先查自己的 x64、x86 或 ARM64
+## PhotoCraft Windows 下载文件
+
+<PlatformDownloads platform="windows" labels={downloadLabels.zh} />
+
+## PhotoCraft Windows 11：选择 x64、x86 或 ARM64
+
+Windows 11 的 Intel/AMD 电脑选择 x64，Windows on Arm 电脑选择 ARM64。Windows 11 要求[兼容的 64 位处理器](https://www.microsoft.com/en-us/windows/windows-11-specifications)；x86 包适用于运行 32 位 Windows 的电脑。本站已有 Windows 11 x64 便携版的实测记录，其他架构仍需自行核对。
 
 按 **Win + I → 系统 → 系统信息（About）→ 设备规格 → 系统类型**。不同 Windows 版本的页面也可能叫“关于”，可在设置内搜索“系统类型”。同时看操作系统位数与处理器类型，不要只看电脑品牌。
 
@@ -45,7 +55,7 @@ x86 的意思是 32 位，不是“所有 Intel 芯片”。也不要因为某�
 
 ## 安装 MSI 或解压便携版
 
-1. 从本站的官方直链或[固定版本发布页](https://github.com/storytold/photocraft/releases/tag/v0.9.0)下载匹配架构的文件。
+1. 从本站的官方直链或[固定版本发布页](https://github.com/storytold/photocraft/releases/tag/v%CURRENT_VERSION%)下载匹配架构的文件。
 2. MSI：双击文件，核对发布者信息，完成安装。ZIP：在资源管理器选择“全部解压”，打开解压后的内层文件夹，运行 photocraft.exe。
 3. 不要直接在压缩包预览里启动，也不要只把 EXE 拖到桌面。便携模式需要让 portable.txt 与 EXE 保持在一起。
 4. 如果便携目录只读，项目说明程序会提示并改用 %APPDATA%\Photocraft。此时设置并没有跟着移动盘走。
@@ -53,14 +63,14 @@ x86 的意思是 32 位，不是“所有 Intel 芯片”。也不要因为某�
 核对下载文件的完整性，示例在下载目录的 PowerShell 中运行：
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-%CURRENT_VERSION%-windows-x64.msi'
 ```
 
-把完整结果与同一发布页的 [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v0.9.0/SHA256SUMS.txt) 中**完全相同文件名**的一行比较。ZIP 或其他架构需替换命令中的文件名。
+把完整结果与同一发布页的 [SHA256SUMS.txt](https://github.com/storytold/photocraft/releases/download/v%CURRENT_VERSION%/SHA256SUMS.txt) 中**完全相同文件名**的一行比较。ZIP 或其他架构需替换命令中的文件名。
 
 ## 提示缺少 DLL 或运行库怎么办
 
-**先记录缺少哪个文件，再决定修什么。** v0.9.0 的[官方 Windows 打包脚本](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1)使用静态 C 运行库，并明确说明 MSI 与 ZIP 不要求另装 VC++ Redistributable。看到启动失败就先装一整套运行库，不能定位原因。
+**先记录缺少哪个文件，再决定修什么。** v0.15.1 的[官方 Windows 打包脚本](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/package.ps1)使用静态 C 运行库，并明确说明 MSI 与 ZIP 不要求另装 VC++ Redistributable。看到启动失败就先装一整套运行库，不能定位原因。
 
 | 报错或现象                                 | 优先检查                                   | 下一步                                                         |
 | ------------------------------------------ | ------------------------------------------ | -------------------------------------------------------------- |
@@ -85,12 +95,12 @@ Get-FileHash -Algorithm SHA256 -LiteralPath '.\photocraft-0.9.0-windows-x64.msi'
 
 ## 来源与验证范围
 
-- [v0.9.0 Windows 打包实现：静态运行库、MSI 与 ZIP](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/package.ps1)
-- [便携模式与设置目录](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/portable.txt)
-- [Windows 安装器配置](https://github.com/storytold/photocraft/blob/v0.9.0/packaging/windows/photocraft.wxs)
-- [图形启动与日志说明](https://github.com/storytold/photocraft/blob/v0.9.0/docs/development.md)
+- [v0.15.1 Windows 打包实现：静态运行库、MSI 与 ZIP](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/package.ps1)
+- [便携模式与设置目录](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/portable.txt)
+- [Windows 安装器配置](https://github.com/storytold/photocraft/blob/v0.15.1/packaging/windows/photocraft.wxs)
+- [图形启动与日志说明](https://github.com/storytold/photocraft/blob/v0.15.1/docs/development.md)
 - [微软 VC++ 运行库说明](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
 文件名与打包行为已按以上来源核对；排查路径不代表每种 Windows 配置或报错均已实机复现。
 
-2026-10-15，我们实际在 Windows 11 25H2 x64 上运行了 v0.9.0 x64 便携版，完成打开原创 PNG、添加色阶图层、保存并重开三图层 PSD 的检查。[查看本站的实拍、机器信息与测试文件](/photocraft-review#hands-on)。这次记录不涵盖 MSI 安装、ARM64 或上述报错的逐项复现。
+2026-10-23，我们实际在 Windows 11 25H2 x64 上运行了 v0.14.0 x64 便携版，完成打开原创 PNG、添加色阶图层、保存并重开三图层 PSD 的检查。[查看本站的实拍、机器信息与测试文件](/photocraft-review#hands-on)。这次记录不涵盖 MSI 安装、ARM64 或上述报错的逐项复现。

@@ -17,7 +17,7 @@ export const meta = {
 
 ## 先记录错误
 
-记录系统版本、CPU 架构、PhotoCraft 版本、完整文件名、SHA256 与失败步骤。先用[校验命令](/is-photocraft-safe)确认文件，再区分下载失败、安装失败和启动后崩溃。以下对应本站整理的 v0.9.0，新版应使用新版文件与说明。
+记录系统版本、CPU 架构、PhotoCraft 版本、完整文件名、SHA256 与失败步骤。先用[校验命令](/is-photocraft-safe)确认文件，再区分下载失败、安装失败和启动后崩溃。以下对应本站整理的 v0.14.0，新版应使用新版文件与说明。
 
 ## Windows 安装与 SmartScreen
 
@@ -26,7 +26,7 @@ export const meta = {
 MSI 安装可在用户准备启动安装时记录日志：
 
 ```powershell
-msiexec.exe /i ".\photocraft-0.9.0-windows-x64.msi" /L*V ".\photocraft-install.log"
+msiexec.exe /i ".\photocraft-0.14.0-windows-x64.msi" /L*V ".\photocraft-install.log"
 ```
 
 此命令会启动安装程序并生成日志，需阅读安装提示。分享日志前删去个人路径等信息。缺失 DLL 时先确认具体名称和文件来源，不要从第三方站点单独下载 DLL。
@@ -46,7 +46,7 @@ SmartScreen 的信誉提示、安全软件明确检出和组织策略限制是�
 [AppImage 官方文档](https://docs.appimage.org/user-guide/troubleshooting/fuse.html)列出 Ubuntu 22.04 的 libfuse2 与 Ubuntu 24.04 的 libfuse2t64。保留系统原有 FUSE 3，不要为兼容性盲目替换它。对应 Type 2 AppImage 的解包运行方式为：
 
 ```sh
-./photocraft-0.9.0-linux-x86_64.AppImage --appimage-extract-and-run
+./photocraft-0.14.0-linux-x86_64.AppImage --appimage-extract-and-run
 ```
 
 这需要额外空间，也不会修复所有图形或系统库问题。更多 Flatpak、DEB、RPM 说明见 [Linux 构建整理](/photocraft-linux)。
