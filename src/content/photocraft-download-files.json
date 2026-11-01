@@ -1,7 +1,336 @@
 {
   "repository": "storytold/photocraft",
-  "checkedAt": "2026-10-31T05:42:34.735Z",
+  "checkedAt": "2026-11-01T22:02:55.947Z",
   "releases": [
+    {
+      "version": "0.19.0",
+      "publishedAt": "2026-11-01T19:36:04Z",
+      "prerelease": false,
+      "releaseUrl": "https://github.com/storytold/photocraft/releases/tag/v0.19.0",
+      "checksumUrl": "https://github.com/storytold/photocraft/releases/download/v0.19.0/SHA256SUMS.txt",
+      "files": [
+        {
+          "platform": "freebsd",
+          "architecture": "aarch64",
+          "name": "tar.gz",
+          "file": "photocraft-0.19.0-freebsd-aarch64.tar.gz",
+          "bytes": 117897641,
+          "sha256": "8bbe85196ebf31e2dd1c3dec4c839a0736a560ad91bc9f057a71c2c054d68234",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-freebsd-aarch64.tar.gz"
+        },
+        {
+          "platform": "freebsd",
+          "architecture": "x86_64",
+          "name": "tar.gz",
+          "file": "photocraft-0.19.0-freebsd-x86_64.tar.gz",
+          "bytes": 124250198,
+          "sha256": "e033e87416ff727d6794aa748ac187bbf0d9afd4aab27cb629ffbb4233823c86",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-freebsd-x86_64.tar.gz"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "AppImage",
+          "file": "photocraft-0.19.0-linux-aarch64.AppImage",
+          "bytes": 114244104,
+          "sha256": "755d7aa07c966995caf154fedca5dee0c1cbc8f5c7c2679c67a8be6d6467322d",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.AppImage"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "AppImage update metadata",
+          "file": "photocraft-0.19.0-linux-aarch64.AppImage.zsync",
+          "bytes": 195496,
+          "sha256": "7e573de94578d1f2250b1ec047b8605330ef963c142b8c44e989fe1835f1d2be",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.AppImage.zsync"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "DEB",
+          "file": "photocraft-0.19.0-linux-aarch64.deb",
+          "bytes": 122904002,
+          "sha256": "fd0160a4ea4b1f433804eb8e02c3aa434ec42561531937633f02eee818a0f422",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.deb"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "Flatpak",
+          "file": "photocraft-0.19.0-linux-aarch64.flatpak",
+          "bytes": 89055728,
+          "sha256": "413bf398f641d7cceb7da98e67a0eeef9865710630d23dd3361663842fd2c7a9",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.flatpak"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "Arch package",
+          "file": "photocraft-0.19.0-linux-aarch64.pkg.tar.zst",
+          "bytes": 97441915,
+          "sha256": "456811464facefd981a593503a3fa28f8b21d9a7a35eaf506059a1d3c0c779f4",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.pkg.tar.zst"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "RPM",
+          "file": "photocraft-0.19.0-linux-aarch64.rpm",
+          "bytes": 121881451,
+          "sha256": "3628047381cfa02da350a5231359cbb74187bc63f9ca25c3a2c65b9cf2290ee9",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.rpm"
+        },
+        {
+          "platform": "linux",
+          "architecture": "aarch64",
+          "name": "tar.gz",
+          "file": "photocraft-0.19.0-linux-aarch64.tar.gz",
+          "bytes": 119844204,
+          "sha256": "5948e8f10c3c020aa8c8803f1a9038a2ffb4dda8ebb1b129881c8a416b2d48ae",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.tar.gz"
+        },
+        {
+          "platform": "linux",
+          "architecture": "riscv64",
+          "name": "DEB",
+          "file": "photocraft-0.19.0-linux-riscv64.deb",
+          "bytes": 123855716,
+          "sha256": "194d82284927a88061136eed2c5cce8df7333c3d0aeaa9c34d98da1dfe317cdd",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-riscv64.deb"
+        },
+        {
+          "platform": "linux",
+          "architecture": "riscv64",
+          "name": "RPM",
+          "file": "photocraft-0.19.0-linux-riscv64.rpm",
+          "bytes": 123290253,
+          "sha256": "81dcf55ebc63520f449b7118adea9b3e0ace3e317d0709831cd25e8376b86c86",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-riscv64.rpm"
+        },
+        {
+          "platform": "linux",
+          "architecture": "riscv64",
+          "name": "tar.gz",
+          "file": "photocraft-0.19.0-linux-riscv64.tar.gz",
+          "bytes": 122249048,
+          "sha256": "9797b7680cff904a12c758cbf58b72b31964940a26b393866dc467bb59a099d3",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-riscv64.tar.gz"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "AppImage",
+          "file": "photocraft-0.19.0-linux-x86_64.AppImage",
+          "bytes": 118979064,
+          "sha256": "0cd30b366d40090aba01b0a1fe021bdcfc02b11ff9151c7aaced5b663db9b856",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.AppImage"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "AppImage update metadata",
+          "file": "photocraft-0.19.0-linux-x86_64.AppImage.zsync",
+          "bytes": 203586,
+          "sha256": "fec51d53fa02a1840aae9e67e777b1b6dec0f41ac8ee8d084a0d0b0cc1c64dd0",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.AppImage.zsync"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "DEB",
+          "file": "photocraft-0.19.0-linux-x86_64.deb",
+          "bytes": 126761222,
+          "sha256": "80b77bc8cb2638bdcde80c8f410b1efccfef846a23529b089a818d128c2f6c53",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.deb"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "Flatpak",
+          "file": "photocraft-0.19.0-linux-x86_64.flatpak",
+          "bytes": 95027536,
+          "sha256": "7065e41010f3750c4cf5b612ff0249e6f4a5ebb50501b76fd95891212186e901",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.flatpak"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "Arch package",
+          "file": "photocraft-0.19.0-linux-x86_64.pkg.tar.zst",
+          "bytes": 100736199,
+          "sha256": "4f1321b65c42192beb4a3654fb8e1d3e5db24b4f835a32d86b62a472439ec4cc",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.pkg.tar.zst"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "RPM",
+          "file": "photocraft-0.19.0-linux-x86_64.rpm",
+          "bytes": 125936833,
+          "sha256": "c9894262b99d587f50546a8ff50b1db30271299f23ef3486b666e3ddb638c315",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.rpm"
+        },
+        {
+          "platform": "linux",
+          "architecture": "x86_64",
+          "name": "tar.gz",
+          "file": "photocraft-0.19.0-linux-x86_64.tar.gz",
+          "bytes": 124973036,
+          "sha256": "123385b1730ace18f12bc0f494606e6a4cd3f4ab891f93036cd4e71b8aea70f7",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-x86_64.tar.gz"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "DMG",
+          "file": "photocraft-0.19.0-macos-universal.dmg",
+          "bytes": 245646104,
+          "sha256": "4024b531f14cc96c3d3e33dcc5e12c4b5114d219a01323d0173fd534459fd368",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-macos-universal.dmg"
+        },
+        {
+          "platform": "windows",
+          "architecture": "arm64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.19.0-windows-arm64-portable.zip",
+          "bytes": 122098562,
+          "sha256": "dd179619a4b552d7adced521bc5c69fa3ee0467aa17913f00137c40ba1995cd6",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-arm64-portable.zip"
+        },
+        {
+          "platform": "windows",
+          "architecture": "arm64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.19.0-windows-arm64-symbols.zip",
+          "bytes": 5832801,
+          "sha256": "59438514c690122fd9f9d91028e6da85aa4e5c557b82870509efd06bf2b89ce0",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-arm64-symbols.zip"
+        },
+        {
+          "platform": "windows",
+          "architecture": "arm64",
+          "name": "MSI",
+          "file": "photocraft-0.19.0-windows-arm64.msi",
+          "bytes": 101318656,
+          "sha256": "ce325e4fdecece2289638cdecad378ddec633c968b8de8f0c7a49e5c56f80acc",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-arm64.msi"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.19.0-windows-x64-portable.zip",
+          "bytes": 128204896,
+          "sha256": "b6ead3cbab9d5aee27d23cfe7903be1e820ca1e1b3f002b9970e996d9c3a38e1",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x64-portable.zip"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.19.0-windows-x64-symbols.zip",
+          "bytes": 6240706,
+          "sha256": "d6f8ee3f1cd43f299177e5265c6c4f95c48bd735a80495494b1bb2cc80c5ae78",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x64-symbols.zip"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x64",
+          "name": "MSI",
+          "file": "photocraft-0.19.0-windows-x64.msi",
+          "bytes": 107081728,
+          "sha256": "b351c9253275a928cc1bec1c4a3a551f4fe5b90d57f908b782f37af7970e7f05",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x64.msi"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.19.0-windows-x86-portable.zip",
+          "bytes": 122236182,
+          "sha256": "414a28481ce9b2500fa6543c8ebf0d633701e79feec713a0a8f2a9f2ebffb54e",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x86-portable.zip"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "Portable ZIP",
+          "file": "photocraft-0.19.0-windows-x86-symbols.zip",
+          "bytes": 6001770,
+          "sha256": "f773bf71188b76f9dd7eae40f7bbe7b47881c2d8ee283d55adb8b74bd3d7a8b6",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x86-symbols.zip"
+        },
+        {
+          "platform": "windows",
+          "architecture": "x86",
+          "name": "MSI",
+          "file": "photocraft-0.19.0-windows-x86.msi",
+          "bytes": 103636992,
+          "sha256": "36c0298515c2a20a9e79a002ec5fe6cdfc5a80a37701721b5a52297bf254d8b6",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-windows-x86.msi"
+        },
+        {
+          "platform": "macos",
+          "architecture": "Universal",
+          "name": "CLI ZIP",
+          "file": "photocraft-cli-0.19.0-macos-universal.zip",
+          "bytes": 106990587,
+          "sha256": "69f321313156728d4a372579dac9b443bc2f9494d3824d3186f536c98aa4388c",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-cli-0.19.0-macos-universal.zip"
+        },
+        {
+          "platform": "web",
+          "architecture": "Browser",
+          "name": "Web ZIP",
+          "file": "photocraft-web-0.19.0.zip",
+          "bytes": 13433636,
+          "sha256": "74047f06da706c5b7c9dee77e05379a0928c52b5a7ea1e821e55c69851b0bd01",
+          "hashSource": "SHA256SUMS.txt",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-web-0.19.0.zip"
+        },
+        {
+          "platform": "all",
+          "architecture": "All",
+          "name": "SHA256 list",
+          "file": "SHA256SUMS.txt",
+          "bytes": 3266,
+          "sha256": "598198f07ea17a0bdf489ddfd00d4f584ac19f65c4f9563a35e3438ccc01164c",
+          "hashSource": "downloaded-checksum-file",
+          "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/SHA256SUMS.txt"
+        }
+      ]
+    },
     {
       "version": "0.18.0",
       "publishedAt": "2026-10-31T04:02:59Z",
